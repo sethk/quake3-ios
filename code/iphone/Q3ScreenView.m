@@ -8,11 +8,6 @@
 #import "iphone_local.h"
 #ifndef IPHONE_SIMUL
 #import	<CoreGraphics/CoreGraphics.h>
-#import	<UIKit/UIView-Rendering.h>
-#import	<UIKit/UIView-Geometry.h>
-#import	<UIKit/UIView-Internal.h>
-#import	<LayerKit/LKLayer.h>
-#import	<GraphicsServices/GraphicsServices.h>
 #endif // !IPHONE_SIMUL
 
 #include "../game/q_shared.h"
@@ -39,6 +34,7 @@
 #else
 	if ((self = [super initWithFrame:frame]))
 	{
+#ifdef TODO_EAGL
 #if 0
 		NSDictionary *attrs = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 				[NSNumber numberWithBool:YES], kCoreSurfaceBufferGlobal,
@@ -77,6 +73,7 @@
 		[layer setOpaque:YES];
 		[[self _layer] addSublayer:layer];
 		CoreSurfaceBufferUnlock(surface);
+#endif // TODO_EAGL
 #endif // IPHONE_SIMUL
 
 		mousePoint = CGPointMake(0, frame.size.height);
@@ -98,6 +95,7 @@
 	return YES;
 }
 
+#ifdef TODO_TOUCH
 - (void)mouseDown:(NSEvent *)theEvent
 {
 	[self mouseMoved:theEvent];
@@ -149,15 +147,18 @@
 		mousePoint = point;
 	}
 }
+#endif // TODO_TOUCH
 
 #ifndef IPHONE_SIMUL
+#ifdef TODO_EAGL
 - (CoreSurfaceBufferRef)surface
 {
 	return surface;
 }
+#endif // TODO_EAGL
 #endif // !IPHONE_SIMUL
 
-- (void)drawRect:(NSRect)frame
+- (void)drawRect:(CGRect)frame
 {
 }
 

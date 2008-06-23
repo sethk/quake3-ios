@@ -19,10 +19,10 @@ typedef int GLfixed;
 #define glClearDepthf	glClearDepth
 
 #else
-#include <OpenGLES/gl.h>
+#include <OpenGLES/ES1/gl.h>
 #endif // !IPHONE_SIMUL
 
-extern void qglArrayElement (GLint i);
+extern void qglArrayElement(GLint i);
 extern void qglLockArrays(GLint i, GLsizei size);
 extern void qglUnlockArrays(void);
 
@@ -75,6 +75,7 @@ void qglVertex3fv(GLfloat *v);
 #define qglClipPlane qglClipPlanef
 #define qglColor3f(r, g, b)	qglColor4f(r, g, b, 1.0f)
 void qglColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a);
+void qglColor4fv(GLfloat *v);
 #define qglDepthRange qglDepthRangef
 #define qglClearDepth qglClearDepthf
 #define qglColor4ubv(v)		qglColor4f(v[0] / 255.0, v[1] / 255.0, v[2] / 255.0, v[3] / 255.0)

@@ -3,22 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>en</string>
+    <key>CFBundleDisplayName</key>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
-	<string>Quake3</string>
+	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.idsoftware.quake3</string>
+	<string>com.yourcompany.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Quake ]|[</string>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
-	<string>QUK3</string>
+	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.0</string>
+	<string>1.0</string>
 </dict>
 </plist>

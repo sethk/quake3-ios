@@ -8,7 +8,7 @@
 #include "../client/client.h"
 #include "iphone_glimp.h"
 #include "iphone_local.h"
-#include "tr_local.h"
+#include "../renderer/tr_local.h"
 
 #define MAX_ARRAY_SIZE		1024
 
@@ -82,8 +82,6 @@ qglDrawBuffer(GLenum mode)
 void
 qglEnd(void)
 {
-	GLenum mode;
-
 	assert(QGLBeginStarted);
 	QGLBeginStarted = qfalse;
 

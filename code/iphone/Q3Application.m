@@ -7,7 +7,7 @@
 #import	"Q3Application.h"
 #import	"Q3ScreenView.h"
 #include "iphone_local.h"
-#include "tr_local.h"
+#include "../renderer/tr_local.h"
 
 @implementation Q3Application
 
@@ -45,17 +45,15 @@
 	[window setTitle:@"Quake 3"];
 	[window setAcceptsMouseMovedEvents:YES];
 #else
-	CGRect screenRect;
+	CGRect screenRect = CGRectMake(0, 0, IPHONE_XRES, IPHONE_VERT_YRES);
 
-	[UIHardware _setStatusBarHeight:0.0f];
-	[self setStatusBarMode:0 orientation:0 duration:0.0f fenceID:0];
+	[UIApplication sharedApplication].statusBarHidden = YES;
 
-	screenRect = [UIHardware fullScreenApplicationContentRect];
-	window = [[UIWindow alloc] initWithContentRect:screenRect];
+	window = [[UIWindow alloc] initWithFrame:screenRect];
 	screenView = [[[Q3ScreenView alloc] initWithFrame:screenRect] autorelease];
 #endif // IPHONE_SIMUL
-	[window setContentView:screenView];
-	[window orderFront:self];
+	[window addSubview:screenView];
+	[window makeKeyAndVisible];
 }
 
 - (void)_runMainLoop

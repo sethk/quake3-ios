@@ -6,7 +6,7 @@
 
 #import	"iphone_glimp.h"
 
-#include "tr_local.h"
+#include "../renderer/tr_local.h"
 
 qboolean
 GLimp_SpawnRenderThread(void (*function)(void))

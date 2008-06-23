@@ -32,6 +32,10 @@
 #define WindowClass UIWindow
 #endif // IPHONE_SIMUL
 
+#ifdef QGL_CHECK_GL_ERRORS
+void QGLErrorBreak(void);
+#endif // QGL_CHECK_GL_ERRORS
+
 void GLimp_SetMode(void);
 void GLimp_ReleaseGL(void);
 

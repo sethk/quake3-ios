@@ -6,16 +6,18 @@
 
 #include "iphone_local.h"
 #include "iphone_glimp.h"
-#include "tr_local.h"
+#include "../renderer/tr_local.h"
 #import	"Q3Application.h"
 #import	"Q3ScreenView.h"
 
-#import	<OpenGLES/egl.h>
+#ifdef EAGL_TODO
+#import	<OpenGLES/EAGL.h>
 
 static EGLDisplay eglDisplay;
 static EGLContext eglContext;
 static EGLSurface eglSurface;
 static CoreSurfaceBufferRef coreSurface;
+#endif // EAGL_TODO
 
 #ifdef QGL_CHECK_GL_ERRORS
 void
@@ -27,6 +29,7 @@ QGLErrorBreak(void)
 void
 GLimp_SetMode(void)
 {
+#ifdef EAGL_TODO
 	EGLint major, minor;
 	EGLint eglAttrs[] =
 	{
@@ -59,38 +62,47 @@ GLimp_SetMode(void)
 
 	if (!eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext))
 		ri.Error(ERR_FATAL, "GLimp_Init: Could not make EGL context current (error = %d)\n", eglGetError());
+#endif // EAGL_TODO
 }
 
 void
 GLimp_AcquireGL(void)
 {
+#ifdef EAGL_TODO
 	eglWaitNative(EGL_CORE_NATIVE_ENGINE);
 	CoreSurfaceBufferLock(coreSurface, 3);
 	if (!eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext))
 		ri.Error(ERR_FATAL, "GLimp_BeginFrame: Could not make EGL context current (error = %d)\n", eglGetError());
+#endif // EAGL_TODO
 }
 
 void
 GLimp_ReleaseGL(void)
 {
+#ifdef EAGL_TODO
     eglWaitGL();
     eglMakeCurrent(eglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 	CoreSurfaceBufferUnlock(coreSurface);
+#endif // EAGL_TODO
 }
 
 void
 GLimp_EndFrame(void)
 {
 	GLimp_ReleaseGL();
-	[[(Q3Application *)UIApp screenView]
+#ifdef TODO_EAGL
+	[[UIApplication sharedApplication] screenView]
 			performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
+#endif // TODO_EAGL
 }
 
 void
 GLimp_Shutdown(void)
 {
+#ifdef EAGL_TODO
 	ri.Printf(PRINT_ALL, "Shutting down EGL.\n");
 
 	eglMakeCurrent(eglDisplay, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 	eglTerminate(eglDisplay);
+#endif // EAGL_TODO
 }
