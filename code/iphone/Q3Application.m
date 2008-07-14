@@ -43,4 +43,6 @@
 		Com_Frame();
 }
 
+@synthesize screenView = _screenView;
+
 @end

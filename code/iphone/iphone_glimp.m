@@ -10,6 +10,9 @@
 #include "iphone_local.h"
 #include "../renderer/tr_local.h"
 
+#import	"Q3Application.h"
+#import	"Q3ScreenView.h"
+
 #define MAX_ARRAY_SIZE		1024
 
 static GLenum _GLimp_beginmode;
@@ -196,6 +199,9 @@ GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned char b
 void
 GLimp_Init(void)
 {
+	Q3ScreenView *screenView = ((Q3Application *)[UIApplication sharedApplication]).screenView;
+	CGSize size = screenView.frame.size;
+
 	ri.Printf(PRINT_ALL, "Initializing OpenGL subsystem\n");
 
 	bzero(&glConfig, sizeof(glConfig));
@@ -204,12 +210,12 @@ GLimp_Init(void)
 	glConfig.vidWidth = IPHONE_HORIZ_YRES;
 	glConfig.vidHeight = IPHONE_XRES;
 #else
-	glConfig.vidWidth = IPHONE_XRES;
-	glConfig.vidHeight = IPHONE_VERT_YRES;
+	glConfig.vidWidth = size.width;
+	glConfig.vidHeight = size.height;
 #endif // GL_ROTATE
 	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
-	glConfig.colorBits = IPHONE_BPP;
-	glConfig.depthBits = IPHONE_DEPTH_BPP;
+	glConfig.colorBits = [screenView numColorBits];
+	glConfig.depthBits = [screenView numDepthBits];
 	glConfig.stencilBits = 0;
 
 	GLimp_SetMode();

@@ -14,8 +14,10 @@
 #include "../ui/keycodes.h"
 #include "../renderer/tr_local.h"
 
-#define kColorFormat kEAGLColorFormatRGB565
-#define kDepthFormat GL_DEPTH_COMPONENT16_OES
+#define kColorFormat  kEAGLColorFormatRGB565
+#define kNumColorBits 16
+#define kDepthFormat  GL_DEPTH_COMPONENT16_OES
+#define kNumDepthBits 16
 
 @interface Q3ScreenView ()
 
@@ -202,17 +204,27 @@
 }
 #endif // TODO_TOUCH
 
-#ifndef IPHONE_SIMUL
 #ifdef TODO_EAGL
 - (CoreSurfaceBufferRef)surface
 {
 	return surface;
 }
 #endif // TODO_EAGL
-#endif // !IPHONE_SIMUL
 
 - (void)drawRect:(CGRect)frame
 {
+}
+
+@dynamic numColorBits;
+	
+- (NSUInteger)numColorBits
+{
+	return kNumColorBits;
+}
+
+- (NSUInteger)numDepthBits
+{
+	return kNumDepthBits;
 }
 
 @end

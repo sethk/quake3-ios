@@ -24,5 +24,7 @@
 #ifdef EAGL_TODO
 - (CoreSurfaceBufferRef)surface;
 #endif // EAGL_TODO
+@property (assign, readonly, nonatomic) NSUInteger numColorBits;
+@property (assign, readonly, nonatomic) NSUInteger numDepthBits;
 
 @end

@@ -4,15 +4,17 @@
  * Seth Kingsley, January 2008.
  */
 
-#include	"iphone_local.h"
+#import	<UIKit/UIApplication.h>
+#import	<UIKit/UINibDeclarations.h>
 
 @class Q3ScreenView;
 
-@interface Q3Application : AppClass
+@interface Q3Application : UIApplication
 {
 @protected
-	WindowClass *_window;
-	Q3ScreenView *_screenView;
+	IBOutlet Q3ScreenView *_screenView;
 }
+
+@property (assign, readonly, nonatomic) Q3ScreenView *screenView;
 
 @end
