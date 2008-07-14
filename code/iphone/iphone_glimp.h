@@ -7,20 +7,7 @@
 #ifndef IPHONE_GLIMP_H
 #define IPHONE_GLIMP_H
 
-#ifdef IPHONE_SIMUL
-#include <OpenGL/gl.h>
-
-typedef int GLclampx;
-typedef int GLfixed;
-
-#define glDepthRangef	glDepthRange
-#define glOrthof		glOrtho
-#define glClipPlanef	glClipPlane
-#define glClearDepthf	glClearDepth
-
-#else
 #include <OpenGLES/ES1/gl.h>
-#endif // !IPHONE_SIMUL
 
 extern void qglArrayElement(GLint i);
 extern void qglLockArrays(GLint i, GLsizei size);

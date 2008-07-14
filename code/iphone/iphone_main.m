@@ -20,12 +20,7 @@ int
 main(int ac, char *av[])
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-#ifdef IPHONE_SIMUL
-	[[Q3Application sharedApplication] setDelegate:NSApp];
-	NSApplicationMain(ac, av);
-#else
 	UIApplicationMain(ac, av, nil, nil);
-#endif // IPHONE_SIMUL
 
 	[pool release];
 	return 0;
