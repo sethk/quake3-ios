@@ -11,12 +11,8 @@
 @interface Q3Application : AppClass
 {
 @protected
-	WindowClass *window;
-	Q3ScreenView *screenView;
+	WindowClass *_window;
+	Q3ScreenView *_screenView;
 }
-
-- (void)createWindow;
-- (void)startQuake;
-- (Q3ScreenView *)screenView;
 
 @end

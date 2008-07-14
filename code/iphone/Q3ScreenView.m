@@ -6,82 +6,135 @@
 
 #import	"Q3ScreenView.h"
 #import "iphone_local.h"
-#ifndef IPHONE_SIMUL
-#import	<CoreGraphics/CoreGraphics.h>
-#endif // !IPHONE_SIMUL
+#import	<QuartzCore/QuartzCore.h>
+#import	<OpenGLES/ES1/glext.h>
 
 #include "../game/q_shared.h"
 #include "../qcommon/qcommon.h"
 #include "../ui/keycodes.h"
 #include "../renderer/tr_local.h"
 
+#define kColorFormat kEAGLColorFormatRGB565
+#define kDepthFormat GL_DEPTH_COMPONENT16_OES
+
+@interface Q3ScreenView ()
+
+- (BOOL)_commonInit;
+- (BOOL)_createSurface;
+- (void)_destroySurface;
+
+@end
+
 @implementation Q3ScreenView
 
-- initWithFrame:(CGRect)frame
++ (Class)layerClass
 {
-#ifdef IPHONE_SIMUL
-	NSOpenGLPixelFormatAttribute attrs[] =
+	return [CAEAGLLayer class];
+}
+
+- (BOOL)_commonInit
+{
+	CAEAGLLayer *layer = (CAEAGLLayer *)self.layer;
+	CGRect frame = self.frame;
+
+	[layer setDrawableProperties:[NSDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
+			kColorFormat, kEAGLDrawablePropertyColorFormat,
+			nil]];
+
+	if (!(_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1]))
+		return NO;
+
+	if (![self _createSurface])
+		return NO;
+
+	_mousePoint = CGPointMake(0, frame.size.height);
+	_mouseScale.width = 640 / frame.size.width;
+	_mouseScale.height = 480 / frame.size.height;
+
+	return YES;
+}
+
+- initWithCoder:(NSCoder *)coder
+{
+	if ((self = [super initWithCoder:coder]))
 	{
-		NSOpenGLPFADoubleBuffer,
-		NSOpenGLPFAColorSize, IPHONE_BPP,
-		NSOpenGLPFADepthSize, IPHONE_DEPTH_BPP,
-		0
-	};
-
-	if ((self = [super initWithFrame:NSRectFromCGRect(frame)
-						 pixelFormat:[[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease]]))
-	{
-#else
-	if ((self = [super initWithFrame:frame]))
-	{
-#ifdef TODO_EAGL
-#if 0
-		NSDictionary *attrs = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithBool:YES], kCoreSurfaceBufferGlobal,
-				@"PurpleGFXMem", kCoreSurfaceBufferMemoryRegion,
-				[NSNumber numberWithInt:xres * (bpp >> 3)], kCoreSurfaceBufferPitch,
-				[NSNumber numberWithInt:xres], kCoreSurfaceBufferWidth,
-				[NSNumber numberWithInt:yres], kCoreSurfaceBufferHeight,
-				[NSNumber numberWithInt:format], kCoreSurfaceBufferPixelFormat,
-				[NSNumber numberWithInt:xres * yres * (bpp >> 3)], kCoreSurfaceBufferAllocSize,
-				nil];
-
-		coreSurface CoreSurfaceBufferCreate((CFDictionaryRef)attrs);
-#else
-		int xres = frame.size.width, yres = frame.size.height;
-		int pitch = xres * 2, allocSize = 2 * xres * yres;
-		char *pixelFormat = "565L";
-		CFMutableDictionaryRef dict;
-
-		dict = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-		CFDictionarySetValue(dict, kCoreSurfaceBufferGlobal,        kCFBooleanTrue);
-		CFDictionarySetValue(dict, kCoreSurfaceBufferMemoryRegion,  CFSTR("PurpleGFXMem"));
-		CFDictionarySetValue(dict, kCoreSurfaceBufferPitch,         CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &pitch));
-		CFDictionarySetValue(dict, kCoreSurfaceBufferWidth,         CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &xres));
-		CFDictionarySetValue(dict, kCoreSurfaceBufferHeight,        CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &yres));
-		CFDictionarySetValue(dict, kCoreSurfaceBufferPixelFormat,   CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, pixelFormat));
-		CFDictionarySetValue(dict, kCoreSurfaceBufferAllocSize,     CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &allocSize));
-
-		surface = CoreSurfaceBufferCreate(dict);
-#endif
-		NSAssert(surface, @"Core surface creation failed");
-
-		CoreSurfaceBufferLock(surface, 3);
-		LKLayer *layer = [LKLayer new];
-		[layer setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-		[layer setContents:surface];
-		[layer setOpaque:YES];
-		[[self _layer] addSublayer:layer];
-		CoreSurfaceBufferUnlock(surface);
-#endif // TODO_EAGL
-#endif // IPHONE_SIMUL
-
-		mousePoint = CGPointMake(0, frame.size.height);
-		mouseScaleX = 640 / frame.size.width;
-		mouseScaleY = 480 / frame.size.height;
+		if (![self _commonInit])
+		{
+			[self release];
+			return nil;
+		}
 	}
 
 	return self;
+}
+
+- initWithFrame:(CGRect)frame
+{
+	if ((self = [super initWithFrame:frame]))
+	{
+		if (![self _commonInit])
+		{
+			[self release];
+			return nil;
+		}
+	}
+
+	return self;
+}
+
+- (void)dealloc
+{
+	[self _destroySurface];
+
+	[_context release];
+
+	[super dealloc];
+}
+
+- (BOOL)_createSurface
+{
+	CAEAGLLayer *layer = (CAEAGLLayer *)self.layer;
+	GLint oldFrameBuffer, oldRenderBuffer;
+	CGSize size;
+
+	if (![EAGLContext setCurrentContext:_context])
+		return NO;
+
+	size = layer.bounds.size;
+	size.width = roundf(size.width);
+	size.height = roundf(size.height);
+
+	qglGetIntegerv(GL_RENDERBUFFER_BINDING_OES, &oldRenderBuffer);
+	qglGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &oldFrameBuffer);
+
+	glGenRenderbuffersOES(1, &_renderBuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderBuffer);
+
+	if (![_context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer])
+	{
+		glDeleteRenderbuffersOES(1, &_renderBuffer);
+		glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, oldRenderBuffer);
+		return NO;
+	}
+
+	glGenFramebuffersOES(1, &_frameBuffer);
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _frameBuffer);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, _renderBuffer);
+	glGenRenderbuffersOES(1, &_depthBuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _depthBuffer);
+	glRenderbufferStorageOES(GL_RENDERBUFFER_OES, kDepthFormat, size.width, size.height);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, _depthBuffer);
+
+	glBindRenderbufferOES(GL_FRAMEBUFFER_OES, oldFrameBuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, oldRenderBuffer);
+
+	return YES;
+}
+
+- (void)_destroySurface
+{
+	//EAGLContext *oldContext = [EAGLContext currentContext];
 }
 
 #ifdef IPHONE_SIMUL
