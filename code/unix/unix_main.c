@@ -493,7 +493,7 @@ void Sys_ConsoleInputInit()
               characters  EOF,  EOL,  EOL2, ERASE, KILL, REPRINT,
               STATUS, and WERASE, and buffers by lines.
      ISIG: when any of the characters  INTR,  QUIT,  SUSP,  or
-              DSUSP are received, generate the corresponding sig­
+              DSUSP are received, generate the corresponding sig-
               nal
     */              
     tc.c_lflag &= ~(ECHO | ICANON);
@@ -1228,6 +1228,7 @@ int main ( int argc, char* argv[] )
   // int 	oldtime, newtime; // bk001204 - unused
   int   len, i;
   char  *cmdline;
+  char	*cdpath, *sep;
   void Sys_SetDefaultCDPath(const char *path);
 
   // go back to real user for config loads
@@ -1236,7 +1237,12 @@ int main ( int argc, char* argv[] )
 
   Sys_ParseArgs( argc, argv );  // bk010104 - added this for support
 
-  Sys_SetDefaultCDPath(argv[0]);
+  // Can't use CopyString() or Z_Free() yet:
+  cdpath = strdup(argv[0]);
+  if ((sep = Q_strrchr(cdpath, '/')))
+    *sep = '\0';
+  Sys_SetDefaultCDPath(cdpath);
+  free(cdpath);
 
   // merge the command line, this is kinda silly
   for (len = 1, i = 1; i < argc; i++)
