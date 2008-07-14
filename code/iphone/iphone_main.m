@@ -24,7 +24,7 @@ main(int ac, char *av[])
 	[[Q3Application sharedApplication] setDelegate:NSApp];
 	NSApplicationMain(ac, av);
 #else
-	UIApplicationMain(ac, av, nil, @"Q3Application");
+	UIApplicationMain(ac, av, nil, nil);
 #endif // IPHONE_SIMUL
 
 	[pool release];
