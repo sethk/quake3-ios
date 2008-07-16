@@ -8,9 +8,8 @@
 #import "iphone_local.h"
 #import	<QuartzCore/QuartzCore.h>
 #import	<OpenGLES/ES1/glext.h>
+#import	<UIKit/UITouch.h>
 
-#include "../game/q_shared.h"
-#include "../qcommon/qcommon.h"
 #include "../ui/keycodes.h"
 #include "../renderer/tr_local.h"
 
@@ -24,6 +23,7 @@
 - (BOOL)_commonInit;
 - (BOOL)_createSurface;
 - (void)_destroySurface;
+- (void)_moveMouseWithTouch:(UITouch *)touch;
 
 @end
 
@@ -50,7 +50,7 @@
 	if (![self _createSurface])
 		return NO;
 
-	_mousePoint = CGPointMake(0, frame.size.height);
+	_mousePoint = CGPointMake(20, frame.size.height - 20);
 	_mouseScale.width = 640 / frame.size.width;
 	_mouseScale.height = 480 / frame.size.height;
 
@@ -139,80 +139,45 @@
 	//EAGLContext *oldContext = [EAGLContext currentContext];
 }
 
-#ifdef IPHONE_SIMUL
-- (BOOL)acceptsFirstResponder
+- (void)_moveMouseWithTouch:(UITouch *)touch
 {
-	return YES;
-}
-
-- (BOOL)isFlipped
-{
-	return YES;
-}
-
-#ifdef TODO_TOUCH
-- (void)mouseDown:(NSEvent *)theEvent
-{
-	[self mouseMoved:theEvent];
-#else
-- (void)mouseDown:(GSEventRef)theEvent
-{
-	int startCount = GSEventGetDeltaX(theEvent), count = GSEventGetDeltaY(theEvent);
-
-	ri.Printf(PRINT_DEVELOPER, "%s startCount = %d, count = %d\n", __PRETTY_FUNCTION__, startCount, count);
-	[self mouseDragged:theEvent];
-#endif // IPHONE_SIMUL
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
-}
-
-#ifdef IPHONE_SIMUL
-- (void)mouseUp:(NSEvent *)theEvent
-#else
-- (void)mouseUp:(GSEventRef)theEvent
-#endif // IPHONE_SIMUL
-{
-	ri.Printf(PRINT_DEVELOPER, "%s\n", __PRETTY_FUNCTION__);
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
-}
-
-#ifdef IPHONE_SIMUL
-- (void)mouseMoved:(NSEvent *)theEvent
-{
-	CGPoint point = NSPointToCGPoint([self convertPoint:[theEvent locationInWindow] fromView:nil]);
-
-	point.x = MAX(MIN(point.x, glConfig.vidWidth), 0.0);
-	point.y = MAX(MIN(point.y, glConfig.vidHeight), 0.0);
-#else
-- (void)mouseDragged:(GSEventRef)theEvent
-{
-	CGPoint point = [self convertPoint:GSEventGetLocationInWindow(theEvent) fromView:nil];
-#endif // IPHONE_SIMUL
+	CGPoint point = [touch locationInView:self];
+	CGRect bounds = self.bounds;
 	int deltaX, deltaY;
 
-	point.x*= mouseScaleX;
-	point.y*= mouseScaleY;
-	deltaX = point.x - mousePoint.x;
-	deltaY = point.y - mousePoint.y;
+	point.x = MIN(MAX(point.x, bounds.origin.x), bounds.origin.x + bounds.size.width);
+	point.y = MIN(MAX(point.y, bounds.origin.y), bounds.origin.y + bounds.size.height);
+
+	point.x = roundf(point.x * _mouseScale.width);
+	point.y = roundf(point.y * _mouseScale.height);
+
+	deltaX = point.x - _mousePoint.x;
+	deltaY = point.y - _mousePoint.y;
 
 	ri.Printf(PRINT_DEVELOPER, "%s: deltaX = %d, deltaY = %d\n", __PRETTY_FUNCTION__, deltaX, deltaY);
 
 	if (deltaX || deltaY)
 	{
-		Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, deltaX, deltaY, 0, NULL);
-		mousePoint = point;
+		Sys_QueEvent(0, SE_MOUSE, deltaX, deltaY, 0, NULL);
+		_mousePoint = point;
 	}
 }
-#endif // TODO_TOUCH
 
-#ifdef TODO_EAGL
-- (CoreSurfaceBufferRef)surface
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	return surface;
+	[self _moveMouseWithTouch:[touches anyObject]];
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
 }
-#endif // TODO_EAGL
 
-- (void)drawRect:(CGRect)frame
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	[self _moveMouseWithTouch:[touches anyObject]];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	[self _moveMouseWithTouch:[touches anyObject]];
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
 }
 
 @dynamic numColorBits;
@@ -225,6 +190,24 @@
 - (NSUInteger)numDepthBits
 {
 	return kNumDepthBits;
+}
+
+- (void)swapBuffers
+{
+	EAGLContext *oldContext = [EAGLContext currentContext];
+	GLuint oldRenderBuffer;
+
+	if (oldContext != _context)
+		[EAGLContext setCurrentContext:_context];
+
+	qglGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *)&oldRenderBuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderBuffer);
+
+	if (![_context presentRenderbuffer:GL_RENDERBUFFER_OES])
+		NSLog(@"Failed to swap renderbuffer");
+
+	if (oldContext != _context)
+		[EAGLContext setCurrentContext:oldContext];
 }
 
 @end

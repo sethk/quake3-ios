@@ -90,10 +90,7 @@ void
 GLimp_EndFrame(void)
 {
 	GLimp_ReleaseGL();
-#ifdef TODO_EAGL
-	[[UIApplication sharedApplication] screenView]
-			performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
-#endif // TODO_EAGL
+	[((Q3Application *)[UIApplication sharedApplication]).screenView swapBuffers];
 }
 
 void

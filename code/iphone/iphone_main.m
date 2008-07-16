@@ -5,8 +5,6 @@
  */
 
 #import	"iphone_local.h"
-#import "../game/q_shared.h"
-#import "../qcommon/qcommon.h"
 
 #import	"Q3Application.h"
 
