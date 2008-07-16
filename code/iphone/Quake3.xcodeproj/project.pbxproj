@@ -10,6 +10,10 @@
 		1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		FD1F2EBE0E2B21A600DF2240 /* q_math.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41350E0F370E008E2729 /* q_math.c */; };
+		FD1F2EC50E2B21B500DF2240 /* q_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41360E0F370E008E2729 /* q_shared.c */; };
+		FD1F2ECD0E2B21EB00DF2240 /* bg_misc.c in Sources */ = {isa = PBXBuildFile; fileRef = FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */; };
+		FD4C5C0D0E2DC01900012E6B /* uii386.dylib in Copy Dylib Files */ = {isa = PBXBuildFile; fileRef = FD4C5C060E2DBF8A00012E6B /* uii386.dylib */; };
 		FD9C404C0E0F3365008E2729 /* be_aas_bspq3.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40300E0F3365008E2729 /* be_aas_bspq3.c */; };
 		FD9C404D0E0F3365008E2729 /* be_aas_cluster.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40310E0F3365008E2729 /* be_aas_cluster.c */; };
 		FD9C404E0E0F3365008E2729 /* be_aas_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40320E0F3365008E2729 /* be_aas_debug.c */; };
@@ -143,6 +147,47 @@
 		FDB470860E0F31B40087A684 /* unix_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FDB470830E0F31B40087A684 /* unix_shared.c */; };
 		FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */; };
 		FDBBE4620E2AEF4500A186BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBBE4610E2AEF4500A186BC /* QuartzCore.framework */; };
+		FDBBE4E30E2B19B700A186BC /* pak0.pk3 in Copy Pack Files */ = {isa = PBXBuildFile; fileRef = FDBBE4E00E2B197900A186BC /* pak0.pk3 */; };
+		FDBBE51B0E2B1B8C00A186BC /* ui_addbots.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F70E2B1B8C00A186BC /* ui_addbots.c */; };
+		FDBBE51C0E2B1B8C00A186BC /* ui_atoms.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F80E2B1B8C00A186BC /* ui_atoms.c */; };
+		FDBBE51D0E2B1B8C00A186BC /* ui_cdkey.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F90E2B1B8C00A186BC /* ui_cdkey.c */; };
+		FDBBE51E0E2B1B8C00A186BC /* ui_cinematics.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4FA0E2B1B8C00A186BC /* ui_cinematics.c */; };
+		FDBBE51F0E2B1B8C00A186BC /* ui_confirm.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4FB0E2B1B8C00A186BC /* ui_confirm.c */; };
+		FDBBE5200E2B1B8C00A186BC /* ui_connect.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4FC0E2B1B8C00A186BC /* ui_connect.c */; };
+		FDBBE5210E2B1B8C00A186BC /* ui_controls2.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4FD0E2B1B8C00A186BC /* ui_controls2.c */; };
+		FDBBE5220E2B1B8C00A186BC /* ui_credits.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4FE0E2B1B8C00A186BC /* ui_credits.c */; };
+		FDBBE5230E2B1B8C00A186BC /* ui_demo2.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4FF0E2B1B8C00A186BC /* ui_demo2.c */; };
+		FDBBE5240E2B1B8C00A186BC /* ui_display.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5000E2B1B8C00A186BC /* ui_display.c */; };
+		FDBBE5250E2B1B8C00A186BC /* ui_gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5010E2B1B8C00A186BC /* ui_gameinfo.c */; };
+		FDBBE5260E2B1B8C00A186BC /* ui_ingame.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5020E2B1B8C00A186BC /* ui_ingame.c */; };
+		FDBBE5270E2B1B8C00A186BC /* ui_loadconfig.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5030E2B1B8C00A186BC /* ui_loadconfig.c */; };
+		FDBBE5280E2B1B8C00A186BC /* ui_main.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5040E2B1B8C00A186BC /* ui_main.c */; };
+		FDBBE5290E2B1B8C00A186BC /* ui_menu.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5050E2B1B8C00A186BC /* ui_menu.c */; };
+		FDBBE52A0E2B1B8C00A186BC /* ui_mfield.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5060E2B1B8C00A186BC /* ui_mfield.c */; };
+		FDBBE52B0E2B1B8C00A186BC /* ui_mods.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5070E2B1B8C00A186BC /* ui_mods.c */; };
+		FDBBE52C0E2B1B8C00A186BC /* ui_network.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5080E2B1B8C00A186BC /* ui_network.c */; };
+		FDBBE52D0E2B1B8C00A186BC /* ui_options.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5090E2B1B8C00A186BC /* ui_options.c */; };
+		FDBBE52E0E2B1B8C00A186BC /* ui_playermodel.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE50A0E2B1B8C00A186BC /* ui_playermodel.c */; };
+		FDBBE52F0E2B1B8C00A186BC /* ui_players.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE50B0E2B1B8C00A186BC /* ui_players.c */; };
+		FDBBE5300E2B1B8C00A186BC /* ui_playersettings.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE50C0E2B1B8C00A186BC /* ui_playersettings.c */; };
+		FDBBE5310E2B1B8C00A186BC /* ui_preferences.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE50D0E2B1B8C00A186BC /* ui_preferences.c */; };
+		FDBBE5320E2B1B8C00A186BC /* ui_qmenu.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE50E0E2B1B8C00A186BC /* ui_qmenu.c */; };
+		FDBBE5330E2B1B8C00A186BC /* ui_removebots.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE50F0E2B1B8C00A186BC /* ui_removebots.c */; };
+		FDBBE5340E2B1B8C00A186BC /* ui_saveconfig.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5100E2B1B8C00A186BC /* ui_saveconfig.c */; };
+		FDBBE5350E2B1B8C00A186BC /* ui_serverinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5110E2B1B8C00A186BC /* ui_serverinfo.c */; };
+		FDBBE5360E2B1B8C00A186BC /* ui_servers2.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5120E2B1B8C00A186BC /* ui_servers2.c */; };
+		FDBBE5370E2B1B8C00A186BC /* ui_setup.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5130E2B1B8C00A186BC /* ui_setup.c */; };
+		FDBBE5380E2B1B8C00A186BC /* ui_sound.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5140E2B1B8C00A186BC /* ui_sound.c */; };
+		FDBBE5390E2B1B8C00A186BC /* ui_sparena.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5150E2B1B8C00A186BC /* ui_sparena.c */; };
+		FDBBE53A0E2B1B8C00A186BC /* ui_specifyserver.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5160E2B1B8C00A186BC /* ui_specifyserver.c */; };
+		FDBBE53B0E2B1B8C00A186BC /* ui_splevel.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5170E2B1B8C00A186BC /* ui_splevel.c */; };
+		FDBBE53C0E2B1B8C00A186BC /* ui_sppostgame.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5180E2B1B8C00A186BC /* ui_sppostgame.c */; };
+		FDBBE53D0E2B1B8C00A186BC /* ui_spskill.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5190E2B1B8C00A186BC /* ui_spskill.c */; };
+		FDBBE53E0E2B1B8C00A186BC /* ui_startserver.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE51A0E2B1B8C00A186BC /* ui_startserver.c */; };
+		FDBBE5410E2B1BE300A186BC /* ui_syscalls.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5400E2B1BE300A186BC /* ui_syscalls.c */; };
+		FDBBE5450E2B1C0100A186BC /* ui_team.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5420E2B1C0100A186BC /* ui_team.c */; };
+		FDBBE5460E2B1C0100A186BC /* ui_teamorders.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5430E2B1C0100A186BC /* ui_teamorders.c */; };
+		FDBBE5470E2B1C0100A186BC /* ui_video.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5440E2B1C0100A186BC /* ui_video.c */; };
 		FDD254400D80FF5200E13415 /* iphone_glimp.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD254350D80FF5200E13415 /* iphone_glimp.m */; };
 		FDD254410D80FF5200E13415 /* iphone_glimp_native.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD254360D80FF5200E13415 /* iphone_glimp_native.m */; };
 		FDD254420D80FF5200E13415 /* iphone_glsmp_null.c in Sources */ = {isa = PBXBuildFile; fileRef = FDD254370D80FF5200E13415 /* iphone_glsmp_null.c */; };
@@ -151,8 +196,42 @@
 		FDD254450D80FF5200E13415 /* Q3Application.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543D0D80FF5200E13415 /* Q3Application.m */; };
 		FDD254460D80FF5200E13415 /* Q3ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */; };
 		FDD2544E0D8102C300E13415 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2544D0D8102C300E13415 /* OpenGLES.framework */; };
-		FDEB198A0E293E7B00042430 /* demoq3 in Resources */ = {isa = PBXBuildFile; fileRef = FDEB19870E293E7B00042430 /* demoq3 */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FD4C5C070E2DBFA100012E6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FDBBE4F00E2B1A4600A186BC /* q3_ui */;
+			remoteInfo = q3_ui;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FD4C5C0C0E2DC00C00012E6B /* Copy Dylib Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = demoq3;
+			dstSubfolderSpec = 7;
+			files = (
+				FD4C5C0D0E2DC01900012E6B /* uii386.dylib in Copy Dylib Files */,
+			);
+			name = "Copy Dylib Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBBE4EA0E2B19CC00A186BC /* Copy Pack Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = demoq3;
+			dstSubfolderSpec = 7;
+			files = (
+				FDBBE4E30E2B19B700A186BC /* pak0.pk3 in Copy Pack Files */,
+			);
+			name = "Copy Pack Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -160,6 +239,8 @@
 		1D6058910D05DD3D006BFB54 /* Quake3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quake3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bg_misc.c; sourceTree = "<group>"; };
+		FD4C5C060E2DBF8A00012E6B /* uii386.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = uii386.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD9C40300E0F3365008E2729 /* be_aas_bspq3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = be_aas_bspq3.c; sourceTree = "<group>"; };
 		FD9C40310E0F3365008E2729 /* be_aas_cluster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = be_aas_cluster.c; sourceTree = "<group>"; };
 		FD9C40320E0F3365008E2729 /* be_aas_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = be_aas_debug.c; sourceTree = "<group>"; };
@@ -293,6 +374,47 @@
 		FDB470830E0F31B40087A684 /* unix_shared.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unix_shared.c; sourceTree = "<group>"; };
 		FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		FDBBE4610E2AEF4500A186BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		FDBBE4E00E2B197900A186BC /* pak0.pk3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = pak0.pk3; path = "/Volumes/Windows HD/Q3Ademo/demoq3/pak0.pk3"; sourceTree = "<absolute>"; };
+		FDBBE4F70E2B1B8C00A186BC /* ui_addbots.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_addbots.c; sourceTree = "<group>"; };
+		FDBBE4F80E2B1B8C00A186BC /* ui_atoms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_atoms.c; sourceTree = "<group>"; };
+		FDBBE4F90E2B1B8C00A186BC /* ui_cdkey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_cdkey.c; sourceTree = "<group>"; };
+		FDBBE4FA0E2B1B8C00A186BC /* ui_cinematics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_cinematics.c; sourceTree = "<group>"; };
+		FDBBE4FB0E2B1B8C00A186BC /* ui_confirm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_confirm.c; sourceTree = "<group>"; };
+		FDBBE4FC0E2B1B8C00A186BC /* ui_connect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_connect.c; sourceTree = "<group>"; };
+		FDBBE4FD0E2B1B8C00A186BC /* ui_controls2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_controls2.c; sourceTree = "<group>"; };
+		FDBBE4FE0E2B1B8C00A186BC /* ui_credits.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_credits.c; sourceTree = "<group>"; };
+		FDBBE4FF0E2B1B8C00A186BC /* ui_demo2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_demo2.c; sourceTree = "<group>"; };
+		FDBBE5000E2B1B8C00A186BC /* ui_display.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_display.c; sourceTree = "<group>"; };
+		FDBBE5010E2B1B8C00A186BC /* ui_gameinfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_gameinfo.c; sourceTree = "<group>"; };
+		FDBBE5020E2B1B8C00A186BC /* ui_ingame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_ingame.c; sourceTree = "<group>"; };
+		FDBBE5030E2B1B8C00A186BC /* ui_loadconfig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_loadconfig.c; sourceTree = "<group>"; };
+		FDBBE5040E2B1B8C00A186BC /* ui_main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_main.c; sourceTree = "<group>"; };
+		FDBBE5050E2B1B8C00A186BC /* ui_menu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_menu.c; sourceTree = "<group>"; };
+		FDBBE5060E2B1B8C00A186BC /* ui_mfield.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_mfield.c; sourceTree = "<group>"; };
+		FDBBE5070E2B1B8C00A186BC /* ui_mods.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_mods.c; sourceTree = "<group>"; };
+		FDBBE5080E2B1B8C00A186BC /* ui_network.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_network.c; sourceTree = "<group>"; };
+		FDBBE5090E2B1B8C00A186BC /* ui_options.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_options.c; sourceTree = "<group>"; };
+		FDBBE50A0E2B1B8C00A186BC /* ui_playermodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_playermodel.c; sourceTree = "<group>"; };
+		FDBBE50B0E2B1B8C00A186BC /* ui_players.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_players.c; sourceTree = "<group>"; };
+		FDBBE50C0E2B1B8C00A186BC /* ui_playersettings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_playersettings.c; sourceTree = "<group>"; };
+		FDBBE50D0E2B1B8C00A186BC /* ui_preferences.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_preferences.c; sourceTree = "<group>"; };
+		FDBBE50E0E2B1B8C00A186BC /* ui_qmenu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_qmenu.c; sourceTree = "<group>"; };
+		FDBBE50F0E2B1B8C00A186BC /* ui_removebots.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_removebots.c; sourceTree = "<group>"; };
+		FDBBE5100E2B1B8C00A186BC /* ui_saveconfig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_saveconfig.c; sourceTree = "<group>"; };
+		FDBBE5110E2B1B8C00A186BC /* ui_serverinfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_serverinfo.c; sourceTree = "<group>"; };
+		FDBBE5120E2B1B8C00A186BC /* ui_servers2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_servers2.c; sourceTree = "<group>"; };
+		FDBBE5130E2B1B8C00A186BC /* ui_setup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_setup.c; sourceTree = "<group>"; };
+		FDBBE5140E2B1B8C00A186BC /* ui_sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_sound.c; sourceTree = "<group>"; };
+		FDBBE5150E2B1B8C00A186BC /* ui_sparena.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_sparena.c; sourceTree = "<group>"; };
+		FDBBE5160E2B1B8C00A186BC /* ui_specifyserver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_specifyserver.c; sourceTree = "<group>"; };
+		FDBBE5170E2B1B8C00A186BC /* ui_splevel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_splevel.c; sourceTree = "<group>"; };
+		FDBBE5180E2B1B8C00A186BC /* ui_sppostgame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_sppostgame.c; sourceTree = "<group>"; };
+		FDBBE5190E2B1B8C00A186BC /* ui_spskill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_spskill.c; sourceTree = "<group>"; };
+		FDBBE51A0E2B1B8C00A186BC /* ui_startserver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_startserver.c; sourceTree = "<group>"; };
+		FDBBE5400E2B1BE300A186BC /* ui_syscalls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_syscalls.c; sourceTree = "<group>"; };
+		FDBBE5420E2B1C0100A186BC /* ui_team.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_team.c; sourceTree = "<group>"; };
+		FDBBE5430E2B1C0100A186BC /* ui_teamorders.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_teamorders.c; sourceTree = "<group>"; };
+		FDBBE5440E2B1C0100A186BC /* ui_video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui_video.c; sourceTree = "<group>"; };
 		FDD254340D80FF5200E13415 /* iphone_glimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iphone_glimp.h; sourceTree = "<group>"; };
 		FDD254350D80FF5200E13415 /* iphone_glimp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_glimp.m; sourceTree = "<group>"; };
 		FDD254360D80FF5200E13415 /* iphone_glimp_native.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_glimp_native.m; sourceTree = "<group>"; };
@@ -306,7 +428,6 @@
 		FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3ScreenView.h; sourceTree = "<group>"; };
 		FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3ScreenView.m; sourceTree = "<group>"; };
 		FDD2544D0D8102C300E13415 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		FDEB19870E293E7B00042430 /* demoq3 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = demoq3; path = "/Volumes/Windows HD/Q3Ademo/demoq3"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +440,13 @@
 				1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */,
 				FDD2544E0D8102C300E13415 /* OpenGLES.framework in Frameworks */,
 				FDBBE4620E2AEF4500A186BC /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDBBE4EF0E2B1A4600A186BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +463,9 @@
 				FD9C40CE0E0F34BD008E2729 /* qcommon */,
 				FD9C40EF0E0F354B008E2729 /* renderer */,
 				FD9C411C0E0F35BB008E2729 /* null */,
+				FDBBE4F60E2B1A8E00A186BC /* q3_ui */,
 				FD9C411F0E0F35D8008E2729 /* server */,
+				FDBBE53F0E2B1B9B00A186BC /* ui */,
 				FDB4707A0E0F316E0087A684 /* unix */,
 				FDD2542D0D80FE5300E13415 /* iphone */,
 			);
@@ -366,6 +496,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Quake3.app */,
+				FD4C5C060E2DBF8A00012E6B /* uii386.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -384,7 +515,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FDEB19870E293E7B00042430 /* demoq3 */,
+				FDBBE4E00E2B197900A186BC /* pak0.pk3 */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */,
 			);
@@ -580,6 +711,7 @@
 			children = (
 				FD9C41350E0F370E008E2729 /* q_math.c */,
 				FD9C41360E0F370E008E2729 /* q_shared.c */,
+				FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -592,6 +724,60 @@
 				FDB470830E0F31B40087A684 /* unix_shared.c */,
 			);
 			path = unix;
+			sourceTree = "<group>";
+		};
+		FDBBE4F60E2B1A8E00A186BC /* q3_ui */ = {
+			isa = PBXGroup;
+			children = (
+				FDBBE5420E2B1C0100A186BC /* ui_team.c */,
+				FDBBE5430E2B1C0100A186BC /* ui_teamorders.c */,
+				FDBBE5440E2B1C0100A186BC /* ui_video.c */,
+				FDBBE4F70E2B1B8C00A186BC /* ui_addbots.c */,
+				FDBBE4F80E2B1B8C00A186BC /* ui_atoms.c */,
+				FDBBE4F90E2B1B8C00A186BC /* ui_cdkey.c */,
+				FDBBE4FA0E2B1B8C00A186BC /* ui_cinematics.c */,
+				FDBBE4FB0E2B1B8C00A186BC /* ui_confirm.c */,
+				FDBBE4FC0E2B1B8C00A186BC /* ui_connect.c */,
+				FDBBE4FD0E2B1B8C00A186BC /* ui_controls2.c */,
+				FDBBE4FE0E2B1B8C00A186BC /* ui_credits.c */,
+				FDBBE4FF0E2B1B8C00A186BC /* ui_demo2.c */,
+				FDBBE5000E2B1B8C00A186BC /* ui_display.c */,
+				FDBBE5010E2B1B8C00A186BC /* ui_gameinfo.c */,
+				FDBBE5020E2B1B8C00A186BC /* ui_ingame.c */,
+				FDBBE5030E2B1B8C00A186BC /* ui_loadconfig.c */,
+				FDBBE5040E2B1B8C00A186BC /* ui_main.c */,
+				FDBBE5050E2B1B8C00A186BC /* ui_menu.c */,
+				FDBBE5060E2B1B8C00A186BC /* ui_mfield.c */,
+				FDBBE5070E2B1B8C00A186BC /* ui_mods.c */,
+				FDBBE5080E2B1B8C00A186BC /* ui_network.c */,
+				FDBBE5090E2B1B8C00A186BC /* ui_options.c */,
+				FDBBE50A0E2B1B8C00A186BC /* ui_playermodel.c */,
+				FDBBE50B0E2B1B8C00A186BC /* ui_players.c */,
+				FDBBE50C0E2B1B8C00A186BC /* ui_playersettings.c */,
+				FDBBE50D0E2B1B8C00A186BC /* ui_preferences.c */,
+				FDBBE50E0E2B1B8C00A186BC /* ui_qmenu.c */,
+				FDBBE50F0E2B1B8C00A186BC /* ui_removebots.c */,
+				FDBBE5100E2B1B8C00A186BC /* ui_saveconfig.c */,
+				FDBBE5110E2B1B8C00A186BC /* ui_serverinfo.c */,
+				FDBBE5120E2B1B8C00A186BC /* ui_servers2.c */,
+				FDBBE5130E2B1B8C00A186BC /* ui_setup.c */,
+				FDBBE5140E2B1B8C00A186BC /* ui_sound.c */,
+				FDBBE5150E2B1B8C00A186BC /* ui_sparena.c */,
+				FDBBE5160E2B1B8C00A186BC /* ui_specifyserver.c */,
+				FDBBE5170E2B1B8C00A186BC /* ui_splevel.c */,
+				FDBBE5180E2B1B8C00A186BC /* ui_sppostgame.c */,
+				FDBBE5190E2B1B8C00A186BC /* ui_spskill.c */,
+				FDBBE51A0E2B1B8C00A186BC /* ui_startserver.c */,
+			);
+			path = q3_ui;
+			sourceTree = "<group>";
+		};
+		FDBBE53F0E2B1B9B00A186BC /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				FDBBE5400E2B1BE300A186BC /* ui_syscalls.c */,
+			);
+			path = ui;
 			sourceTree = "<group>";
 		};
 		FDD2542D0D80FE5300E13415 /* iphone */ = {
@@ -615,6 +801,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		FDBBE4ED0E2B1A4600A186BC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		1D6058900D05DD3D006BFB54 /* Quake3 */ = {
 			isa = PBXNativeTarget;
@@ -623,15 +819,34 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				FDBBE4EA0E2B19CC00A186BC /* Copy Pack Files */,
+				FD4C5C0C0E2DC00C00012E6B /* Copy Dylib Files */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FD4C5C080E2DBFA100012E6B /* PBXTargetDependency */,
 			);
 			name = Quake3;
 			productName = Quake3;
 			productReference = 1D6058910D05DD3D006BFB54 /* Quake3.app */;
 			productType = "com.apple.product-type.application";
+		};
+		FDBBE4F00E2B1A4600A186BC /* q3_ui */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDBBE4F50E2B1A7B00A186BC /* Build configuration list for PBXNativeTarget "q3_ui" */;
+			buildPhases = (
+				FDBBE4ED0E2B1A4600A186BC /* Headers */,
+				FDBBE4EE0E2B1A4600A186BC /* Sources */,
+				FDBBE4EF0E2B1A4600A186BC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = q3_ui;
+			productName = ui;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -646,6 +861,7 @@
 			projectRoot = ../..;
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Quake3 */,
+				FDBBE4F00E2B1A4600A186BC /* q3_ui */,
 			);
 		};
 /* End PBXProject section */
@@ -655,7 +871,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDEB198A0E293E7B00042430 /* demoq3 in Resources */,
 				FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,7 +1023,65 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FDBBE4EE0E2B1A4600A186BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDBBE51B0E2B1B8C00A186BC /* ui_addbots.c in Sources */,
+				FDBBE51C0E2B1B8C00A186BC /* ui_atoms.c in Sources */,
+				FDBBE51D0E2B1B8C00A186BC /* ui_cdkey.c in Sources */,
+				FDBBE51E0E2B1B8C00A186BC /* ui_cinematics.c in Sources */,
+				FDBBE51F0E2B1B8C00A186BC /* ui_confirm.c in Sources */,
+				FDBBE5200E2B1B8C00A186BC /* ui_connect.c in Sources */,
+				FDBBE5210E2B1B8C00A186BC /* ui_controls2.c in Sources */,
+				FDBBE5220E2B1B8C00A186BC /* ui_credits.c in Sources */,
+				FDBBE5230E2B1B8C00A186BC /* ui_demo2.c in Sources */,
+				FDBBE5240E2B1B8C00A186BC /* ui_display.c in Sources */,
+				FDBBE5250E2B1B8C00A186BC /* ui_gameinfo.c in Sources */,
+				FDBBE5260E2B1B8C00A186BC /* ui_ingame.c in Sources */,
+				FDBBE5270E2B1B8C00A186BC /* ui_loadconfig.c in Sources */,
+				FDBBE5280E2B1B8C00A186BC /* ui_main.c in Sources */,
+				FDBBE5290E2B1B8C00A186BC /* ui_menu.c in Sources */,
+				FDBBE52A0E2B1B8C00A186BC /* ui_mfield.c in Sources */,
+				FDBBE52B0E2B1B8C00A186BC /* ui_mods.c in Sources */,
+				FDBBE52C0E2B1B8C00A186BC /* ui_network.c in Sources */,
+				FDBBE52D0E2B1B8C00A186BC /* ui_options.c in Sources */,
+				FDBBE52E0E2B1B8C00A186BC /* ui_playermodel.c in Sources */,
+				FDBBE52F0E2B1B8C00A186BC /* ui_players.c in Sources */,
+				FDBBE5300E2B1B8C00A186BC /* ui_playersettings.c in Sources */,
+				FDBBE5310E2B1B8C00A186BC /* ui_preferences.c in Sources */,
+				FDBBE5320E2B1B8C00A186BC /* ui_qmenu.c in Sources */,
+				FDBBE5330E2B1B8C00A186BC /* ui_removebots.c in Sources */,
+				FDBBE5340E2B1B8C00A186BC /* ui_saveconfig.c in Sources */,
+				FDBBE5350E2B1B8C00A186BC /* ui_serverinfo.c in Sources */,
+				FDBBE5360E2B1B8C00A186BC /* ui_servers2.c in Sources */,
+				FDBBE5370E2B1B8C00A186BC /* ui_setup.c in Sources */,
+				FDBBE5380E2B1B8C00A186BC /* ui_sound.c in Sources */,
+				FDBBE5390E2B1B8C00A186BC /* ui_sparena.c in Sources */,
+				FDBBE53A0E2B1B8C00A186BC /* ui_specifyserver.c in Sources */,
+				FDBBE53B0E2B1B8C00A186BC /* ui_splevel.c in Sources */,
+				FDBBE53C0E2B1B8C00A186BC /* ui_sppostgame.c in Sources */,
+				FDBBE53D0E2B1B8C00A186BC /* ui_spskill.c in Sources */,
+				FDBBE53E0E2B1B8C00A186BC /* ui_startserver.c in Sources */,
+				FDBBE5410E2B1BE300A186BC /* ui_syscalls.c in Sources */,
+				FDBBE5450E2B1C0100A186BC /* ui_team.c in Sources */,
+				FDBBE5460E2B1C0100A186BC /* ui_teamorders.c in Sources */,
+				FDBBE5470E2B1C0100A186BC /* ui_video.c in Sources */,
+				FD1F2EBE0E2B21A600DF2240 /* q_math.c in Sources */,
+				FD1F2EC50E2B21B500DF2240 /* q_shared.c in Sources */,
+				FD1F2ECD0E2B21EB00DF2240 /* bg_misc.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FD4C5C080E2DBFA100012E6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FDBBE4F00E2B1A4600A186BC /* q3_ui */;
+			targetProxy = FD4C5C070E2DBFA100012E6B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -890,6 +1163,50 @@
 			};
 			name = Release;
 		};
+		FDBBE4F10E2B1A4700A186BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = "";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/lib;
+				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_PATH:standardizepath)/$(EXECUTABLE_PATH)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../BuildResults/MainStage/Debug-iphonesimulator\"",
+				);
+				MACH_O_TYPE = mh_dylib;
+				PREBINDING = NO;
+				PRODUCT_NAME = "ui$(ARCHS)";
+			};
+			name = Debug;
+		};
+		FDBBE4F20E2B1A4700A186BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_PREFIX = "";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_PATH:standardizepath)/$(EXECUTABLE_PATH)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../BuildResults/MainStage/Debug-iphonesimulator\"",
+				);
+				MACH_O_TYPE = mh_dylib;
+				PREBINDING = NO;
+				PRODUCT_NAME = "ui$(ARCHS)";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -907,6 +1224,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDBBE4F50E2B1A7B00A186BC /* Build configuration list for PBXNativeTarget "q3_ui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDBBE4F10E2B1A4700A186BC /* Debug */,
+				FDBBE4F20E2B1A4700A186BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
