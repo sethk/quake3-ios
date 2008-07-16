@@ -11,7 +11,8 @@
 
 @interface Q3Application ()
 
-- (void)_runMainLoop;
+- (void)_runMainLoop:(id)context;
+- (void)_runFrame:(NSTimer *)timer;
 
 @end
 
@@ -32,15 +33,24 @@
 
 	GLimp_ReleaseGL();
 
+#if IPHONE_USE_THREADS
 	Com_Printf("Starting render thread...\n");
 
-	[NSThread detachNewThreadSelector:@selector(_runMainLoop) toTarget:self withObject:nil];
+	[NSThread detachNewThreadSelector:@selector(_runMainLoop:) toTarget:self withObject:nil];
+#else
+	[NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(_runFrame:) userInfo:nil repeats:YES];
+#endif // IPHONE_USE_THREADS
 }
 
-- (void)_runMainLoop
+- (void)_runMainLoop:(id)context
 {
 	while (1)
 		Com_Frame();
+}
+
+- (void)_runFrame:(NSTimer *)timer
+{
+	Com_Frame();
 }
 
 @synthesize screenView = _screenView;
