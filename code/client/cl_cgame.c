@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "client.h"
 
 #include "../game/botlib.h"
+#include "../renderer/tr_local.h"
 
 extern	botlib_export_t	*botlib_export;
 
