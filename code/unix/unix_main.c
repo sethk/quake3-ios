@@ -707,14 +707,15 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
   void *libHandle;
   void  (*dllEntry)( int (*syscallptr)(int, ...) );
   char  fname[MAX_OSPATH];
+  char  *cdpath;
   char  *basepath;
   char  *homepath;
   char  *pwdpath;
   char  *gamedir;
   char  *fn;
   const char*  err = NULL;
-	
-	*fqpath = 0;
+  
+  *fqpath = 0;
 
   // bk001206 - let's have some paranoia
   assert( name );
@@ -737,6 +738,7 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
 #define Q_RTLD    RTLD_NOW
 
   pwdpath = Sys_Cwd();
+  cdpath = Cvar_VariableString( "fs_cdpath" );
   basepath = Cvar_VariableString( "fs_basepath" );
   homepath = Cvar_VariableString( "fs_homepath" );
   gamedir = Cvar_VariableString( "fs_game" );
@@ -749,33 +751,43 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
   if ( !libHandle )
   {
     Com_DPrintf( "Sys_LoadDll(%s) failed:\n\"%s\"\n", fn, dlerror() );
-    // fs_homepath
-    fn = FS_BuildOSPath( homepath, gamedir, fname );
-    Com_Printf( "Loading '%s.\n", fn );
-    libHandle = dlopen( fn, Q_RTLD );
+    // fs_cdpath
+    fn = FS_BuildOSPath( cdpath, gamedir, fname );
+    Com_Printf( "Loading '%s'.\n", fn );
+    libHandle = dlopen( fn, Q_RTLD);
 
     if ( !libHandle )
     {
       Com_DPrintf( "Sys_LoadDll(%s) failed:\n\"%s\"\n", fn, dlerror() );
-      // fs_basepath
-      fn = FS_BuildOSPath( basepath, gamedir, fname );
+      // fs_homepath
+      fn = FS_BuildOSPath( homepath, gamedir, fname );
       Com_Printf( "Loading '%s'.\n", fn );
       libHandle = dlopen( fn, Q_RTLD );
 
       if ( !libHandle )
       {
+        Com_DPrintf( "Sys_LoadDll(%s) failed:\n\"%s\"\n", fn, dlerror() );
+        // fs_basepath
+        fn = FS_BuildOSPath( basepath, gamedir, fname );
+        Com_Printf( "Loading '%s'.\n", fn );
+        libHandle = dlopen( fn, Q_RTLD );
+
+        if ( !libHandle )
+        {
 #ifndef NDEBUG // bk001206 - in debug abort on failure
-        Com_Error ( ERR_FATAL, "Sys_LoadDll(%s) failed dlopen() completely!\n", name  );
+          Com_Error ( ERR_FATAL, "Sys_LoadDll(%s) failed dlopen() completely!\n", name  );
 #else
-        Com_Printf ( "Sys_LoadDll(%s) failed dlopen() completely!\n", name );
+          Com_Printf ( "Sys_LoadDll(%s) failed dlopen() completely!\n", name );
 #endif
-        return NULL;
+          return NULL;
+        } else
+          Com_DPrintf ( "Sys_LoadDll(%s): succeeded ...\n", fn );
       } else
         Com_DPrintf ( "Sys_LoadDll(%s): succeeded ...\n", fn );
     } else
-      Com_DPrintf ( "Sys_LoadDll(%s): succeeded ...\n", fn );
+      Com_DPrintf ( "Sys_LoadDll(%s): succeeded ...\n", fn ); 
   } else
-    Com_DPrintf ( "Sys_LoadDll(%s): succeeded ...\n", fn ); 
+    Com_DPrintf ( "Sys_LoadDll(%s): succeeded ...\n", fn);
 
   dllEntry = dlsym( libHandle, "dllEntry" ); 
   *entryPoint = dlsym( libHandle, "vmMain" );
