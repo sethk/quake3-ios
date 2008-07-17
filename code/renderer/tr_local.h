@@ -1238,6 +1238,9 @@ IMPLEMENTATION SPECIFIC FUNCTIONS
 void		GLimp_Init( void );
 void		GLimp_Shutdown( void );
 void		GLimp_AcquireGL( void );
+#ifdef IPHONE
+void		GLimp_ReleaseGL( void );
+#endif // IPHONE
 void		GLimp_EndFrame( void );
 
 qboolean	GLimp_SpawnRenderThread( void (*function)( void ) );
