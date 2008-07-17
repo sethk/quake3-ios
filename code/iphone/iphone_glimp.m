@@ -19,7 +19,7 @@ static GLenum _GLimp_beginmode;
 static float _GLimp_texcoords[MAX_ARRAY_SIZE][2];
 static float _GLimp_vertexes[MAX_ARRAY_SIZE][3];
 static float _GLimp_colors[MAX_ARRAY_SIZE][4];
-static GLuint _GLimp_numverts;
+static GLuint _GLimp_numInputVerts, _GLimp_numOutputVerts;
 static qboolean _GLimp_texcoordbuffer;
 static qboolean _GLimp_colorbuffer;
 
@@ -70,7 +70,7 @@ qglBegin(GLenum mode)
 	assert(!QGLBeginStarted);
 	QGLBeginStarted = qtrue;
 	_GLimp_beginmode = mode;
-	_GLimp_numverts = 0;
+	_GLimp_numInputVerts = _GLimp_numOutputVerts = 0;
 	_GLimp_texcoordbuffer = qfalse;
 	_GLimp_colorbuffer = qfalse;
 }
@@ -85,6 +85,8 @@ qglDrawBuffer(GLenum mode)
 void
 qglEnd(void)
 {
+	GLenum mode;
+
 	assert(QGLBeginStarted);
 	QGLBeginStarted = qfalse;
 
@@ -106,7 +108,15 @@ qglEnd(void)
 
 	qglVertexPointer(3, GL_FLOAT, sizeof(_GLimp_vertexes[0]), _GLimp_vertexes);
 	qglEnableClientState(GL_VERTEX_ARRAY);
-	qglDrawArrays(GL_TRIANGLES, 0, _GLimp_numverts);
+
+	if (_GLimp_beginmode == IPHONE_QUADS)
+		mode = GL_TRIANGLES;
+	else if (_GLimp_beginmode == IPHONE_POLYGON)
+		assert(0);
+	else
+		mode == _GLimp_beginmode;
+
+	qglDrawArrays(mode, 0, _GLimp_numOutputVerts);
 }
 
 void
@@ -122,8 +132,8 @@ qglColor4fv(GLfloat *v)
 {
 	if (QGLBeginStarted)
 	{
-		assert(_GLimp_numverts < MAX_ARRAY_SIZE);
-		bcopy(v, _GLimp_colors[_GLimp_numverts], sizeof(_GLimp_colors[0]));
+		assert(_GLimp_numOutputVerts < MAX_ARRAY_SIZE);
+		bcopy(v, _GLimp_colors[_GLimp_numOutputVerts], sizeof(_GLimp_colors[0]));
 		_GLimp_colorbuffer = qtrue;
 	}
 	else
@@ -146,8 +156,8 @@ qglTexCoord2f(GLfloat s, GLfloat t)
 void
 qglTexCoord2fv(GLfloat *v)
 {
-	assert(_GLimp_numverts < MAX_ARRAY_SIZE);
-	bcopy(v, _GLimp_texcoords[_GLimp_numverts], sizeof(_GLimp_texcoords[0]));
+	assert(_GLimp_numOutputVerts < MAX_ARRAY_SIZE);
+	bcopy(v, _GLimp_texcoords[_GLimp_numOutputVerts], sizeof(_GLimp_texcoords[0]));
 	_GLimp_texcoordbuffer = qtrue;
 }
 
@@ -162,26 +172,29 @@ qglVertex3f(GLfloat x, GLfloat y, GLfloat z)
 void
 qglVertex3fv(GLfloat *v)
 {
-	assert(_GLimp_numverts < MAX_ARRAY_SIZE);
-	bcopy(v, _GLimp_vertexes[_GLimp_numverts++], sizeof(_GLimp_vertexes[0]));
+	assert(_GLimp_numOutputVerts < MAX_ARRAY_SIZE);
+	bcopy(v, _GLimp_vertexes[_GLimp_numOutputVerts++], sizeof(_GLimp_vertexes[0]));
+	++_GLimp_numInputVerts;
 
-	if (_GLimp_beginmode == IPHONE_QUADS && /*(_GLimp_numverts - 4) % 5 == 0*/ _GLimp_numverts == 4)
+	if (_GLimp_beginmode == IPHONE_QUADS && _GLimp_numInputVerts % 4 == 0)
 	{
-		assert(_GLimp_numverts < MAX_ARRAY_SIZE - 2);
-		bcopy(_GLimp_vertexes[_GLimp_numverts - 4],
-				_GLimp_vertexes[_GLimp_numverts],
+		assert(_GLimp_numOutputVerts < MAX_ARRAY_SIZE - 2);
+		bcopy(_GLimp_vertexes[_GLimp_numOutputVerts - 4],
+				_GLimp_vertexes[_GLimp_numOutputVerts],
 				sizeof(_GLimp_vertexes[0]));
-		bcopy(_GLimp_texcoords[_GLimp_numverts - 4],
-				_GLimp_texcoords[_GLimp_numverts],
+		bcopy(_GLimp_texcoords[_GLimp_numOutputVerts - 4],
+				_GLimp_texcoords[_GLimp_numOutputVerts],
 				sizeof(_GLimp_texcoords[0]));
-		bcopy(_GLimp_vertexes[_GLimp_numverts - 2],
-				_GLimp_vertexes[_GLimp_numverts + 1],
+		bcopy(_GLimp_vertexes[_GLimp_numOutputVerts - 2],
+				_GLimp_vertexes[_GLimp_numOutputVerts + 1],
 				sizeof(_GLimp_vertexes[0]));
-		bcopy(_GLimp_texcoords[_GLimp_numverts - 2],
-				_GLimp_texcoords[_GLimp_numverts + 1],
+		bcopy(_GLimp_texcoords[_GLimp_numOutputVerts - 2],
+				_GLimp_texcoords[_GLimp_numOutputVerts + 1],
 				sizeof(_GLimp_texcoords[0]));
-		_GLimp_numverts+= 2;
+		_GLimp_numOutputVerts+= 2;
 	}
+	else if (_GLimp_beginmode == IPHONE_POLYGON)
+		assert(0);
 }
 
 void
