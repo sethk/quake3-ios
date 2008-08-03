@@ -15,7 +15,7 @@ extern void qglUnlockArrays(void);
 
 enum
 {
-	IPHONE_QUADS,
+	IPHONE_QUADS = 0x10000,
 	IPHONE_POLYGON
 };
 
