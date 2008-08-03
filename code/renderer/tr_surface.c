@@ -816,7 +816,8 @@ RB_SurfaceFace
 */
 void RB_SurfaceFace( srfSurfaceFace_t *surf ) {
 	int			i;
-	glIndex_t	*indices, *tessIndexes;
+	int			*indices;
+	glIndex_t	*tessIndexes;
 	float		*v;
 	float		*normal;
 	int			ndx;
@@ -829,7 +830,7 @@ void RB_SurfaceFace( srfSurfaceFace_t *surf ) {
 	dlightBits = surf->dlightBits[backEnd.smpFrame];
 	tess.dlightBits |= dlightBits;
 
-	indices = ( glIndex_t * ) ( ( ( char  * ) surf ) + surf->ofsIndices );
+	indices = ( int * ) ( ( ( char  * ) surf ) + surf->ofsIndices );
 
 	Bob = tess.numVertexes;
 	tessIndexes = tess.indexes + tess.numIndexes;
