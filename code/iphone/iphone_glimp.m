@@ -114,7 +114,7 @@ qglEnd(void)
 	else if (_GLimp_beginmode == IPHONE_POLYGON)
 		assert(0);
 	else
-		mode == _GLimp_beginmode;
+		mode = _GLimp_beginmode;
 
 	qglDrawArrays(mode, 0, _GLimp_numOutputVerts);
 }
