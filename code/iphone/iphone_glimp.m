@@ -15,6 +15,7 @@
 
 #define MAX_ARRAY_SIZE		1024
 
+static Q3ScreenView *_screenView;
 static GLenum _GLimp_beginmode;
 static float _GLimp_texcoords[MAX_ARRAY_SIZE][2];
 static float _GLimp_vertexes[MAX_ARRAY_SIZE][3];
@@ -38,6 +39,11 @@ QGLDebugFile(void)
 unsigned int QGLBeginStarted = 0;
 
 #ifdef QGL_CHECK_GL_ERRORS
+void
+QGLErrorBreak(void)
+{
+}
+
 void
 QGLCheckError(const char *message)
 {
@@ -212,24 +218,9 @@ GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned char b
 void
 GLimp_Init(void)
 {
-	Q3ScreenView *screenView = ((Q3Application *)[UIApplication sharedApplication]).screenView;
-	CGSize size = screenView.frame.size;
-
 	ri.Printf(PRINT_ALL, "Initializing OpenGL subsystem\n");
 
 	bzero(&glConfig, sizeof(glConfig));
-	glConfig.isFullscreen = qfalse;
-#ifdef GL_ROTATE
-	glConfig.vidWidth = IPHONE_HORIZ_YRES;
-	glConfig.vidHeight = IPHONE_XRES;
-#else
-	glConfig.vidWidth = size.width;
-	glConfig.vidHeight = size.height;
-#endif // GL_ROTATE
-	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
-	glConfig.colorBits = [screenView numColorBits];
-	glConfig.depthBits = [screenView numDepthBits];
-	glConfig.stencilBits = 0;
 
 	GLimp_SetMode();
 
@@ -249,7 +240,53 @@ GLimp_Init(void)
 }
 
 void
+GLimp_SetMode(void)
+{
+	CGSize size;
+
+	_screenView = ((Q3Application *)[UIApplication sharedApplication]).screenView;
+	size = _screenView.frame.size;
+
+	glConfig.isFullscreen = qtrue;
+#ifdef GL_ROTATE
+	glConfig.vidWidth = IPHONE_HORIZ_YRES;
+	glConfig.vidHeight = IPHONE_XRES;
+#else
+	glConfig.vidWidth = size.width;
+	glConfig.vidHeight = size.height;
+#endif // GL_ROTATE
+	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
+	glConfig.colorBits = [_screenView numColorBits];
+	glConfig.depthBits = [_screenView numDepthBits];
+	glConfig.stencilBits = 0;
+}
+
+void
+GLimp_AcquireGL(void)
+{
+	// TODO: SMP
+}
+
+void
 GLimp_LogComment(char *comment)
+{
+}
+
+void
+GLimp_ReleaseGL(void)
+{
+	// TODO: SMP
+}
+
+void
+GLimp_EndFrame(void)
+{
+	GLimp_ReleaseGL();
+	[_screenView swapBuffers];
+}
+
+void
+GLimp_Shutdown(void)
 {
 }
 
