@@ -17,7 +17,7 @@
 	GLuint _renderBuffer;
 	GLuint _depthBuffer;
 	CGPoint _mousePoint;
-	NSSize _mouseScale;
+	CGSize _mouseScale;
 }
 
 - initWithFrame:(CGRect)frame;
