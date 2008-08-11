@@ -720,19 +720,7 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
   // bk001206 - let's have some paranoia
   assert( name );
 
-#if defined __i386__
-  snprintf (fname, sizeof(fname), "%si386." SHLIB_SUFFIX, name);
-#elif defined __powerpc__   //rcg010207 - PPC support.
-  snprintf (fname, sizeof(fname), "%sppc." SHLIB_SUFFIX, name);
-#elif defined __axp__
-  snprintf (fname, sizeof(fname), "%saxp." SHLIB_SUFFIX, name);
-#elif defined __mips__
-  snprintf (fname, sizeof(fname), "%smips." SHLIB_SUFFIX, name);
-#elif defined __arm__
-  snprintf (fname, sizeof(fname), "%sarm." SHLIB_SUFFIX, name);
-#else
-#error Unknown arch
-#endif
+  snprintf (fname, sizeof(fname), "%s." SHLIB_SUFFIX, name);
 
 // bk001129 - was RTLD_LAZY 
 #define Q_RTLD    RTLD_NOW

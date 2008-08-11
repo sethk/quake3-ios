@@ -13,7 +13,6 @@
 		FD1F2EBE0E2B21A600DF2240 /* q_math.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41350E0F370E008E2729 /* q_math.c */; };
 		FD1F2EC50E2B21B500DF2240 /* q_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41360E0F370E008E2729 /* q_shared.c */; };
 		FD1F2ECD0E2B21EB00DF2240 /* bg_misc.c in Sources */ = {isa = PBXBuildFile; fileRef = FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */; };
-		FD4C5C0D0E2DC01900012E6B /* uii386.dylib in Copy Dylib Files */ = {isa = PBXBuildFile; fileRef = FD4C5C060E2DBF8A00012E6B /* uii386.dylib */; };
 		FD4C5D110E2DE0D400012E6B /* ai_chat.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4C5CF30E2DE0D400012E6B /* ai_chat.c */; };
 		FD4C5D120E2DE0D400012E6B /* ai_cmd.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4C5CF40E2DE0D400012E6B /* ai_cmd.c */; };
 		FD4C5D130E2DE0D400012E6B /* ai_dmnet.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4C5CF50E2DE0D400012E6B /* ai_dmnet.c */; };
@@ -47,7 +46,6 @@
 		FD4C5D2F0E2DE10500012E6B /* bg_misc.c in Sources */ = {isa = PBXBuildFile; fileRef = FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */; };
 		FD4C5D300E2DE10500012E6B /* q_math.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41350E0F370E008E2729 /* q_math.c */; };
 		FD4C5D310E2DE10500012E6B /* q_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41360E0F370E008E2729 /* q_shared.c */; };
-		FD4C5D3A0E2DE23000012E6B /* qagamei386.dylib in Copy Dylib Files */ = {isa = PBXBuildFile; fileRef = FD4C5D390E2DE22A00012E6B /* qagamei386.dylib */; };
 		FD4C5D490E2DE27C00012E6B /* bg_misc.c in Sources */ = {isa = PBXBuildFile; fileRef = FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */; };
 		FD4C5D4A0E2DE28200012E6B /* bg_pmove.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4C5CFA0E2DE0D400012E6B /* bg_pmove.c */; };
 		FD4C5D4B0E2DE28600012E6B /* bg_slidemove.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4C5CFB0E2DE0D400012E6B /* bg_slidemove.c */; };
@@ -72,7 +70,6 @@
 		FD4C5D800E2DE39400012E6B /* cg_weapons.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4C5D6D0E2DE39400012E6B /* cg_weapons.c */; };
 		FD4C5D820E2DE3C800012E6B /* q_math.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41350E0F370E008E2729 /* q_math.c */; };
 		FD4C5D830E2DE3C800012E6B /* q_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41360E0F370E008E2729 /* q_shared.c */; };
-		FD4C5D880E2DE3F200012E6B /* cgamei386.dylib in Copy Dylib Files */ = {isa = PBXBuildFile; fileRef = FD4C5D870E2DE3EA00012E6B /* cgamei386.dylib */; };
 		FD9C404C0E0F3365008E2729 /* be_aas_bspq3.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40300E0F3365008E2729 /* be_aas_bspq3.c */; };
 		FD9C404D0E0F3365008E2729 /* be_aas_cluster.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40310E0F3365008E2729 /* be_aas_cluster.c */; };
 		FD9C404E0E0F3365008E2729 /* be_aas_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40320E0F3365008E2729 /* be_aas_debug.c */; };
@@ -255,6 +252,9 @@
 		FDD254450D80FF5200E13415 /* Q3Application.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543D0D80FF5200E13415 /* Q3Application.m */; };
 		FDD254460D80FF5200E13415 /* Q3ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */; };
 		FDD2544E0D8102C300E13415 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2544D0D8102C300E13415 /* OpenGLES.framework */; };
+		FDF013E20E4FF3FC00474A95 /* ui.dylib in Copy Dylib Files */ = {isa = PBXBuildFile; fileRef = FD4C5C060E2DBF8A00012E6B /* ui.dylib */; };
+		FDF013E30E4FF3FC00474A95 /* qagame.dylib in Copy Dylib Files */ = {isa = PBXBuildFile; fileRef = FD4C5D390E2DE22A00012E6B /* qagame.dylib */; };
+		FDF013E40E4FF3FC00474A95 /* cgame.dylib in Copy Dylib Files */ = {isa = PBXBuildFile; fileRef = FD4C5D870E2DE3EA00012E6B /* cgame.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,9 +288,9 @@
 			dstPath = demoq3;
 			dstSubfolderSpec = 7;
 			files = (
-				FD4C5C0D0E2DC01900012E6B /* uii386.dylib in Copy Dylib Files */,
-				FD4C5D3A0E2DE23000012E6B /* qagamei386.dylib in Copy Dylib Files */,
-				FD4C5D880E2DE3F200012E6B /* cgamei386.dylib in Copy Dylib Files */,
+				FDF013E20E4FF3FC00474A95 /* ui.dylib in Copy Dylib Files */,
+				FDF013E30E4FF3FC00474A95 /* qagame.dylib in Copy Dylib Files */,
+				FDF013E40E4FF3FC00474A95 /* cgame.dylib in Copy Dylib Files */,
 			);
 			name = "Copy Dylib Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,7 +315,7 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = bg_misc.c; sourceTree = "<group>"; };
-		FD4C5C060E2DBF8A00012E6B /* uii386.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = uii386.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD4C5C060E2DBF8A00012E6B /* ui.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = ui.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD4C5CF30E2DE0D400012E6B /* ai_chat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_chat.c; sourceTree = "<group>"; };
 		FD4C5CF40E2DE0D400012E6B /* ai_cmd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_cmd.c; sourceTree = "<group>"; };
 		FD4C5CF50E2DE0D400012E6B /* ai_dmnet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_dmnet.c; sourceTree = "<group>"; };
@@ -346,7 +346,7 @@
 		FD4C5D0E0E2DE0D400012E6B /* g_trigger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = g_trigger.c; sourceTree = "<group>"; };
 		FD4C5D0F0E2DE0D400012E6B /* g_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = g_utils.c; sourceTree = "<group>"; };
 		FD4C5D100E2DE0D400012E6B /* g_weapon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = g_weapon.c; sourceTree = "<group>"; };
-		FD4C5D390E2DE22A00012E6B /* qagamei386.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = qagamei386.dylib; path = "../../../../BuildResults/MainStage/Debug-iphonesimulator/qagamei386.dylib"; sourceTree = SOURCE_ROOT; };
+		FD4C5D390E2DE22A00012E6B /* qagame.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = qagame.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD4C5D5B0E2DE39400012E6B /* cg_consolecmds.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_consolecmds.c; sourceTree = "<group>"; };
 		FD4C5D5C0E2DE39400012E6B /* cg_draw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_draw.c; sourceTree = "<group>"; };
 		FD4C5D5D0E2DE39400012E6B /* cg_drawtools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_drawtools.c; sourceTree = "<group>"; };
@@ -366,7 +366,7 @@
 		FD4C5D6B0E2DE39400012E6B /* cg_syscalls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_syscalls.c; sourceTree = "<group>"; };
 		FD4C5D6C0E2DE39400012E6B /* cg_view.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_view.c; sourceTree = "<group>"; };
 		FD4C5D6D0E2DE39400012E6B /* cg_weapons.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_weapons.c; sourceTree = "<group>"; };
-		FD4C5D870E2DE3EA00012E6B /* cgamei386.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = cgamei386.dylib; path = "../../../../BuildResults/MainStage/Debug-iphonesimulator/cgamei386.dylib"; sourceTree = SOURCE_ROOT; };
+		FD4C5D870E2DE3EA00012E6B /* cgame.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = cgame.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD9C40300E0F3365008E2729 /* be_aas_bspq3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = be_aas_bspq3.c; sourceTree = "<group>"; };
 		FD9C40310E0F3365008E2729 /* be_aas_cluster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = be_aas_cluster.c; sourceTree = "<group>"; };
 		FD9C40320E0F3365008E2729 /* be_aas_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = be_aas_debug.c; sourceTree = "<group>"; };
@@ -637,9 +637,9 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Quake3.app */,
-				FD4C5C060E2DBF8A00012E6B /* uii386.dylib */,
-				FD4C5D390E2DE22A00012E6B /* qagamei386.dylib */,
-				FD4C5D870E2DE3EA00012E6B /* cgamei386.dylib */,
+				FD4C5C060E2DBF8A00012E6B /* ui.dylib */,
+				FD4C5D390E2DE22A00012E6B /* qagame.dylib */,
+				FD4C5D870E2DE3EA00012E6B /* cgame.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1452,7 +1452,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Seth Kingsley";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOS_X,
@@ -1468,7 +1468,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator2.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E47E0D7-CC63-42D6-9FA7-2D8C09D22876";
+				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
 		};
@@ -1507,7 +1508,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				MACH_O_TYPE = mh_dylib;
 				PREBINDING = NO;
-				PRODUCT_NAME = "qagame$(ARCHS)";
+				PRODUCT_NAME = qagame;
 			};
 			name = Debug;
 		};
@@ -1541,7 +1542,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				MACH_O_TYPE = mh_dylib;
 				PREBINDING = NO;
-				PRODUCT_NAME = "cgame$(ARCHS)";
+				PRODUCT_NAME = cgame;
 			};
 			name = Debug;
 		};
@@ -1580,7 +1581,7 @@
 				);
 				MACH_O_TYPE = mh_dylib;
 				PREBINDING = NO;
-				PRODUCT_NAME = "ui$(ARCHS)";
+				PRODUCT_NAME = ui;
 			};
 			name = Debug;
 		};
