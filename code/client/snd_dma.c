@@ -368,6 +368,9 @@ S_BeginRegistration
 =====================
 */
 void S_BeginRegistration( void ) {
+	if (!s_soundStarted)
+		return;
+
 	s_soundMuted = qfalse;		// we can play again
 
 	if (s_numSfx == 0) {
