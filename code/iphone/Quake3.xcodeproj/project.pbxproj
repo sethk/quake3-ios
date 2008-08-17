@@ -451,7 +451,7 @@
 		FD9C40D20E0F353A008E2729 /* cm_test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cm_test.c; sourceTree = "<group>"; };
 		FD9C40D30E0F353A008E2729 /* cm_trace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cm_trace.c; sourceTree = "<group>"; };
 		FD9C40D40E0F353A008E2729 /* cmd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cmd.c; sourceTree = "<group>"; };
-		FD9C40D50E0F353A008E2729 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = common.c; sourceTree = "<group>"; };
+		FD9C40D50E0F353A008E2729 /* common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = common.c; sourceTree = "<group>"; };
 		FD9C40D60E0F353A008E2729 /* cvar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cvar.c; sourceTree = "<group>"; };
 		FD9C40D70E0F353A008E2729 /* files.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = files.c; sourceTree = "<group>"; };
 		FD9C40D80E0F353A008E2729 /* huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = huffman.c; sourceTree = "<group>"; };
@@ -1054,6 +1054,7 @@
 				FD4C5CE90E2DDFDC00012E6B /* Headers */,
 				FD4C5CEA0E2DDFDC00012E6B /* Sources */,
 				FD4C5CEB0E2DDFDC00012E6B /* Frameworks */,
+				FDD388D90E581B9E00953DA9 /* Sign Binary */,
 			);
 			buildRules = (
 			);
@@ -1070,6 +1071,7 @@
 				FD4C5D420E2DE24C00012E6B /* Headers */,
 				FD4C5D430E2DE24C00012E6B /* Sources */,
 				FD4C5D440E2DE24C00012E6B /* Frameworks */,
+				FDD388DB0E581BAE00953DA9 /* Sign Binary */,
 			);
 			buildRules = (
 			);
@@ -1086,6 +1088,7 @@
 				FDBBE4ED0E2B1A4600A186BC /* Headers */,
 				FDBBE4EE0E2B1A4600A186BC /* Sources */,
 				FDBBE4EF0E2B1A4600A186BC /* Frameworks */,
+				FDD388A50E5819BC00953DA9 /* Sign Binary */,
 			);
 			buildRules = (
 			);
@@ -1125,6 +1128,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FDD388A50E5819BC00953DA9 /* Sign Binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Binary";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+		};
+		FDD388D90E581B9E00953DA9 /* Sign Binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Binary";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+		};
+		FDD388DB0E581BAE00953DA9 /* Sign Binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Binary";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -1452,7 +1500,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Seth Kingsley";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Seth Kingsley";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOS_X,
@@ -1468,7 +1516,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E47E0D7-CC63-42D6-9FA7-2D8C09D22876";
+				PROVISIONING_PROFILE = "2E47E0D7-CC63-42D6-9FA7-2D8C09D22876";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
@@ -1477,7 +1525,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Seth Kingsley";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOS_X,
@@ -1491,6 +1539,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				PROVISIONING_PROFILE = "2E47E0D7-CC63-42D6-9FA7-2D8C09D22876";
 				SDKROOT = iphonesimulator2.0;
 			};
 			name = Release;
