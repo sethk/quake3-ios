@@ -1141,8 +1141,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+			shellPath = "/bin/sh -x";
+			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
 		};
 		FDD388D90E581B9E00953DA9 /* Sign Binary */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1155,8 +1155,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+			shellPath = "/bin/sh -x";
+			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
 		};
 		FDD388DB0E581BAE00953DA9 /* Sign Binary */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1169,8 +1169,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+			shellPath = "/bin/sh -x";
+			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
