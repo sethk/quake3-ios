@@ -192,6 +192,8 @@
 	return kNumDepthBits;
 }
 
+@synthesize context = _context;
+
 - (void)swapBuffers
 {
 	EAGLContext *oldContext = [EAGLContext currentContext];

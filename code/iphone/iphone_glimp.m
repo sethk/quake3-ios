@@ -16,6 +16,7 @@
 #define MAX_ARRAY_SIZE		1024
 
 static Q3ScreenView *_screenView;
+static EAGLContext *_context;
 static GLenum _GLimp_beginmode;
 static float _GLimp_texcoords[MAX_ARRAY_SIZE][2];
 static float _GLimp_vertexes[MAX_ARRAY_SIZE][3];
@@ -245,6 +246,7 @@ GLimp_SetMode(void)
 	CGSize size;
 
 	_screenView = ((Q3Application *)[UIApplication sharedApplication]).screenView;
+	_context = _screenView.context;
 	size = _screenView.frame.size;
 
 	glConfig.isFullscreen = qtrue;
@@ -264,7 +266,9 @@ GLimp_SetMode(void)
 void
 GLimp_AcquireGL(void)
 {
-	// TODO: SMP
+#ifdef IPHONE_USE_THREADS
+	[EAGLContext setCurrentContext:_context];
+#endif // IPHONE_USE_THREADS
 }
 
 void
@@ -275,7 +279,9 @@ GLimp_LogComment(char *comment)
 void
 GLimp_ReleaseGL(void)
 {
-	// TODO: SMP
+#ifdef IPHONE_USE_THREADS
+	[EAGLContext setCurrentContext:nil];
+#endif // IPHONE_USE_THREADS
 }
 
 void
