@@ -98,14 +98,13 @@
 {
 	CAEAGLLayer *layer = (CAEAGLLayer *)self.layer;
 	GLint oldFrameBuffer, oldRenderBuffer;
-	CGSize size;
 
 	if (![EAGLContext setCurrentContext:_context])
 		return NO;
 
-	size = layer.bounds.size;
-	size.width = roundf(size.width);
-	size.height = roundf(size.height);
+	_size = layer.bounds.size;
+	_size.width = roundf(_size.width);
+	_size.height = roundf(_size.height);
 
 	qglGetIntegerv(GL_RENDERBUFFER_BINDING_OES, &oldRenderBuffer);
 	qglGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &oldFrameBuffer);
@@ -125,7 +124,7 @@
 	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, _renderBuffer);
 	glGenRenderbuffersOES(1, &_depthBuffer);
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _depthBuffer);
-	glRenderbufferStorageOES(GL_RENDERBUFFER_OES, kDepthFormat, size.width, size.height);
+	glRenderbufferStorageOES(GL_RENDERBUFFER_OES, kDepthFormat, _size.width, _size.height);
 	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, _depthBuffer);
 
 	glBindRenderbufferOES(GL_FRAMEBUFFER_OES, oldFrameBuffer);
@@ -136,7 +135,28 @@
 
 - (void)_destroySurface
 {
-	//EAGLContext *oldContext = [EAGLContext currentContext];
+	EAGLContext *oldContext = [EAGLContext currentContext];
+
+	if (oldContext != _context)
+		[EAGLContext setCurrentContext:_context];
+
+	glDeleteRenderbuffersOES(1, &_depthBuffer);
+	glDeleteRenderbuffersOES(1, &_renderBuffer);
+	glDeleteFramebuffersOES(1, &_frameBuffer);
+
+	if (oldContext != _context)
+		[EAGLContext setCurrentContext:oldContext];
+}
+
+- (void)layoutSubviews
+{
+	CGSize boundsSize = self.bounds.size;
+
+	if (roundf(boundsSize.width) != _size.width || roundf(boundsSize.height) != _size.height)
+	{
+		[self _destroySurface];
+		[self _createSurface];
+	}
 }
 
 - (void)_moveMouseWithTouch:(UITouch *)touch
