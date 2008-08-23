@@ -60,7 +60,7 @@
 {
 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
 
-	if (orientation != UIDeviceOrientationUnknown)
+	if (UIDeviceOrientationIsValidInterfaceOrientation(orientation))
 	{
 		Q3ScreenView *screenView = self.screenView;
 		UIView *superview = screenView.superview;

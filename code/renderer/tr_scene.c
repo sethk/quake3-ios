@@ -397,8 +397,16 @@ void RE_RenderScene( const refdef_t *fd ) {
 	else
 #endif // IPHONE
 	{
-		parms.viewportX = tr.refdef.x;
-		parms.viewportY = glConfig.vidHeight - ( tr.refdef.y + tr.refdef.height );
+#ifdef IPHONE
+		if ( glConfig.vidRotation == 180 ) {
+			parms.viewportX = glConfig.vidWidth - ( tr.refdef.x + tr.refdef.width );
+			parms.viewportY = tr.refdef.y;
+		} else
+#endif // IPHONE
+		{
+			parms.viewportX = tr.refdef.x;
+			parms.viewportY = glConfig.vidHeight - ( tr.refdef.y + tr.refdef.height );
+		}
 		parms.viewportWidth = tr.refdef.width;
 		parms.viewportHeight = tr.refdef.height;
 	}

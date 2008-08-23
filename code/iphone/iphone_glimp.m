@@ -246,12 +246,15 @@ GLimp_SetMode(void)
  	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
 	CGSize size;
 
+	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation))
+		orientation = UIDeviceOrientationPortrait;
+
 	_screenView = ((Q3Application *)[UIApplication sharedApplication]).screenView;
 	_context = _screenView.context;
 	size = _screenView.frame.size;
 
 	glConfig.isFullscreen = qtrue;
- 	if (orientation == UIDeviceOrientationUnknown || UIDeviceOrientationIsPortrait(orientation))
+ 	if (UIDeviceOrientationIsPortrait(orientation))
  	{
  		glConfig.vidWidth = size.width;
  		glConfig.vidHeight = size.height;
@@ -268,7 +271,6 @@ GLimp_SetMode(void)
  
  	switch (orientation)
  	{
- 		case UIDeviceOrientationUnknown:
  		case UIDeviceOrientationPortrait: glConfig.vidRotation = 0.0; break;
  		case UIDeviceOrientationLandscapeRight: glConfig.vidRotation = 90.0; break;
  		case UIDeviceOrientationPortraitUpsideDown: glConfig.vidRotation = 180.0; break;
