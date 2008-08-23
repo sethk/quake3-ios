@@ -59,28 +59,38 @@
 - (void)_deviceOrientationChanged:(NSNotification *)notification
 {
 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-	Q3ScreenView *screenView = self.screenView;
-	UIView *superview = screenView.superview;
-	CGRect superviewBounds = superview.bounds, frame;
 
-	if (UIDeviceOrientationIsPortrait(orientation))
+	if (orientation != UIDeviceOrientationUnknown)
 	{
-		frame.size.width = superviewBounds.size.width;
-		frame.size.height = frame.size.width * (3 / 4.0);
-		frame.origin.x = superviewBounds.origin.x;
-		frame.origin.y = (superviewBounds.size.height - frame.size.height) / 2;
-	}
-	else
-		frame = superviewBounds;
+		Q3ScreenView *screenView = self.screenView;
+		UIView *superview = screenView.superview;
+		CGRect superviewBounds = superview.bounds, frame;
 
-	screenView.frame = frame;
+		if (UIDeviceOrientationIsPortrait(orientation))
+		{
+			frame.size.width = superviewBounds.size.width;
+			frame.size.height = frame.size.width * (3 / 4.0);
+			frame.origin.x = superviewBounds.origin.x;
+			frame.origin.y = (superviewBounds.size.height - frame.size.height) / 2;
+		}
+		else
+			frame = superviewBounds;
 
-	GLimp_SetMode();
+		screenView.frame = frame;
 
-	if (cls.uiStarted)
-	{
-		cls.glconfig = glConfig;
-		VM_Call(uivm, UI_UPDATE_GLCONFIG);
+		GLimp_SetMode();
+
+		if (cls.uiStarted)
+		{
+			cls.glconfig = glConfig;
+			VM_Call(uivm, UI_UPDATE_GLCONFIG);
+		}
+		
+		if (cls.state == CA_ACTIVE)
+		{
+			cls.glconfig = glConfig;
+			VM_Call(cgvm, CG_UPDATE_GLCONFIG);
+		}
 	}
 }
 

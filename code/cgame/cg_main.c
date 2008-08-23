@@ -32,6 +32,7 @@ displayContextDef_t cgDC;
 int forceModelModificationCount = -1;
 
 void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum );
+void CG_UpdateGLConfig( void );
 void CG_Shutdown( void );
 
 
@@ -73,6 +74,9 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
 		return 0;
 	case CG_EVENT_HANDLING:
 		CG_EventHandling(arg0);
+		return 0;
+	case CG_UPDATE_GLCONFIG:
+		CG_UpdateGLConfig();
 		return 0;
 	default:
 		CG_Error( "vmMain: unknown command %i", command );
@@ -1888,10 +1892,7 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	cgs.flagStatus = -1;
 	// old servers
 
-	// get the rendering configuration from the client system
-	trap_GetGlconfig( &cgs.glconfig );
-	cgs.screenXScale = cgs.glconfig.vidWidth / 640.0;
-	cgs.screenYScale = cgs.glconfig.vidHeight / 480.0;
+	CG_UpdateGLConfig();
 
 	// get the gamestate from the client system
 	trap_GetGameState( &cgs.gameState );
@@ -1958,6 +1959,18 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	CG_ShaderStateChanged();
 
 	trap_S_ClearLoopingSounds( qtrue );
+}
+
+/*
+=================
+CG_UpdateGLConfig
+=================
+*/
+void CG_UpdateGLConfig( void ) {
+	// get the rendering configuration from the client system
+	trap_GetGlconfig( &cgs.glconfig );
+	cgs.screenXScale = cgs.glconfig.vidWidth / 640.0;
+	cgs.screenYScale = cgs.glconfig.vidHeight / 480.0;
 }
 
 /*

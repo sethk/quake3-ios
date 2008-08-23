@@ -412,9 +412,6 @@ static void RB_Hyperspace( void ) {
 static void SetViewportAndScissor( void ) {
 	qglMatrixMode(GL_PROJECTION);
 	qglLoadMatrixf( backEnd.viewParms.projectionMatrix );
-#ifdef IPHONE
-	qglRotatef( glConfig.vidRotation, 0.0, 0.0, 1.0 );
-#endif // IPHONE
 	qglMatrixMode(GL_MODELVIEW);
 
 	// set the window clipping
