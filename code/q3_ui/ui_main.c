@@ -49,6 +49,10 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
 		UI_Init();
 		return 0;
 
+	case UI_UPDATE_GLCONFIG:
+		UI_UpdateGLConfig();
+		return 0;
+
 	case UI_SHUTDOWN:
 		UI_Shutdown();
 		return 0;

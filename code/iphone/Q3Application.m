@@ -8,9 +8,11 @@
 #import	"Q3ScreenView.h"
 #include "iphone_local.h"
 #include "../renderer/tr_local.h"
+#include "../client/client.h"
 
 @interface Q3Application ()
 
+- (void)_deviceOrientationChanged:(NSNotification *)notification;
 #ifdef IPHONE_USE_THREADS
 - (void)_runMainLoop:(id)context;
 - (void)keepAlive:(NSTimer *)timer;
@@ -28,6 +30,7 @@
 	NSArray *arguments = [[NSProcessInfo processInfo] arguments];
 	int ac, i;
 	const char *av[32];
+	UIDevice *device = [UIDevice currentDevice];
 
 	ac = MIN([arguments count], sizeof(av) / sizeof(av[0]));
 	for (i = 0; i < ac; ++i)
@@ -37,6 +40,12 @@
 
 	GLimp_ReleaseGL();
 
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(_deviceOrientationChanged:)
+												 name:UIDeviceOrientationDidChangeNotification
+											   object:device];
+	[device beginGeneratingDeviceOrientationNotifications];
+
 #if IPHONE_USE_THREADS
 	Com_Printf("Starting render thread...\n");
 
@@ -45,6 +54,34 @@
 #else
 	[NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(_runFrame:) userInfo:nil repeats:YES];
 #endif // IPHONE_USE_THREADS
+}
+
+- (void)_deviceOrientationChanged:(NSNotification *)notification
+{
+	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+	Q3ScreenView *screenView = self.screenView;
+	UIView *superview = screenView.superview;
+	CGRect superviewBounds = superview.bounds, frame;
+
+	if (UIDeviceOrientationIsPortrait(orientation))
+	{
+		frame.size.width = superviewBounds.size.width;
+		frame.size.height = frame.size.width * (3 / 4.0);
+		frame.origin.x = superviewBounds.origin.x;
+		frame.origin.y = (superviewBounds.size.height - frame.size.height) / 2;
+	}
+	else
+		frame = superviewBounds;
+
+	screenView.frame = frame;
+
+	GLimp_SetMode();
+
+	if (cls.uiStarted)
+	{
+		cls.glconfig = glConfig;
+		VM_Call(uivm, UI_UPDATE_GLCONFIG);
+	}
 }
 
 #ifdef IPHONE_USE_THREADS

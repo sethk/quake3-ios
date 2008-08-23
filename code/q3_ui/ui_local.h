@@ -554,6 +554,7 @@ typedef struct {
 } uiStatic_t;
 
 extern void			UI_Init( void );
+extern void			UI_UpdateGLConfig( void );
 extern void			UI_Shutdown( void );
 extern void			UI_KeyEvent( int key, int down );
 extern void			UI_MouseEvent( int dx, int dy );

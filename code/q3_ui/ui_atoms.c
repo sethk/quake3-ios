@@ -1069,6 +1069,21 @@ void UI_Init( void ) {
 
 	UI_InitGameinfo();
 
+	UI_UpdateGLConfig();
+
+	// initialize the menu system
+	Menu_Cache();
+
+	uis.activemenu = NULL;
+	uis.menusp     = 0;
+}
+
+/*
+================
+UI_UpdateGLConfig
+================
+*/
+void UI_UpdateGLConfig( void ) {
 	// cache redundant calulations
 	trap_GetGlconfig( &uis.glconfig );
 
@@ -1082,13 +1097,7 @@ void UI_Init( void ) {
 		// no wide screen
 		uis.bias = 0;
 	}
-
-	// initialize the menu system
-	Menu_Cache();
-
-	uis.activemenu = NULL;
-	uis.menusp     = 0;
-}
+}	
 
 /*
 ================

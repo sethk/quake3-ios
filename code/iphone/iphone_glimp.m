@@ -25,6 +25,8 @@ static GLuint _GLimp_numInputVerts, _GLimp_numOutputVerts;
 static qboolean _GLimp_texcoordbuffer;
 static qboolean _GLimp_colorbuffer;
 
+unsigned int QGLBeginStarted = 0;
+
 #ifndef NDEBUG
 
 #ifdef QGL_LOG_GL_CALLS
@@ -36,8 +38,6 @@ QGLDebugFile(void)
 	return stderr;
 }
 #endif // QGL_LOG_GL_CALLS
-
-unsigned int QGLBeginStarted = 0;
 
 #ifdef QGL_CHECK_GL_ERRORS
 void
@@ -243,6 +243,7 @@ GLimp_Init(void)
 void
 GLimp_SetMode(void)
 {
+ 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
 	CGSize size;
 
 	_screenView = ((Q3Application *)[UIApplication sharedApplication]).screenView;
@@ -250,17 +251,29 @@ GLimp_SetMode(void)
 	size = _screenView.frame.size;
 
 	glConfig.isFullscreen = qtrue;
-#ifdef GL_ROTATE
-	glConfig.vidWidth = IPHONE_HORIZ_YRES;
-	glConfig.vidHeight = IPHONE_XRES;
-#else
-	glConfig.vidWidth = size.width;
-	glConfig.vidHeight = size.height;
-#endif // GL_ROTATE
+ 	if (orientation == UIDeviceOrientationUnknown || UIDeviceOrientationIsPortrait(orientation))
+ 	{
+ 		glConfig.vidWidth = size.width;
+ 		glConfig.vidHeight = size.height;
+ 	}
+ 	else
+ 	{
+ 		glConfig.vidWidth = size.height;
+ 		glConfig.vidHeight = size.width;
+ 	}
 	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
 	glConfig.colorBits = [_screenView numColorBits];
 	glConfig.depthBits = [_screenView numDepthBits];
 	glConfig.stencilBits = 0;
+ 
+ 	switch (orientation)
+ 	{
+ 		case UIDeviceOrientationUnknown:
+ 		case UIDeviceOrientationPortrait: glConfig.vidRotation = 0.0; break;
+ 		case UIDeviceOrientationLandscapeRight: glConfig.vidRotation = 90.0; break;
+ 		case UIDeviceOrientationPortraitUpsideDown: glConfig.vidRotation = 180.0; break;
+ 		case UIDeviceOrientationLandscapeLeft: glConfig.vidRotation = 270.0; break;
+ 	}
 }
 
 void

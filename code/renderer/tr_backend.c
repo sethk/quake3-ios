@@ -412,6 +412,9 @@ static void RB_Hyperspace( void ) {
 static void SetViewportAndScissor( void ) {
 	qglMatrixMode(GL_PROJECTION);
 	qglLoadMatrixf( backEnd.viewParms.projectionMatrix );
+#ifdef IPHONE
+	qglRotatef( glConfig.vidRotation, 0.0, 0.0, 1.0 );
+#endif // IPHONE
 	qglMatrixMode(GL_MODELVIEW);
 
 	// set the window clipping
@@ -691,23 +694,28 @@ void	RB_SetGL2D (void) {
 	backEnd.projection2D = qtrue;
 
 	// set 2D virtual screen size
-#ifdef GL_ROTATE
-	qglViewport( 0, 0, glConfig.vidHeight, glConfig.vidWidth );
-	qglScissor( 0, 0, glConfig.vidHeight, glConfig.vidWidth );
+#ifdef IPHONE
+	if ( glConfig.vidRotation == 90.0 || glConfig.vidRotation == 270.0 )
+	{
+		qglViewport ( 0, 0, glConfig.vidHeight, glConfig.vidWidth );
+		qglScissor( 0, 0, glConfig.vidHeight, glConfig.vidWidth );
+	}
+	else
+#endif // IPHONE
+	{
+		qglViewport ( 0, 0, glConfig.vidWidth, glConfig.vidHeight );
+		qglScissor( 0, 0, glConfig.vidWidth, glConfig.vidHeight );
+	}
 	qglMatrixMode(GL_PROJECTION);
     qglLoadIdentity ();
-	qglRotatef(90, 0.0, 0.0, 1.0);
+#ifdef IPHONE
+	qglRotatef (glConfig.vidRotation, 0, 0, 1);
+	qglTranslatef (0, 0, 0);
+#endif // IPHONE
 	qglOrtho (0, glConfig.vidWidth, glConfig.vidHeight, 0, 0, 1);
-#else
-	qglViewport( 0, 0, glConfig.vidWidth, glConfig.vidHeight );
-	qglScissor( 0, 0, glConfig.vidWidth, glConfig.vidHeight );
-	qglMatrixMode(GL_PROJECTION);
-    qglLoadIdentity ();
-	qglOrtho (0, glConfig.vidWidth, glConfig.vidHeight, 0, 0, 1);
-#endif // GL_ROTATE
 	qglMatrixMode(GL_MODELVIEW);
     qglLoadIdentity ();
-
+	
 	GL_State( GLS_DEPTHTEST_DISABLE |
 			  GLS_SRCBLEND_SRC_ALPHA |
 			  GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA );
@@ -776,6 +784,7 @@ void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const qbyte 
 			// otherwise, just subimage upload it so that drivers can tell we are going to be changing
 			// it and don't try and do a texture compression
 			qglTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0, cols, rows, GL_RGBA, GL_UNSIGNED_BYTE, data );
+			Com_DPrintf("blend = %d, lighting = %d\n", qglIsEnabled(GL_BLEND), qglIsEnabled(GL_LIGHTING));
 		}
 	}
 
