@@ -12,6 +12,7 @@
 
 #include "../ui/keycodes.h"
 #include "../renderer/tr_local.h"
+#include "../client/client.h"
 
 #define kColorFormat  kEAGLColorFormatRGB565
 #define kNumColorBits 16
@@ -37,7 +38,6 @@
 - (BOOL)_commonInit
 {
 	CAEAGLLayer *layer = (CAEAGLLayer *)self.layer;
-	CGRect frame = self.frame;
 
 	[layer setDrawableProperties:[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
@@ -50,9 +50,7 @@
 	if (![self _createSurface])
 		return NO;
 
-	_mousePoint = CGPointMake(20, frame.size.height - 20);
-	_mouseScale.width = 640 / frame.size.width;
-	_mouseScale.height = 480 / frame.size.height;
+	_GUIMouseLocation = CGPointMake(0, 0);
 
 	return YES;
 }
@@ -105,6 +103,21 @@
 	_size = layer.bounds.size;
 	_size.width = roundf(_size.width);
 	_size.height = roundf(_size.height);
+	if (_size.width > _size.height)
+	{
+		_GUIMouseOffset.width = _GUIMouseOffset.height = 0;
+		_mouseScale.x = 640 / _size.width;
+		_mouseScale.y = 480 / _size.height;
+	}
+	else
+	{
+		float aspect = _size.height / _size.width;
+
+		_GUIMouseOffset.width = -roundf((480 * aspect - 640) / 2.0);
+		_GUIMouseOffset.height = 0;
+		_mouseScale.x = (480 * aspect) / _size.height;
+		_mouseScale.y = 480 / _size.width;
+	}
 
 	qglGetIntegerv(GL_RENDERBUFFER_BINDING_OES, &oldRenderBuffer);
 	qglGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &oldFrameBuffer);
@@ -161,31 +174,88 @@
 
 - (void)_moveMouseWithTouch:(UITouch *)touch
 {
-	CGPoint point = [touch locationInView:self];
-	CGRect bounds = self.bounds;
-	int deltaX, deltaY;
-
-	point.x = MIN(MAX(point.x, bounds.origin.x), bounds.origin.x + bounds.size.width);
-	point.y = MIN(MAX(point.y, bounds.origin.y), bounds.origin.y + bounds.size.height);
-
-	point.x = roundf(point.x * _mouseScale.width);
-	point.y = roundf(point.y * _mouseScale.height);
-
-	deltaX = point.x - _mousePoint.x;
-	deltaY = point.y - _mousePoint.y;
-
-	ri.Printf(PRINT_DEVELOPER, "%s: deltaX = %d, deltaY = %d\n", __PRETTY_FUNCTION__, deltaX, deltaY);
-
-	if (deltaX || deltaY)
+	if (cls.state == CA_ACTIVE || cls.state == CA_DISCONNECTED)
 	{
-		Sys_QueEvent(0, SE_MOUSE, deltaX, deltaY, 0, NULL);
-		_mousePoint = point;
+		CGPoint location = [touch locationInView:self];
+		int deltaX, deltaY;
+
+		if (cls.state == CA_ACTIVE)
+		{
+			CGPoint previousLocation = [touch previousLocationInView:self];
+			CGSize mouseDelta;
+
+			if (glConfig.vidRotation == 90)
+			{
+				mouseDelta.width = previousLocation.y - location.y;
+				mouseDelta.height = location.x - previousLocation.x;
+			}
+			else if (glConfig.vidRotation == 0)
+			{
+				mouseDelta.width = location.x - previousLocation.x;
+				mouseDelta.height = location.y - previousLocation.y;
+			}
+			else if (glConfig.vidRotation == 270)
+			{
+				mouseDelta.width = location.y - previousLocation.y;
+				mouseDelta.height = previousLocation.x - location.x;
+			}
+			else
+			{
+				mouseDelta.width = previousLocation.x - location.x;
+				mouseDelta.height = previousLocation.y - location.y;
+			}
+
+			deltaX = roundf(mouseDelta.width * _mouseScale.x);
+			deltaY = roundf(mouseDelta.height * _mouseScale.y);
+		}
+		else if (cls.state == CA_DISCONNECTED)
+		{
+			CGPoint mouseLocation, GUIMouseLocation;
+
+			if (glConfig.vidRotation == 90)
+			{
+				mouseLocation.x = _size.height - location.y;
+				mouseLocation.y = location.x;
+			}
+			else if (glConfig.vidRotation == 0)
+			{
+				mouseLocation.x = location.x;
+				mouseLocation.y = location.y;
+			}
+			else if (glConfig.vidRotation == 270)
+			{
+				mouseLocation.x = location.y;
+				mouseLocation.y = _size.width - location.x;
+			}
+			else
+			{
+				mouseLocation.x = _size.width - location.x;
+				mouseLocation.y = _size.height - location.y;
+			}
+
+			GUIMouseLocation.x = roundf(_GUIMouseOffset.width + mouseLocation.x * _mouseScale.x);
+			GUIMouseLocation.y = roundf(_GUIMouseOffset.height + mouseLocation.y * _mouseScale.y);
+
+			GUIMouseLocation.x = MIN(MAX(GUIMouseLocation.x, 0), 640);
+			GUIMouseLocation.y = MIN(MAX(GUIMouseLocation.y, 0), 480);
+
+			deltaX = GUIMouseLocation.x - _GUIMouseLocation.x;
+			deltaY = GUIMouseLocation.y - _GUIMouseLocation.y;
+			_GUIMouseLocation = GUIMouseLocation;
+		}
+
+		ri.Printf(PRINT_DEVELOPER, "%s: deltaX = %d, deltaY = %d\n", __PRETTY_FUNCTION__, deltaX, deltaY);
+		if (deltaX || deltaY)
+			Sys_QueEvent(0, SE_MOUSE, deltaX, deltaY, 0, NULL);
 	}
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[self _moveMouseWithTouch:[touches anyObject]];
+	if (cls.state == CA_DISCONNECTED)
+		// Warp the pointer if in the GUI:
+		[self _moveMouseWithTouch:[touches anyObject]];
+
 	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
 }
 
