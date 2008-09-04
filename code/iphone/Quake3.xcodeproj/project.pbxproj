@@ -10,6 +10,7 @@
 		1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FD1E69470E6FC951004A4AC6 /* Icon.png */; };
 		FD1F2EBE0E2B21A600DF2240 /* q_math.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41350E0F370E008E2729 /* q_math.c */; };
 		FD1F2EC50E2B21B500DF2240 /* q_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41360E0F370E008E2729 /* q_shared.c */; };
 		FD1F2ECD0E2B21EB00DF2240 /* bg_misc.c in Sources */ = {isa = PBXBuildFile; fileRef = FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */; };
@@ -298,6 +299,7 @@
 		1D6058910D05DD3D006BFB54 /* Quake3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quake3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD1E69470E6FC951004A4AC6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = bg_misc.c; sourceTree = "<group>"; };
 		FD4C5CF30E2DE0D400012E6B /* ai_chat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_chat.c; sourceTree = "<group>"; };
 		FD4C5CF40E2DE0D400012E6B /* ai_cmd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_cmd.c; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FD1E69470E6FC951004A4AC6 /* Icon.png */,
 				FDBBE4E00E2B197900A186BC /* pak0.pk3 */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */,
@@ -1102,6 +1105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */,
+				FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
