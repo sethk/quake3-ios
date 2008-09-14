@@ -71,6 +71,7 @@
 		FD4C5D800E2DE39400012E6B /* cg_weapons.c in Sources */ = {isa = PBXBuildFile; fileRef = FD4C5D6D0E2DE39400012E6B /* cg_weapons.c */; };
 		FD4C5D820E2DE3C800012E6B /* q_math.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41350E0F370E008E2729 /* q_math.c */; };
 		FD4C5D830E2DE3C800012E6B /* q_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41360E0F370E008E2729 /* q_shared.c */; };
+		FD8DE2C20E7CFE0A00C1032C /* banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FD8DE2C10E7CFE0A00C1032C /* banner.jpg */; };
 		FD9C404C0E0F3365008E2729 /* be_aas_bspq3.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40300E0F3365008E2729 /* be_aas_bspq3.c */; };
 		FD9C404D0E0F3365008E2729 /* be_aas_cluster.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40310E0F3365008E2729 /* be_aas_cluster.c */; };
 		FD9C404E0E0F3365008E2729 /* be_aas_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40320E0F3365008E2729 /* be_aas_debug.c */; };
@@ -349,6 +350,7 @@
 		FD4C5D6B0E2DE39400012E6B /* cg_syscalls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_syscalls.c; sourceTree = "<group>"; };
 		FD4C5D6C0E2DE39400012E6B /* cg_view.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_view.c; sourceTree = "<group>"; };
 		FD4C5D6D0E2DE39400012E6B /* cg_weapons.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cg_weapons.c; sourceTree = "<group>"; };
+		FD8DE2C10E7CFE0A00C1032C /* banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = banner.jpg; path = ../macosx/banner.jpg; sourceTree = SOURCE_ROOT; };
 		FD9C40300E0F3365008E2729 /* be_aas_bspq3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = be_aas_bspq3.c; sourceTree = "<group>"; };
 		FD9C40310E0F3365008E2729 /* be_aas_cluster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = be_aas_cluster.c; sourceTree = "<group>"; };
 		FD9C40320E0F3365008E2729 /* be_aas_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = be_aas_debug.c; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 			isa = PBXGroup;
 			children = (
 				FD1E69470E6FC951004A4AC6 /* Icon.png */,
+				FD8DE2C10E7CFE0A00C1032C /* banner.jpg */,
 				FDBBE4E00E2B197900A186BC /* pak0.pk3 */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */,
@@ -1103,6 +1106,7 @@
 			files = (
 				FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */,
 				FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */,
+				FD8DE2C20E7CFE0A00C1032C /* banner.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

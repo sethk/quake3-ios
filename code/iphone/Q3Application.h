@@ -13,6 +13,7 @@
 {
 @protected
 	IBOutlet Q3ScreenView *_screenView;
+	IBOutlet UIView *_loadingView;
 }
 
 @property (assign, readonly, nonatomic) Q3ScreenView *screenView;

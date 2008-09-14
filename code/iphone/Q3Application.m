@@ -12,6 +12,7 @@
 
 @interface Q3Application ()
 
+- (void)_quakeMain;
 - (void)_deviceOrientationChanged:(NSNotification *)notification;
 #ifdef IPHONE_USE_THREADS
 - (void)_runMainLoop:(id)context;
@@ -24,21 +25,37 @@
 
 @implementation Q3Application
 
-- (void)applicationDidFinishLaunching:(id)unused
+- (void)_quakeMain
 {
 	extern void Sys_Startup(int argc, char *argv[]);
 	NSArray *arguments = [[NSProcessInfo processInfo] arguments];
 	int ac, i;
 	const char *av[32];
-	UIDevice *device = [UIDevice currentDevice];
 
 	ac = MIN([arguments count], sizeof(av) / sizeof(av[0]));
 	for (i = 0; i < ac; ++i)
 		av[i] = [[arguments objectAtIndex:i] cString];
-
+	
 	Sys_Startup(ac, (char **)av);
 
+	[_loadingView removeFromSuperview];
+	_screenView.isHidden = NO;
+
+#if IPHONE_USE_THREADS
+	Com_Printf("Starting render thread...\n");
+
 	GLimp_ReleaseGL();
+
+	[NSThread detachNewThreadSelector:@selector(_runMainLoop:) toTarget:self withObject:nil];
+	[NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(_keepAlive:) userInfo:nil repeats:YES];
+#else
+	[NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(_runFrame:) userInfo:nil repeats:YES];
+#endif // IPHONE_USE_THREADS
+}
+
+- (void)applicationDidFinishLaunching:(id)unused
+{
+	UIDevice *device = [UIDevice currentDevice];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(_deviceOrientationChanged:)
@@ -46,14 +63,7 @@
 											   object:device];
 	[device beginGeneratingDeviceOrientationNotifications];
 
-#if IPHONE_USE_THREADS
-	Com_Printf("Starting render thread...\n");
-
-	[NSThread detachNewThreadSelector:@selector(_runMainLoop:) toTarget:self withObject:nil];
-	[NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(_keepAlive:) userInfo:nil repeats:YES];
-#else
-	[NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(_runFrame:) userInfo:nil repeats:YES];
-#endif // IPHONE_USE_THREADS
+	[self performSelector:@selector(_quakeMain) withObject:nil afterDelay:0.0];
 }
 
 - (void)_deviceOrientationChanged:(NSNotification *)notification
