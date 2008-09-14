@@ -246,7 +246,6 @@
 		FDBBE5460E2B1C0100A186BC /* ui_teamorders.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5430E2B1C0100A186BC /* ui_teamorders.c */; };
 		FDBBE5470E2B1C0100A186BC /* ui_video.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE5440E2B1C0100A186BC /* ui_video.c */; };
 		FDD254400D80FF5200E13415 /* iphone_glimp.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD254350D80FF5200E13415 /* iphone_glimp.m */; };
-		FDD254410D80FF5200E13415 /* iphone_glimp_native.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD254360D80FF5200E13415 /* iphone_glimp_native.m */; };
 		FDD254420D80FF5200E13415 /* iphone_glsmp_null.c in Sources */ = {isa = PBXBuildFile; fileRef = FDD254370D80FF5200E13415 /* iphone_glsmp_null.c */; };
 		FDD254430D80FF5200E13415 /* iphone_input.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD254380D80FF5200E13415 /* iphone_input.m */; };
 		FDD254440D80FF5200E13415 /* iphone_main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543A0D80FF5200E13415 /* iphone_main.m */; };
@@ -526,7 +525,6 @@
 		FDBBE5440E2B1C0100A186BC /* ui_video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ui_video.c; sourceTree = "<group>"; };
 		FDD254340D80FF5200E13415 /* iphone_glimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iphone_glimp.h; sourceTree = "<group>"; };
 		FDD254350D80FF5200E13415 /* iphone_glimp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_glimp.m; sourceTree = "<group>"; };
-		FDD254360D80FF5200E13415 /* iphone_glimp_native.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_glimp_native.m; sourceTree = "<group>"; };
 		FDD254370D80FF5200E13415 /* iphone_glsmp_null.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iphone_glsmp_null.c; sourceTree = "<group>"; };
 		FDD254380D80FF5200E13415 /* iphone_input.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_input.m; sourceTree = "<group>"; };
 		FDD254390D80FF5200E13415 /* iphone_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iphone_local.h; sourceTree = "<group>"; };
@@ -965,7 +963,6 @@
 			children = (
 				FDD254340D80FF5200E13415 /* iphone_glimp.h */,
 				FDD254350D80FF5200E13415 /* iphone_glimp.m */,
-				FDD254360D80FF5200E13415 /* iphone_glimp_native.m */,
 				FDD254370D80FF5200E13415 /* iphone_glsmp_null.c */,
 				FDD254380D80FF5200E13415 /* iphone_input.m */,
 				FDD254390D80FF5200E13415 /* iphone_local.h */,
@@ -1176,7 +1173,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDD254400D80FF5200E13415 /* iphone_glimp.m in Sources */,
-				FDD254410D80FF5200E13415 /* iphone_glimp_native.m in Sources */,
 				FDD254420D80FF5200E13415 /* iphone_glsmp_null.c in Sources */,
 				FDD254430D80FF5200E13415 /* iphone_input.m in Sources */,
 				FDD254440D80FF5200E13415 /* iphone_main.m in Sources */,
