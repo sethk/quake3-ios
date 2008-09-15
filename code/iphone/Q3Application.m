@@ -28,6 +28,7 @@
 - (void)_quakeMain
 {
 	extern void Sys_Startup(int argc, char *argv[]);
+	extern cvar_t *com_maxfps;
 	NSArray *arguments = [[NSProcessInfo processInfo] arguments];
 	int ac, i;
 	const char *av[32];
@@ -47,9 +48,12 @@
 	GLimp_ReleaseGL();
 
 	[NSThread detachNewThreadSelector:@selector(_runMainLoop:) toTarget:self withObject:nil];
-	[NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(_keepAlive:) userInfo:nil repeats:YES];
 #else
-	[NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(_runFrame:) userInfo:nil repeats:YES];
+	[NSTimer scheduledTimerWithTimeInterval:1.0 / com_maxfps->integer
+									 target:self
+								   selector:@selector(_runFrame:)
+								   userInfo:nil
+									repeats:YES];
 #endif // IPHONE_USE_THREADS
 }
 
@@ -110,14 +114,7 @@
 	while (1)
 		Com_Frame();
 }
-
-- (void)_keepAlive:(NSTimer *)timer
-{
-	NSLog(@"keepAlive:");
-}
-
 #else
-
 - (void)_runFrame:(NSTimer *)timer
 {
 	Com_Frame();
