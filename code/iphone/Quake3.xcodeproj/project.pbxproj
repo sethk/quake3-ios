@@ -253,6 +253,7 @@
 		FDD254450D80FF5200E13415 /* Q3Application.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543D0D80FF5200E13415 /* Q3Application.m */; };
 		FDD254460D80FF5200E13415 /* Q3ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */; };
 		FDD2544E0D8102C300E13415 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2544D0D8102C300E13415 /* OpenGLES.framework */; };
+		FDFDFA020E86083300DC9125 /* Q3Accelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = FDFDFA010E86083300DC9125 /* Q3Accelerometer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -537,6 +538,8 @@
 		FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3ScreenView.h; sourceTree = "<group>"; };
 		FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3ScreenView.m; sourceTree = "<group>"; };
 		FDD2544D0D8102C300E13415 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		FDFDFA000E86083300DC9125 /* Q3Accelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3Accelerometer.h; sourceTree = "<group>"; };
+		FDFDFA010E86083300DC9125 /* Q3Accelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3Accelerometer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -975,6 +978,8 @@
 				FDD2543D0D80FF5200E13415 /* Q3Application.m */,
 				FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */,
 				FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */,
+				FDFDFA000E86083300DC9125 /* Q3Accelerometer.h */,
+				FDFDFA010E86083300DC9125 /* Q3Accelerometer.m */,
 			);
 			path = iphone;
 			sourceTree = "<group>";
@@ -1313,6 +1318,7 @@
 				FD9C41310E0F3605008E2729 /* sv_world.c in Sources */,
 				FD9C41370E0F370E008E2729 /* q_math.c in Sources */,
 				FD9C41380E0F370E008E2729 /* q_shared.c in Sources */,
+				FDFDFA020E86083300DC9125 /* Q3Accelerometer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

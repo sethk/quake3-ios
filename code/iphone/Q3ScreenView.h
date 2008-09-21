@@ -9,6 +9,28 @@
 #import	<OpenGLES/EAGLDrawable.h>
 #import	<OpenGLES/ES1/gl.h>
 
+#define BIT0 (1<<0)
+#define BIT1 (1<<1)
+#define BIT2 (1<<2)
+#define BIT3 (1<<3)
+#define BIT4 (1<<4)
+#define BIT5 (1<<5)
+#define BIT6 (1<<6)
+
+enum Q3EventType         
+{
+	Q3Event_ClickOnMenu = BIT0,
+	Q3Event_Fire = BIT1,
+	Q3Event_RotateCamera = BIT2,
+	Q3Event_MovePlayerForward = BIT3,
+	Q3Event_MovePlayerBack = BIT4,
+	Q3Event_MovePlayerLeft = BIT5,
+	Q3Event_MovePlayerRight = BIT6,
+	COUNT
+};
+
+@class Q3Accelerometer;
+
 @interface Q3ScreenView : UIView
 {
 @protected
@@ -20,9 +42,12 @@
 	CGPoint _GUIMouseLocation;
 	CGSize _GUIMouseOffset;
 	CGPoint _mouseScale;
+	Q3Accelerometer *_accelerometer;
+	unsigned int _bitMask;
 }
 
 - initWithFrame:(CGRect)frame;
+- (void)handleAccelerometerInput;
 @property (assign, readonly, nonatomic) NSUInteger numColorBits;
 @property (assign, readonly, nonatomic) NSUInteger numDepthBits;
 @property (assign, readonly, nonatomic) EAGLContext *context;
