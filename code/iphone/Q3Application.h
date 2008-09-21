@@ -17,5 +17,6 @@
 }
 
 @property (assign, readonly, nonatomic) Q3ScreenView *screenView;
+@property (assign, readonly, nonatomic) float deviceRotation;
 
 @end

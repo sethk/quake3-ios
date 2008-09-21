@@ -14,8 +14,6 @@
 
 #define UNIMPL()	Com_Printf("%s(): Unimplemented\n", __FUNCTION__)
 
-void GLimp_SetMode(void);
-
 void Sys_QueEvent(int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr);
 
 #endif // IPHONE_LOCAL_H

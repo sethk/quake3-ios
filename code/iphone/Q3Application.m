@@ -36,7 +36,7 @@
 	ac = MIN([arguments count], sizeof(av) / sizeof(av[0]));
 	for (i = 0; i < ac; ++i)
 		av[i] = [[arguments objectAtIndex:i] cString];
-	
+
 	Sys_Startup(ac, (char **)av);
 
 	[_loadingView removeFromSuperview];
@@ -72,39 +72,13 @@
 
 - (void)_deviceOrientationChanged:(NSNotification *)notification
 {
-	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-
-	if (UIDeviceOrientationIsValidInterfaceOrientation(orientation))
+	// Keep the orientation locked into landscape while in-game:
+	if (cls.state == CA_DISCONNECTED)
 	{
-		Q3ScreenView *screenView = self.screenView;
-		UIView *superview = screenView.superview;
-		CGRect superviewBounds = superview.bounds, frame;
+		UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
 
-		if (UIDeviceOrientationIsPortrait(orientation))
-		{
-			frame.size.width = superviewBounds.size.width;
-			frame.size.height = frame.size.width * (3 / 4.0);
-			frame.origin.x = superviewBounds.origin.x;
-			frame.origin.y = (superviewBounds.size.height - frame.size.height) / 2;
-		}
-		else
-			frame = superviewBounds;
-
-		screenView.frame = frame;
-
-		GLimp_SetMode();
-
-		if (cls.uiStarted)
-		{
-			cls.glconfig = glConfig;
-			VM_Call(uivm, UI_UPDATE_GLCONFIG);
-		}
-		
-		if (cls.state == CA_ACTIVE)
-		{
-			cls.glconfig = glConfig;
-			VM_Call(cgvm, CG_UPDATE_GLCONFIG);
-		}
+		if (UIDeviceOrientationIsValidInterfaceOrientation(orientation))
+			GLimp_SetMode(self.deviceRotation);
 	}
 }
 
@@ -122,5 +96,24 @@
 #endif // IPHONE_USE_THREADS
 
 @synthesize screenView = _screenView;
+
+@dynamic deviceRotation;
+
+- (float)deviceRotation
+{
+ 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+
+	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation))
+		orientation = UIDeviceOrientationPortrait;
+
+ 	switch (orientation)
+ 	{
+ 		case UIDeviceOrientationPortrait: return 0.0;
+ 		case UIDeviceOrientationLandscapeRight: return 90.0;
+ 		case UIDeviceOrientationPortraitUpsideDown: return 180.0;
+ 		case UIDeviceOrientationLandscapeLeft: return 270.0;
+		default: NSAssert(NO, @"Grievous errors have been made..."); return 0;
+ 	}
+}
 
 @end
