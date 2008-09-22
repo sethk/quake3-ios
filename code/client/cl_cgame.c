@@ -908,6 +908,11 @@ void CL_FirstSnapshot( void ) {
 	}
 	cls.state = CA_ACTIVE;
 
+#ifdef IPHONE
+	// Force the device into right landscape mode:
+	GLimp_SetMode(90);
+#endif // IPHONE
+
 	// set the timedelta so we are exactly on this first frame
 	cl.serverTimeDelta = cl.snap.serverTime - cls.realtime;
 	cl.oldServerTime = cl.snap.serverTime;

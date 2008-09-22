@@ -1236,6 +1236,9 @@ IMPLEMENTATION SPECIFIC FUNCTIONS
 */
 
 void		GLimp_Init( void );
+#ifdef IPHONE
+void		GLimp_SetMode(float rotation);
+#endif // IPHONE
 void		GLimp_Shutdown( void );
 void		GLimp_AcquireGL( void );
 #ifdef IPHONE
