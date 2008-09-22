@@ -219,11 +219,16 @@ GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned char b
 void
 GLimp_Init(void)
 {
+	Q3Application *application = (Q3Application *)[Q3Application sharedApplication];
+
 	ri.Printf(PRINT_ALL, "Initializing OpenGL subsystem\n");
 
 	bzero(&glConfig, sizeof(glConfig));
 
-	GLimp_SetMode();
+	_screenView = application.screenView;
+	_context = _screenView.context;
+
+	GLimp_SetMode(application.deviceRotation);
 
     ri.Printf(PRINT_ALL, "------------------\n");
 
@@ -241,41 +246,51 @@ GLimp_Init(void)
 }
 
 void
-GLimp_SetMode(void)
+GLimp_SetMode(float rotation)
 {
- 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-	CGSize size;
+	UIView *superview = _screenView.superview;
+	CGRect superviewBounds = superview.bounds, frame;
 
-	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation))
-		orientation = UIDeviceOrientationPortrait;
+	if (rotation == 0 || rotation == 180)
+	{
+		frame.size.width = superviewBounds.size.width;
+		frame.size.height = frame.size.width * (3 / 4.0);
+		frame.origin.x = superviewBounds.origin.x;
+		frame.origin.y = (superviewBounds.size.height - frame.size.height) / 2;
+	}
+	else
+		frame = superviewBounds;
 
-	_screenView = ((Q3Application *)[UIApplication sharedApplication]).screenView;
-	_context = _screenView.context;
-	size = _screenView.frame.size;
+	_screenView.frame = frame;
 
 	glConfig.isFullscreen = qtrue;
- 	if (UIDeviceOrientationIsPortrait(orientation))
+ 	if (rotation == 0 || rotation == 180)
  	{
- 		glConfig.vidWidth = size.width;
- 		glConfig.vidHeight = size.height;
+ 		glConfig.vidWidth = frame.size.width;
+ 		glConfig.vidHeight = frame.size.height;
  	}
  	else
  	{
- 		glConfig.vidWidth = size.height;
- 		glConfig.vidHeight = size.width;
+ 		glConfig.vidWidth = frame.size.height;
+ 		glConfig.vidHeight = frame.size.width;
  	}
 	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
 	glConfig.colorBits = [_screenView numColorBits];
 	glConfig.depthBits = [_screenView numDepthBits];
 	glConfig.stencilBits = 0;
- 
- 	switch (orientation)
- 	{
- 		case UIDeviceOrientationPortrait: glConfig.vidRotation = 0.0; break;
- 		case UIDeviceOrientationLandscapeRight: glConfig.vidRotation = 90.0; break;
- 		case UIDeviceOrientationPortraitUpsideDown: glConfig.vidRotation = 180.0; break;
- 		case UIDeviceOrientationLandscapeLeft: glConfig.vidRotation = 270.0; break;
- 	}
+	glConfig.vidRotation = rotation;
+
+	if (cls.uiStarted)
+	{
+		cls.glconfig = glConfig;
+		VM_Call(uivm, UI_UPDATE_GLCONFIG);
+	}
+	
+	if (cls.state == CA_ACTIVE)
+	{
+		cls.glconfig = glConfig;
+		VM_Call(cgvm, CG_UPDATE_GLCONFIG);
+	}
 }
 
 void
