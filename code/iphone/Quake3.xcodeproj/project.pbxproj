@@ -253,7 +253,6 @@
 		FDD254460D80FF5200E13415 /* Q3ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */; };
 		FDD2544E0D8102C300E13415 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2544D0D8102C300E13415 /* OpenGLES.framework */; };
 		FDFDFA020E86083300DC9125 /* Q3Accelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = FDFDFA010E86083300DC9125 /* Q3Accelerometer.m */; };
-		FDFDFB510E871B8D00DC9125 /* User.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FDFDFB500E871B8D00DC9125 /* User.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1013,6 +1012,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				FDFDFB630E871DCD00DC9125 /* Copy Game */,
+				FDFDFB7E0E8723D000DC9125 /* Unarchive Movies */,
 				FD988AD50E6D249E0076F8A0 /* Copy Dylibs */,
 			);
 			buildRules = (
@@ -1106,7 +1106,6 @@
 				FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */,
 				FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */,
 				FD8DE2C20E7CFE0A00C1032C /* banner.jpg in Resources */,
-				FDFDFB510E871B8D00DC9125 /* User.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,7 +1124,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "for game in demoq3 baseq3; do\n\tfor dylib in ui qagame cgame; do\n\t\t${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp \"${BUILT_PRODUCTS_DIR}/$dylib.dylib\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/$game/\"\n\tdone\ndone";
+			shellScript = "for game in demoq3 baseq3; do\n\tdestdir=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/$game/\"\n\tif [ -d \"$destdir\" ]; then\n\t\tfor dylib in ui qagame cgame; do\n\t\t\t${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp \"${BUILT_PRODUCTS_DIR}/$dylib.dylib\" \"$destdir\"\n\t\tdone\n\tfi\ndone";
 		};
 		FDD388A50E5819BC00953DA9 /* Sign Binary */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1182,6 +1181,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
 			shellScript = "if [ -d \"${GAME_PATH}\" ]; then\n\t${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp \"${GAME_PATH}\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nfi";
+		};
+		FDFDFB7E0E8723D000DC9125 /* Unarchive Movies */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Unarchive Movies";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/bin/sh -x";
+			shellScript = "for game in baseq3 demoq3; do\n\tdestdir=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/$game/\"\n\tif [ -d \"$destdir\" ]; then\n\t\tcd \"$destdir\"\n\t\tfor pk3 in *.pk3; do\n\t\t\tunzip -n \"$pk3\" video/\\*\n\t\tdone\n\tfi\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
