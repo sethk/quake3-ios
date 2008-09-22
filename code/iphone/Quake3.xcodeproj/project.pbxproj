@@ -205,7 +205,6 @@
 		FDB470860E0F31B40087A684 /* unix_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FDB470830E0F31B40087A684 /* unix_shared.c */; };
 		FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */; };
 		FDBBE4620E2AEF4500A186BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBBE4610E2AEF4500A186BC /* QuartzCore.framework */; };
-		FDBBE4E30E2B19B700A186BC /* pak0.pk3 in Copy Pack Files */ = {isa = PBXBuildFile; fileRef = FDBBE4E00E2B197900A186BC /* pak0.pk3 */; };
 		FDBBE51B0E2B1B8C00A186BC /* ui_addbots.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F70E2B1B8C00A186BC /* ui_addbots.c */; };
 		FDBBE51C0E2B1B8C00A186BC /* ui_atoms.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F80E2B1B8C00A186BC /* ui_atoms.c */; };
 		FDBBE51D0E2B1B8C00A186BC /* ui_cdkey.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F90E2B1B8C00A186BC /* ui_cdkey.c */; };
@@ -254,6 +253,7 @@
 		FDD254460D80FF5200E13415 /* Q3ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */; };
 		FDD2544E0D8102C300E13415 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2544D0D8102C300E13415 /* OpenGLES.framework */; };
 		FDFDFA020E86083300DC9125 /* Q3Accelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = FDFDFA010E86083300DC9125 /* Q3Accelerometer.m */; };
+		FDFDFB510E871B8D00DC9125 /* User.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FDFDFB500E871B8D00DC9125 /* User.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,20 +279,6 @@
 			remoteInfo = cgame;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		FDBBE4EA0E2B19CC00A186BC /* Copy Pack Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = demoq3;
-			dstSubfolderSpec = 7;
-			files = (
-				FDBBE4E30E2B19B700A186BC /* pak0.pk3 in Copy Pack Files */,
-			);
-			name = "Copy Pack Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -485,7 +471,6 @@
 		FDB470830E0F31B40087A684 /* unix_shared.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = unix_shared.c; sourceTree = "<group>"; };
 		FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		FDBBE4610E2AEF4500A186BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		FDBBE4E00E2B197900A186BC /* pak0.pk3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = pak0.pk3; path = "/Volumes/Windows HD/Q3Ademo/demoq3/pak0.pk3"; sourceTree = "<absolute>"; };
 		FDBBE4F70E2B1B8C00A186BC /* ui_addbots.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ui_addbots.c; sourceTree = "<group>"; };
 		FDBBE4F80E2B1B8C00A186BC /* ui_atoms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ui_atoms.c; sourceTree = "<group>"; };
 		FDBBE4F90E2B1B8C00A186BC /* ui_cdkey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ui_cdkey.c; sourceTree = "<group>"; };
@@ -540,6 +525,7 @@
 		FDD2544D0D8102C300E13415 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		FDFDFA000E86083300DC9125 /* Q3Accelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3Accelerometer.h; sourceTree = "<group>"; };
 		FDFDFA010E86083300DC9125 /* Q3Accelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3Accelerometer.m; sourceTree = "<group>"; };
+		FDFDFB500E871B8D00DC9125 /* User.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = User.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -630,6 +616,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				FDFDFB4F0E871B7A00DC9125 /* Configs */,
 				080E96DDFE201D6D7F000001 /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -643,7 +630,6 @@
 			children = (
 				FD1E69470E6FC951004A4AC6 /* Icon.png */,
 				FD8DE2C10E7CFE0A00C1032C /* banner.jpg */,
-				FDBBE4E00E2B197900A186BC /* pak0.pk3 */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */,
 			);
@@ -984,6 +970,14 @@
 			path = iphone;
 			sourceTree = "<group>";
 		};
+		FDFDFB4F0E871B7A00DC9125 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				FDFDFB500E871B8D00DC9125 /* User.xcconfig */,
+			);
+			name = Configs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1018,7 +1012,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				FDBBE4EA0E2B19CC00A186BC /* Copy Pack Files */,
+				FDFDFB630E871DCD00DC9125 /* Copy Game */,
 				FD988AD50E6D249E0076F8A0 /* Copy Dylibs */,
 			);
 			buildRules = (
@@ -1112,6 +1106,7 @@
 				FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */,
 				FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */,
 				FD8DE2C20E7CFE0A00C1032C /* banner.jpg in Resources */,
+				FDFDFB510E871B8D00DC9125 /* User.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1130,7 +1125,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "for dylib in ui qagame cgame; do\n\t ${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp \"${BUILT_PRODUCTS_DIR}/$dylib.dylib\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/demoq3/\"\ndone";
+			shellScript = "for game in demoq3 baseq3; do\n\tfor dylib in ui qagame cgame; do\n\t\t${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp \"${BUILT_PRODUCTS_DIR}/$dylib.dylib\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/$game/\"\n\tdone\ndone";
 		};
 		FDD388A50E5819BC00953DA9 /* Sign Binary */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1144,7 +1139,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
+			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"${CODE_SIGN_IDENTITY}\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
 		};
 		FDD388D90E581B9E00953DA9 /* Sign Binary */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1158,7 +1153,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
+			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"${CODE_SIGN_IDENTITY}\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
 		};
 		FDD388DB0E581BAE00953DA9 /* Sign Binary */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1172,7 +1167,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"iPhone Developer: Seth Kingsley\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
+			shellScript = "if [ X\"${PLATFORM_NAME}\" == \"Xiphoneos\" ]; then\n\texport CODESIGN_ALLOCATE=\"${PLATFORM_DEVELOPER_BIN_DIR}/codesign_allocate\"\n\t/usr/bin/codesign -f -s \"${CODE_SIGN_IDENTITY}\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nfi";
+		};
+		FDFDFB630E871DCD00DC9125 /* Copy Game */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Game";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/bin/sh -x";
+			shellScript = "if [ -d \"${GAME_PATH}\" ]; then\n\t${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp \"${GAME_PATH}\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1492,9 +1501,9 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDFDFB500E871B8D00DC9125 /* User.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Seth Kingsley";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOS_X,
@@ -1510,16 +1519,15 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "C46F0789-9F17-4ACC-9FD9-AC2C70B1D59E";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDFDFB500E871B8D00DC9125 /* User.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Seth Kingsley";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOS_X,
@@ -1533,7 +1541,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "C46F0789-9F17-4ACC-9FD9-AC2C70B1D59E";
 				SDKROOT = iphonesimulator2.0;
 			};
 			name = Release;
