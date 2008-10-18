@@ -14,7 +14,7 @@
 +        DefaultTargetName = "Dynamic Library";
 +        DefaultBuildProperties = {
 +            FULL_PRODUCT_NAME = "$(EXECUTABLE_NAME)";
-+            MACH_O_TYPE = "dylib";
++            MACH_O_TYPE = "mh_dylib";
 +            REZ_EXECUTABLE = YES;
 +            EXECUTABLE_PREFIX = "lib";
 +            EXECUTABLE_SUFFIX = ".$(EXECUTABLE_EXTENSION)";
