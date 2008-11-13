@@ -29,8 +29,6 @@ enum Q3EventType
 	COUNT
 };
 
-@class Q3Accelerometer;
-
 @interface Q3ScreenView : UIView
 {
 @protected
@@ -42,12 +40,10 @@ enum Q3EventType
 	CGPoint _GUIMouseLocation;
 	CGSize _GUIMouseOffset;
 	CGPoint _mouseScale;
-	Q3Accelerometer *_accelerometer;
 	unsigned int _bitMask;
 }
 
 - initWithFrame:(CGRect)frame;
-- (void)handleAccelerometerInput;
 @property (assign, readonly, nonatomic) NSUInteger numColorBits;
 @property (assign, readonly, nonatomic) NSUInteger numDepthBits;
 @property (assign, readonly, nonatomic) EAGLContext *context;

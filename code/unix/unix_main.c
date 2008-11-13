@@ -1026,14 +1026,12 @@ qbyte    sys_packetReceived[MAX_MSGLEN];
 
 /*
 ================
-Sys_QueEvent
+Sys_QueEventEx
 
-A time of 0 will get the current time
-Ptr should either be null, or point to a block of data that can
-be freed by the game later.
+Includes extra parameters.
 ================
 */
-void Sys_QueEvent( int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr ) {
+void Sys_QueEventEx( int time, sysEventType_t type, int value, int value2, int value3, int ptrLength, void *ptr ) {
   sysEvent_t  *ev;
 
   ev = &eventQue[ eventHead & MASK_QUED_EVENTS ];
@@ -1061,8 +1059,22 @@ void Sys_QueEvent( int time, sysEventType_t type, int value, int value2, int ptr
   ev->evType = type;
   ev->evValue = value;
   ev->evValue2 = value2;
+  ev->evValue3 = value3;
   ev->evPtrLength = ptrLength;
   ev->evPtr = ptr;
+}
+
+/*
+================
+Sys_QueEvent
+
+A time of 0 will get the current time
+Ptr should either be null, or point to a block of data that can
+be freed by the game later.
+================
+*/
+void Sys_QueEvent ( int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr ) {
+  Sys_QueEventEx( time, type, value, value2, 0, ptrLength, ptr );
 }
 
 /*

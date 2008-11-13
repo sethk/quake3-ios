@@ -377,6 +377,19 @@ void CL_JoystickEvent( int axis, int value, int time ) {
 
 /*
 =================
+CL_AccelEvent
+
+iPhone Accelerometer event
+=================
+*/
+void CL_AccelEvent( int pitch, int roll, int yaw ) {
+	cl.accelAngles[PITCH] = pitch;
+	cl.accelAngles[ROLL] = roll;
+	cl.accelAngles[YAW] = yaw;
+}
+
+/*
+=================
 CL_JoystickMove
 =================
 */
@@ -465,6 +478,34 @@ void CL_MouseMove( usercmd_t *cmd ) {
 	}
 }
 
+/*
+==============
+CL_AccelMove
+==============
+*/
+void CL_AccelMove( usercmd_t *cmd ) {
+	if (!cl_accelLook->integer) {
+		if ( labs( cl.accelAngles[ROLL] ) > cl_accelDeadZone->integer )
+		{
+			int roll = cl.accelAngles[ROLL];
+
+			roll+= (roll > 0) ? -cl_accelDeadZone->integer : cl_accelDeadZone->integer;
+			cmd->rightmove = ClampChar( cmd->rightmove + roll * cl_accelScale->value );
+		}
+
+		if ( labs( cl.accelAngles[PITCH] ) > cl_accelDeadZone->integer )
+		{
+			int pitch = cl.accelAngles[PITCH];
+
+			pitch+= (pitch > 0 ) ? -cl_accelDeadZone->integer : cl_accelDeadZone->integer;
+			cmd->forwardmove = ClampChar( cmd->forwardmove + pitch * cl_accelScale->value );
+		}
+	} else {
+		// TODO: Scale by FPS:
+		cl.viewangles[YAW]-= cl.accelAngles[ROLL] * cl_accelLookScale->value;
+		cl.viewangles[PITCH]+= cl.accelAngles[PITCH] * cl_accelLookScale->value;
+	}
+}
 
 /*
 ==============
@@ -545,6 +586,9 @@ usercmd_t CL_CreateCmd( void ) {
 
 	// get basic movement from joystick
 	CL_JoystickMove( &cmd );
+
+	// also move using the accelerometer
+	CL_AccelMove( &cmd );
 
 	// check to make sure the angles haven't wrapped
 	if ( cl.viewangles[PITCH] - oldAngles[PITCH] > 90 ) {

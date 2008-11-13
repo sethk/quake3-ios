@@ -2113,6 +2113,9 @@ int Com_EventLoop( void ) {
 		case SE_JOYSTICK_AXIS:
 			CL_JoystickEvent( ev.evValue, ev.evValue2, ev.evTime );
 			break;
+		case SE_ACCEL:
+			CL_AccelEvent( ev.evValue, ev.evValue2, ev.evValue3 );
+			break;
 		case SE_CONSOLE:
 			Cbuf_AddText( (char *)ev.evPtr );
 			Cbuf_AddText( "\n" );

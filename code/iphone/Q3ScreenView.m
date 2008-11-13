@@ -5,7 +5,6 @@
  */
 
 #import	"Q3ScreenView.h"
-#import "Q3Accelerometer.h"
 #import "iphone_local.h"
 #import	<QuartzCore/QuartzCore.h>
 #import	<OpenGLES/ES1/glext.h>
@@ -74,11 +73,8 @@
 	[self setMultipleTouchEnabled:YES];
 
 	_GUIMouseLocation = CGPointMake(0, 0);
-	_accelerometer = [Q3Accelerometer new];
 
 	_bitMask = 0;
-
-	[_accelerometer setupAccelerometer:kAccelerometerFrequency];
 
 	return YES;
 }
@@ -116,8 +112,6 @@
 	[self _destroySurface];
 
 	[_context release];
-
-	[_accelerometer release];
 
 	[super dealloc];
 }
@@ -561,24 +555,6 @@
 		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
 }
 
-#define ACCELEROMETERMULX 480.0f
-#define ACCELEROMETERMULY 320.0f
-#define ACCELEROMETEROFFSETY (ACCELEROMETERMULY / 2.0f)
-
-// handleAccelerometerInput fetches the accelerometer output and rotates the camera
-- (void)handleAccelerometerInput
-{
-	if (cls.state == CA_ACTIVE)
-	{
-		double accelerometerVector[3];
-		[_accelerometer accelerometerVector:(double *) accelerometerVector];
-
-		[self _queueEventWithType:Q3Event_RotateCamera
-						   value1:((accelerometerVector[1] * ACCELEROMETERMULX))
-						   value2:((-accelerometerVector[2] * ACCELEROMETERMULY) - ACCELEROMETEROFFSETY)];
-	}
-}
-
 @dynamic numColorBits;
 
 - (NSUInteger)numColorBits
@@ -597,8 +573,6 @@
 {
 	EAGLContext *oldContext = [EAGLContext currentContext];
 	GLuint oldRenderBuffer;
-
-	[self handleAccelerometerInput];
 
 	if (oldContext != _context)
 		[EAGLContext setCurrentContext:_context];

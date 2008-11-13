@@ -102,6 +102,7 @@ typedef struct {
 	int			mouseDx[2], mouseDy[2];	// added to by mouse events
 	int			mouseIndex;
 	int			joystickAxis[MAX_JOYSTICK_AXIS];	// set by joystick events
+	int			accelAngles[3];
 
 	// cgame communicates a few values to the client system
 	int			cgameUserCmdValue;	// current weapon to add to usercmd_t
@@ -334,6 +335,11 @@ extern	cvar_t	*cl_freelook;
 
 extern	cvar_t	*cl_mouseAccel;
 extern	cvar_t	*cl_showMouseRate;
+
+extern	cvar_t	*cl_accelDeadZone;
+extern	cvar_t	*cl_accelScale;
+extern	cvar_t	*cl_accelLook;
+extern	cvar_t	*cl_accelLookScale;
 
 extern	cvar_t	*m_pitch;
 extern	cvar_t	*m_yaw;

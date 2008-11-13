@@ -52,6 +52,11 @@ cvar_t	*cl_sensitivity;
 cvar_t	*cl_mouseAccel;
 cvar_t	*cl_showMouseRate;
 
+cvar_t	*cl_accelDeadZone;
+cvar_t	*cl_accelScale;
+cvar_t	*cl_accelLook;
+cvar_t	*cl_accelLookScale;
+
 cvar_t	*m_pitch;
 cvar_t	*m_yaw;
 cvar_t	*m_forward;
@@ -2308,6 +2313,11 @@ void CL_Init( void ) {
 	cl_sensitivity = Cvar_Get ("sensitivity", "5", CVAR_ARCHIVE);
 	cl_mouseAccel = Cvar_Get ("cl_mouseAccel", "0", CVAR_ARCHIVE);
 	cl_freelook = Cvar_Get( "cl_freelook", "1", CVAR_ARCHIVE );
+
+	cl_accelDeadZone = Cvar_Get( "cl_accelDeadZone", "3", CVAR_ARCHIVE );
+	cl_accelScale = Cvar_Get( "cl_accelScale", "8", CVAR_ARCHIVE );
+	cl_accelLook = Cvar_Get( "cl_accelLook", "0", CVAR_ARCHIVE );
+	cl_accelLookScale = Cvar_Get( "cl_accelLookScale", "0.5", CVAR_ARCHIVE );
 
 	cl_showMouseRate = Cvar_Get ("cl_showmouserate", "0", 0);
 
