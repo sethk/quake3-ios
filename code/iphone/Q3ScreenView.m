@@ -43,7 +43,9 @@
 - (void)_destroySurface;
 - (void)_queueEventWithType:(enum Q3EventType)type value1:(int)value1 value2:(int)value2;
 - (void)_handleMenuDragToPoint:(CGPoint)point;
+#ifdef TODO
 - (void)_handleTouch:(UITouch *)touch;
+#endif // TODO
 - (void)_handleDragFromPoint:(CGPoint)location toPoint:(CGPoint)previousLocation;
 
 @end
@@ -74,7 +76,9 @@
 
 	_GUIMouseLocation = CGPointMake(0, 0);
 
+#ifdef TODO
 	_bitMask = 0;
+#endif // TODO
 
 	return YES;
 }
@@ -261,6 +265,7 @@
 		Sys_QueEvent(0, SE_MOUSE, deltaX, deltaY, 0, NULL);
 }
 
+#ifdef TODO
 //
 // handleTouch handles all touchBegan, touchMoved and touchEnd events coming
 // from the touch input
@@ -472,47 +477,30 @@
 		}
 	}
 }
+#endif // TODO
 
 // handleDragFromPoint rotates the camera based on a touchedMoved event
 - (void)_handleDragFromPoint:(CGPoint)location toPoint:(CGPoint)previousLocation
 {
-	CGSize mouseDelta;
-
 	if (glConfig.vidRotation == 90)
 	{
-		mouseDelta.width = previousLocation.y - location.y;
-		mouseDelta.height = location.x - previousLocation.x;
+		CGSize mouseDelta;
 
-		[self _queueEventWithType:Q3Event_RotateCamera
-						   value1:roundf(mouseDelta.width * _mouseScale.x)
-						   value2:roundf(mouseDelta.height * _mouseScale.y)];
+		mouseDelta.width = roundf((previousLocation.y - location.y) * _mouseScale.x);
+		mouseDelta.height = roundf((location.x - previousLocation.x) * _mouseScale.y);
+
+		Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, mouseDelta.width, mouseDelta.height, 0, NULL);
 	}
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	// only call if the game is not in the menu system
-	if (cls.state == CA_ACTIVE)
+	for (UITouch *touch in touches)
 	{
-		NSUInteger touchCount = 0;
+		if (cls.state == CA_DISCONNECTED && _numTouches == 0)
+			[self _handleMenuDragToPoint:[touch locationInView:self]];
 
-		// Enumerates through all touch objects
-		for (UITouch *touch in touches)
-		{
-			[self _handleTouch:touch];
-			touchCount++;
-		}
-	}
-	// the game is in the menu system
-	else if (cls.state == CA_DISCONNECTED || cls.state == CA_CINEMATIC)
-	{
-		UITouch *touch = [[event allTouches] anyObject];
-		CGPoint location = [touch locationInView:self];
-
-		// Warp the pointer if in the GUI:
-		if (cls.state == CA_DISCONNECTED)
-			[self _handleMenuDragToPoint:location];
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1 + _numTouches++, 1, 0, NULL);
 	}
 }
 
@@ -520,39 +508,19 @@
 {
 	if (cls.state == CA_ACTIVE)
 	{
-		NSUInteger touchCount = 0;
-
-		// Enumerates through all touch objects
 		for (UITouch *touch in touches)
-		{
-			[self _handleTouch:touch];
-			touchCount++;
-		}
+			[self _handleDragFromPoint:[touch previousLocationInView:self]
+							   toPoint:[touch locationInView:self]];
 	}
 	else if (cls.state == CA_DISCONNECTED)
-	{
-		UITouch *touch = [[event allTouches] anyObject];
-		CGPoint location = [touch locationInView:self];
-
-		[self _handleMenuDragToPoint:location];
-	}
+		// TODO: Find the touch that started first.
+		[self _handleMenuDragToPoint:[[touches anyObject] locationInView:self]];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	if (cls.state == CA_ACTIVE)
-	{
-		NSUInteger touchCount = 0;
-
-		// Enumerates through all touch objects
-		for (UITouch *touch in touches)
-		{
-			[self _handleTouch:touch];
-			touchCount++;
-		}
-	}
-	else if (cls.state == CA_DISCONNECTED || cls.state == CA_CINEMATIC)
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
+	for (UITouch *touch in touches)
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1 + _numTouches--, 0, 0, NULL);
 }
 
 @dynamic numColorBits;

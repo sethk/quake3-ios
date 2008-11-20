@@ -40,7 +40,10 @@ enum Q3EventType
 	CGPoint _GUIMouseLocation;
 	CGSize _GUIMouseOffset;
 	CGPoint _mouseScale;
+	NSUInteger _numTouches;
+#ifdef TODO
 	unsigned int _bitMask;
+#endif // TODO
 }
 
 - initWithFrame:(CGRect)frame;

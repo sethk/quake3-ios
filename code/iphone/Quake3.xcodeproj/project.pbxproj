@@ -286,6 +286,7 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD1E69470E6FC951004A4AC6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = bg_misc.c; sourceTree = "<group>"; };
+		FD228FA50ED0F8B50097A222 /* default.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.cfg; sourceTree = "<group>"; };
 		FD261F0D0ECC15470022D939 /* Q3Application.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = Q3Application.h; sourceTree = "<group>"; tabWidth = 4; };
 		FD261F0E0ECC15470022D939 /* Q3Application.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = Q3Application.m; sourceTree = "<group>"; tabWidth = 4; };
 		FD4C5CF30E2DE0D400012E6B /* ai_chat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_chat.c; sourceTree = "<group>"; };
@@ -628,6 +629,7 @@
 				FD8DE2C10E7CFE0A00C1032C /* banner.jpg */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */,
+				FD228FA50ED0F8B50097A222 /* default.cfg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1175,7 +1177,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "if [ -d \"${GAME_PATH}\" ]; then\n\t${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp \"${GAME_PATH}\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\nfi";
+			shellScript = "PBXCP=${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp\nGAME_NAME=`basename \"${GAME_PATH}/\"`\n${PBXCP} \"${GAME_PATH}\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\n${PBXCP} \"${PROJECT_DIR}/default.cfg\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${GAME_NAME}/\"";
 		};
 		FDFDFB7E0E8723D000DC9125 /* Unarchive Movies */ = {
 			isa = PBXShellScriptBuildPhase;
