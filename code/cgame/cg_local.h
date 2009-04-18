@@ -1469,6 +1469,183 @@ void CG_CheckChangedPredictableEvents( playerState_t *ps );
 // These functions are how the cgame communicates with the main game system
 //
 
+#ifdef IPHONE
+// print message on the local console
+#define trap_Print trap_cgame_Print
+
+// abort the game
+#define trap_Error trap_cgame_Error
+
+// milliseconds should only be used for performance tuning, never
+// for anything game related.  Get time from the CG_DrawActiveFrame parameter
+#define trap_Milliseconds trap_cgame_Milliseconds
+
+// console variable interaction
+#define trap_Cvar_Register trap_cgame_Cvar_Register
+#define trap_Cvar_Update trap_cgame_Cvar_Update
+#define trap_Cvar_Set trap_cgame_Cvar_Set
+#define trap_Cvar_VariableStringBuffer trap_cgame_Cvar_VariableStringBuffer
+
+// ServerCommand and ConsoleCommand parameter access
+#define trap_Argc trap_cgame_Argc
+#define trap_Argv trap_cgame_Argv
+#define trap_Args trap_cgame_Args
+
+// filesystem access
+// returns length of file
+#define trap_FS_FOpenFile trap_cgame_FS_FOpenFile
+#define trap_FS_Read trap_cgame_FS_Read
+#define trap_FS_Write trap_cgame_FS_Write
+#define trap_FS_FCloseFile trap_cgame_FS_FCloseFile
+#define trap_FS_Seek trap_cgame_FS_Seek
+
+// add commands to the local console as if they were typed in
+// for map changing, etc.  The command is not executed immediately,
+// but will be executed in order the next time console commands
+// are processed
+#define trap_SendConsoleCommand trap_cgame_SendConsoleCommand
+
+// register a command name so the console can perform command completion.
+// FIXME: replace this with a normal console command "defineCommand"?
+#define trap_AddCommand trap_cgame_AddCommand
+
+// send a string to the server over the network
+#define trap_SendClientCommand trap_cgame_SendClientCommand
+
+// force a screen update, only used during gamestate load
+#define trap_UpdateScreen trap_cgame_UpdateScreen
+
+// model collision
+#define trap_CM_LoadMap trap_cgame_CM_LoadMap
+#define trap_CM_NumInlineModels trap_cgame_CM_NumInlineModels
+#define trap_CM_InlineModel trap_cgame_CM_InlineModel
+#define trap_CM_TempBoxModel trap_cgame_CM_TempBoxModel
+#define trap_CM_PointContents trap_cgame_CM_PointContents
+#define trap_CM_TransformedPointContents trap_cgame_CM_TransformedPointContents
+#define trap_CM_BoxTrace trap_cgame_CM_BoxTrace
+#define trap_CM_TransformedBoxTrace trap_cgame_CM_TransformedBoxTrace
+
+// Returns the projection of a polygon onto the solid brushes in the world
+#define trap_CM_MarkFragments trap_cgame_CM_MarkFragments
+
+// normal sounds will have their volume dynamically changed as their entity
+// moves and the listener moves
+#define trap_S_StartSound trap_cgame_S_StartSound
+#define trap_S_StopLoopingSound trap_cgame_S_StopLoopingSound
+
+// a local sound is always played full volume
+#define trap_S_StartLocalSound trap_cgame_S_StartLocalSound
+#define trap_S_ClearLoopingSounds trap_cgame_S_ClearLoopingSounds
+#define trap_S_AddLoopingSound trap_cgame_S_AddLoopingSound
+#define trap_S_AddRealLoopingSound trap_cgame_S_AddRealLoopingSound
+#define trap_S_UpdateEntityPosition trap_cgame_S_UpdateEntityPosition
+
+// respatialize recalculates the volumes of sound as they should be heard by the
+// given entityNum and position
+#define trap_S_Respatialize trap_cgame_S_Respatialize
+#define trap_S_RegisterSound trap_cgame_S_RegisterSound
+#define trap_S_StartBackgroundTrack trap_cgame_S_StartBackgroundTrack
+#define trap_S_StopBackgroundTrack trap_cgame_S_StopBackgroundTrack
+
+
+#define trap_R_LoadWorldMap trap_cgame_R_LoadWorldMap
+
+// all media should be registered during level startup to prevent
+// hitches during gameplay
+#define trap_R_RegisterModel trap_cgame_R_RegisterModel
+#define trap_R_RegisterSkin trap_cgame_R_RegisterSkin
+#define trap_R_RegisterShader trap_cgame_R_RegisterShader
+#define trap_R_RegisterShaderNoMip trap_cgame_R_RegisterShaderNoMip
+
+// a scene is built up by calls to R_ClearScene and the various R_Add functions.
+// Nothing is drawn until R_RenderScene is called.
+#define trap_R_ClearScene trap_cgame_R_ClearScene
+#define trap_R_AddRefEntityToScene trap_cgame_R_AddRefEntityToScene
+
+// polys are intended for simple wall marks, not really for doing
+// significant construction
+#define trap_R_AddPolyToScene trap_cgame_R_AddPolyToScene
+#define trap_R_AddPolysToScene trap_cgame_R_AddPolysToScene
+#define trap_R_AddLightToScene trap_cgame_R_AddLightToScene
+#define trap_R_LightForPoint trap_cgame_R_LightForPoint
+#define trap_R_RenderScene trap_cgame_R_RenderScene
+#define trap_R_SetColor trap_cgame_R_SetColor
+#define trap_R_DrawStretchPic trap_cgame_R_DrawStretchPic
+#define trap_R_ModelBounds trap_cgame_R_ModelBounds
+#define trap_R_LerpTag trap_cgame_R_LerpTag
+#define trap_R_RemapShader trap_cgame_R_RemapShader
+
+// The glconfig_t will not change during the life of a cgame.
+// If it needs to change, the entire cgame will be restarted, because
+// all the qhandle_t are then invalid.
+#define trap_GetGlconfig trap_cgame_GetGlconfig
+
+// the gamestate should be grabbed at startup, and whenever a
+// configstring changes
+#define trap_GetGameState trap_cgame_GetGameState
+
+// cgame will poll each frame to see if a newer snapshot has arrived
+// that it is interested in.  The time is returned seperately so that
+// snapshot latency can be calculated.
+#define trap_GetCurrentSnapshotNumber trap_cgame_GetCurrentSnapshotNumber
+
+// a snapshot get can fail if the snapshot (or the entties it holds) is so
+// old that it has fallen out of the client system queue
+#define trap_GetSnapshot trap_cgame_GetSnapshot
+
+// retrieve a text command from the server stream
+// the current snapshot will hold the number of the most recent command
+// qfalse can be returned if the client system handled the command
+// argc() / argv() can be used to examine the parameters of the command
+#define trap_GetServerCommand trap_cgame_GetServerCommand
+
+// returns the most recent command number that can be passed to GetUserCmd
+// this will always be at least one higher than the number in the current
+// snapshot, and it may be quite a few higher if it is a fast computer on
+// a lagged connection
+#define trap_GetCurrentCmdNumber trap_cgame_GetCurrentCmdNumber
+
+#define trap_GetUserCmd trap_cgame_GetUserCmd
+
+// used for the weapon select and zoom
+#define trap_SetUserCmdValue trap_cgame_SetUserCmdValue
+
+#define trap_MemoryRemaining trap_cgame_MemoryRemaining
+#define trap_R_RegisterFont trap_cgame_R_RegisterFont
+#define trap_Key_IsDown trap_cgame_Key_IsDown
+#define trap_Key_GetCatcher trap_cgame_Key_GetCatcher
+#define trap_Key_SetCatcher trap_cgame_Key_SetCatcher
+#define trap_Key_GetKey trap_cgame_Key_GetKey
+
+
+#define trap_CIN_PlayCinematic trap_cgame_CIN_PlayCinematic
+#define trap_CIN_StopCinematic trap_cgame_CIN_StopCinematic
+#define trap_CIN_RunCinematic  trap_cgame_CIN_RunCinematic 
+#define trap_CIN_DrawCinematic  trap_cgame_CIN_DrawCinematic 
+#define trap_CIN_SetExtents  trap_cgame_CIN_SetExtents 
+
+#define trap_SnapVector trap_cgame_SnapVector
+
+#define trap_loadCamera trap_cgame_loadCamera
+#define trap_startCamera trap_cgame_startCamera
+#define trap_getCameraInfo trap_cgame_getCameraInfo
+
+#define trap_GetEntityToken trap_cgame_GetEntityToken
+
+#define trap_RealTime trap_cgame_RealTime
+
+#define trap_PC_AddGlobalDefine trap_cgame_PC_AddGlobalDefine
+#define trap_PC_LoadSource trap_cgame_PC_LoadSource
+#define trap_PC_FreeSource trap_cgame_PC_FreeSource
+#define trap_PC_ReadToken trap_cgame_PC_ReadToken
+#define trap_PC_SourceFileAndLine trap_cgame_PC_SourceFileAndLine
+
+#define UI_DrawBannerString cgame_UI_DrawBannerString
+#define UI_ProportionalStringWidth cgame_UI_ProportionalStringWidth
+#define UI_ProportionalSizeScale cgame_UI_ProportionalSizeScale
+#define UI_DrawProportionalString cgame_UI_DrawProportionalString
+#endif // IPHONE
+
 // print message on the local console
 void		trap_Print( const char *fmt );
 

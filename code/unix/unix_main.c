@@ -704,6 +704,37 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
                    int (**entryPoint)(int, ...),
                    int (*systemcalls)(int, ...) ) 
 {
+#ifdef IPHONE
+  extern int baseq3_ui_vmMain(int, ...), baseq3_qagame_vmMain(int, ...), baseq3_cgame_vmMain(int, ...);
+  extern void baseq3_ui_dllEntry(int (*)(int, ...)), baseq3_qagame_dllEntry(int (*)(int, ...)), baseq3_cgame_dllEntry(int (*)(int, ...));
+  static const struct
+  {
+    const char *game;
+    const char *name;
+    void (*dllEntry)(int (*)(int, ...));
+    int (*entryPoint)(int, ...);
+  } dllDescriptions[] =
+  {
+    {"", "ui", baseq3_ui_dllEntry, baseq3_ui_vmMain},
+    {"", "qagame", baseq3_qagame_dllEntry, baseq3_qagame_vmMain},
+    {"", "cgame", baseq3_cgame_dllEntry, baseq3_cgame_vmMain},
+  };
+  char *game = Cvar_VariableString("fs_game");
+  int i;
+  
+  for (i = 0; i < sizeof(dllDescriptions) / sizeof(dllDescriptions[0]); ++i)
+  {
+    if (!strcmp(game, dllDescriptions[i].game) && !strcmp(name, dllDescriptions[i].name))
+    {
+      *entryPoint = dllDescriptions[i].entryPoint;
+      dllDescriptions[i].dllEntry(systemcalls);
+      return (void *)0xdeadc0de;
+    }
+  }
+
+  Com_Printf("Sys_LoadDll(%s) could not find appropriate entry point for game %s\n", name, game);
+  return NULL;
+#else
   void *libHandle;
   void  (*dllEntry)( int (*syscallptr)(int, ...) );
   char  fname[MAX_OSPATH];
@@ -798,6 +829,7 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
   Com_DPrintf ( "Sys_LoadDll(%s) succeeded!\n", name );
   if ( libHandle ) Q_strncpyz ( fqpath , fn , MAX_QPATH ) ;		// added 7/20/02 by T.Ray
   return libHandle;
+#endif // IPHONE
 }
 
 /*

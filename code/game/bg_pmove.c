@@ -1831,6 +1831,9 @@ PmoveSingle
 
 ================
 */
+#ifdef IPHONE
+#define trap_SnapVector trap_qagame_SnapVector
+#endif // IPHONE
 void trap_SnapVector( float *v );
 
 void PmoveSingle (pmove_t *pmove) {

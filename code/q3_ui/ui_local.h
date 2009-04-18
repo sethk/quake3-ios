@@ -618,6 +618,78 @@ void UI_SPSkillMenu_Cache( void );
 //
 // ui_syscalls.c
 //
+#ifdef IPHONE
+#define trap_Print trap_ui_Print
+#define trap_Error trap_ui_Error
+#define trap_Milliseconds trap_ui_Milliseconds
+#define trap_Cvar_Register trap_ui_Cvar_Register
+#define trap_Cvar_Update trap_ui_Cvar_Update
+#define trap_Cvar_Set trap_ui_Cvar_Set
+#define trap_Cvar_VariableValue trap_ui_Cvar_VariableValue
+#define trap_Cvar_VariableStringBuffer trap_ui_Cvar_VariableStringBuffer
+#define trap_Cvar_SetValue trap_ui_Cvar_SetValue
+#define trap_Cvar_Reset trap_ui_Cvar_Reset
+#define trap_Cvar_Create trap_ui_Cvar_Create
+#define trap_Cvar_InfoStringBuffer trap_ui_Cvar_InfoStringBuffer
+#define trap_Argc trap_ui_Argc
+#define trap_Argv trap_ui_Argv
+#define trap_Cmd_ExecuteText trap_ui_Cmd_ExecuteText
+#define trap_FS_FOpenFile trap_ui_FS_FOpenFile
+#define trap_FS_Read trap_ui_FS_Read
+#define trap_FS_Write trap_ui_FS_Write
+#define trap_FS_FCloseFile trap_ui_FS_FCloseFile
+#define trap_FS_GetFileList trap_ui_FS_GetFileList
+#define trap_FS_Seek trap_ui_FS_Seek
+#define trap_R_RegisterModel trap_ui_R_RegisterModel
+#define trap_R_RegisterSkin trap_ui_R_RegisterSkin
+#define trap_R_RegisterShaderNoMip trap_ui_R_RegisterShaderNoMip
+#define trap_R_ClearScene trap_ui_R_ClearScene
+#define trap_R_AddRefEntityToScene trap_ui_R_AddRefEntityToScene
+#define trap_R_AddPolyToScene trap_ui_R_AddPolyToScene
+#define trap_R_AddLightToScene trap_ui_R_AddLightToScene
+#define trap_R_RenderScene trap_ui_R_RenderScene
+#define trap_R_SetColor trap_ui_R_SetColor
+#define trap_R_DrawStretchPic trap_ui_R_DrawStretchPic
+#define trap_UpdateScreen trap_ui_UpdateScreen
+#define trap_CM_LerpTag trap_ui_CM_LerpTag
+#define trap_S_StartLocalSound trap_ui_S_StartLocalSound
+#define trap_S_RegisterSound trap_ui_S_RegisterSound
+#define trap_Key_KeynumToStringBuf trap_ui_Key_KeynumToStringBuf
+#define trap_Key_GetBindingBuf trap_ui_Key_GetBindingBuf
+#define trap_Key_SetBinding trap_ui_Key_SetBinding
+#define trap_Key_IsDown trap_ui_Key_IsDown
+#define trap_Key_GetOverstrikeMode trap_ui_Key_GetOverstrikeMode
+#define trap_Key_SetOverstrikeMode trap_ui_Key_SetOverstrikeMode
+#define trap_Key_ClearStates trap_ui_Key_ClearStates
+#define trap_Key_GetCatcher trap_ui_Key_GetCatcher
+#define trap_Key_SetCatcher trap_ui_Key_SetCatcher
+#define trap_GetClipboardData trap_ui_GetClipboardData
+#define trap_GetClientState trap_ui_GetClientState
+#define trap_GetGlconfig trap_ui_GetGlconfig
+#define trap_GetConfigString trap_ui_GetConfigString
+#define trap_LAN_GetServerCount trap_ui_LAN_GetServerCount
+#define trap_LAN_GetServerAddressString trap_ui_LAN_GetServerAddressString
+#define trap_LAN_GetServerInfo trap_ui_LAN_GetServerInfo
+#define trap_LAN_GetPingQueueCount trap_ui_LAN_GetPingQueueCount
+#define trap_LAN_ServerStatus trap_ui_LAN_ServerStatus
+#define trap_LAN_ClearPing trap_ui_LAN_ClearPing
+#define trap_LAN_GetPing trap_ui_LAN_GetPing
+#define trap_LAN_GetPingInfo trap_ui_LAN_GetPingInfo
+#define trap_MemoryRemaining trap_ui_MemoryRemaining
+#define trap_GetCDKey trap_ui_GetCDKey
+#define trap_SetCDKey trap_ui_SetCDKey
+
+#define trap_VerifyCDKey trap_ui_VerifyCDKey
+
+#define trap_SetPbClStatus trap_ui_SetPbClStatus
+
+#define trap_PC_AddGlobalDefine trap_ui_PC_AddGlobalDefine
+#define trap_PC_LoadSource trap_ui_PC_LoadSource
+#define trap_PC_FreeSource trap_ui_PC_FreeSource
+#define trap_PC_ReadToken trap_ui_PC_ReadToken
+#define trap_PC_SourceFileAndLine trap_ui_PC_SourceFileAndLine
+#endif // IPHONE
+
 void			trap_Print( const char *string );
 void			trap_Error( const char *string );
 int				trap_Milliseconds( void );

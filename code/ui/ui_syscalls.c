@@ -30,11 +30,15 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 static int (QDECL *syscall)( int arg, ... ) = (int (QDECL *)( int, ...))-1;
 
+#ifdef IPHONE
+void baseq3_ui_dllEntry( int (QDECL *syscallptr)( int arg,... ) ) {
+#else
 void dllEntry( int (QDECL *syscallptr)( int arg,... ) ) {
+#endif // IPHONE
 	syscall = syscallptr;
 }
 
-int PASSFLOAT( float x ) {
+static int PASSFLOAT( float x ) {
 	float	floatTemp;
 	floatTemp = x;
 	return *(int *)&floatTemp;
