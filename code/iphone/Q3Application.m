@@ -6,12 +6,15 @@
 
 #import	"Q3Application.h"
 #import	"Q3ScreenView.h"
+#import <UIKit/UIAlert.h>
 #include "iphone_local.h"
 #include "../renderer/tr_local.h"
 #include "../client/client.h"
 
 @interface Q3Application ()
 
+- (void)_startRunning;
+- (void)_stopRunning;
 - (void)_quakeMain;
 - (void)_deviceOrientationChanged:(NSNotification *)notification;
 #ifdef IPHONE_USE_THREADS
@@ -23,12 +26,45 @@
 
 @end
 
+enum
+{
+	Q3App_ErrorTag,
+	Q3App_WarningTag
+};
+
 extern cvar_t *com_maxfps;
 
 static cvar_t *in_accelFilter;
 static cvar_t *in_accelPitchBias;
 
 @implementation Q3Application
+
+- (void)_startRunning
+{
+#if IPHONE_USE_THREADS
+	Com_Printf("Starting render thread...\n");
+
+	GLimp_ReleaseGL();
+
+	_frameThread = [NSThread detachNewThreadSelector:@selector(_runMainLoop:) toTarget:self withObject:nil];
+#else
+	_frameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 / com_maxfps->integer
+												   target:self
+												 selector:@selector(_runFrame:)
+												 userInfo:nil
+												  repeats:YES];
+#endif // IPHONE_USE_THREADS
+}
+
+- (void)_stopRunning
+{
+#if IPHONE_USE_THREADS
+	Com_Printf("Stopping the render thread...\n")
+	[_frameThread cancel];
+#else
+	[_frameTimer invalidate];
+#endif // IPHONE_USE_THREADS
+}
 
 - (void)_quakeMain
 {
@@ -60,19 +96,7 @@ static cvar_t *in_accelPitchBias;
 	[_loadingView removeFromSuperview];
 	_screenView.isHidden = NO;
 
-#if IPHONE_USE_THREADS
-	Com_Printf("Starting render thread...\n");
-
-	GLimp_ReleaseGL();
-
-	[NSThread detachNewThreadSelector:@selector(_runMainLoop:) toTarget:self withObject:nil];
-#else
-	[NSTimer scheduledTimerWithTimeInterval:1.0 / com_maxfps->integer
-									 target:self
-								   selector:@selector(_runFrame:)
-								   userInfo:nil
-									repeats:YES];
-#endif // IPHONE_USE_THREADS
+	[self _startRunning];
 }
 
 - (void)applicationDidFinishLaunching:(id)unused
@@ -125,7 +149,9 @@ static cvar_t *in_accelPitchBias;
 #ifdef IPHONE_USE_THREADS
 - (void)_runMainLoop:(id)context
 {
-	while (1)
+	NSThread *thread = [NSThread currentThread];
+
+	while (!thread.isCancelled)
 		Com_Frame();
 }
 #else
@@ -154,6 +180,48 @@ static cvar_t *in_accelPitchBias;
  		case UIDeviceOrientationLandscapeLeft: return 270.0;
 		default: NSAssert(NO, @"Grievous errors have been made..."); return 0;
  	}
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+	extern void Sys_Exit(int ex);
+
+	switch (alertView.tag)
+	{
+		case Q3App_ErrorTag:
+			Sys_Exit(1);
+
+		case Q3App_WarningTag:
+			[self _startRunning];
+	}
+}
+
+- (void)presentErrorMessage:(NSString *)errorMessage
+{
+	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Error"
+													 message:errorMessage
+													delegate:self
+										   cancelButtonTitle:@"Exit"
+										   otherButtonTitles:nil] autorelease];
+
+	alert.tag = Q3App_ErrorTag;
+	[self _stopRunning];
+	[alert show];
+	[[NSRunLoop currentRunLoop] run];
+}
+
+- (void)presentWarningMessage:(NSString *)warningMessage
+{
+	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Warning"
+													 message:warningMessage
+													delegate:self
+										   cancelButtonTitle:@"OK"
+										   otherButtonTitles:nil] autorelease];
+
+	alert.tag = Q3App_WarningTag;
+	[self _stopRunning];
+	[alert show];
+	[[NSRunLoop currentRunLoop] run];
 }
 
 @end

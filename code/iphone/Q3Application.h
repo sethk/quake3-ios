@@ -17,9 +17,16 @@
 	IBOutlet UIView *_loadingView;
 	UIAccelerationValue _accelerationX, _accelerationY, _accelerationZ;
 	int _accelPitch, _accelRoll, _accelYaw;
+#if IPHONE_USE_THREADS
+	NSThread *_frameThread;
+#else
+	NSTimer *_frameTimer;
+#endif // IPHONE_USE_THREADS
 }
 
 @property (assign, readonly, nonatomic) Q3ScreenView *screenView;
 @property (assign, readonly, nonatomic) float deviceRotation;
+- (void)presentErrorMessage:(NSString *)errorMessage;
+- (void)presentWarningMessage:(NSString *)warningMessage;
 
 @end
