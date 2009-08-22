@@ -12,6 +12,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FD1E69470E6FC951004A4AC6 /* Icon.png */; };
 		FD261F150ECC159B0022D939 /* Q3Application.m in Sources */ = {isa = PBXBuildFile; fileRef = FD261F0E0ECC15470022D939 /* Q3Application.m */; };
+		FD4BE740103D1BA100A9AC33 /* Q3Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BE73F103D1BA100A9AC33 /* Q3Downloader.m */; };
 		FD8DE2C20E7CFE0A00C1032C /* banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FD8DE2C10E7CFE0A00C1032C /* banner.jpg */; };
 		FD9C404C0E0F3365008E2729 /* be_aas_bspq3.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40300E0F3365008E2729 /* be_aas_bspq3.c */; };
 		FD9C404D0E0F3365008E2729 /* be_aas_cluster.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40310E0F3365008E2729 /* be_aas_cluster.c */; };
@@ -146,6 +147,7 @@
 		FDB470860E0F31B40087A684 /* unix_shared.c in Sources */ = {isa = PBXBuildFile; fileRef = FDB470830E0F31B40087A684 /* unix_shared.c */; };
 		FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */; };
 		FDBBE4620E2AEF4500A186BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBBE4610E2AEF4500A186BC /* QuartzCore.framework */; };
+		FDBE317E0FF09EB600FBA47B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBE317D0FF09EB600FBA47B /* libz.dylib */; };
 		FDC1C9920F847934004149B3 /* ui_addbots.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F70E2B1B8C00A186BC /* ui_addbots.c */; };
 		FDC1C9930F847934004149B3 /* ui_atoms.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F80E2B1B8C00A186BC /* ui_atoms.c */; };
 		FDC1C9940F847934004149B3 /* ui_cdkey.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F90E2B1B8C00A186BC /* ui_cdkey.c */; };
@@ -292,6 +294,8 @@
 		FD228FA50ED0F8B50097A222 /* default.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.cfg; sourceTree = "<group>"; };
 		FD261F0D0ECC15470022D939 /* Q3Application.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = Q3Application.h; sourceTree = "<group>"; tabWidth = 4; };
 		FD261F0E0ECC15470022D939 /* Q3Application.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = Q3Application.m; sourceTree = "<group>"; tabWidth = 4; };
+		FD4BE73E103D1BA100A9AC33 /* Q3Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = Q3Downloader.h; sourceTree = "<group>"; tabWidth = 4; };
+		FD4BE73F103D1BA100A9AC33 /* Q3Downloader.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = Q3Downloader.m; sourceTree = "<group>"; tabWidth = 4; };
 		FD4C5CF30E2DE0D400012E6B /* ai_chat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_chat.c; sourceTree = "<group>"; };
 		FD4C5CF40E2DE0D400012E6B /* ai_cmd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_cmd.c; sourceTree = "<group>"; };
 		FD4C5CF50E2DE0D400012E6B /* ai_dmnet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_dmnet.c; sourceTree = "<group>"; };
@@ -515,6 +519,7 @@
 		FDBBE5420E2B1C0100A186BC /* ui_team.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ui_team.c; sourceTree = "<group>"; };
 		FDBBE5430E2B1C0100A186BC /* ui_teamorders.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ui_teamorders.c; sourceTree = "<group>"; };
 		FDBBE5440E2B1C0100A186BC /* ui_video.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ui_video.c; sourceTree = "<group>"; };
+		FDBE317D0FF09EB600FBA47B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		FDC1C98F0F84791E004149B3 /* libui.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libui.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDC1C9ED0F848106004149B3 /* libqagame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libqagame.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDC1CA490F848806004149B3 /* libcgame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcgame.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -544,6 +549,7 @@
 				FDC1C9C30F84797E004149B3 /* libui.a in Frameworks */,
 				FDC1CA140F8481C5004149B3 /* libqagame.a in Frameworks */,
 				FDC1CA660F84885B004149B3 /* libcgame.a in Frameworks */,
+				FDBE317E0FF09EB600FBA47B /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +606,7 @@
 				1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				FDBE317D0FF09EB600FBA47B /* libz.dylib */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -974,6 +981,8 @@
 				FD261F0E0ECC15470022D939 /* Q3Application.m */,
 				FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */,
 				FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */,
+				FD4BE73E103D1BA100A9AC33 /* Q3Downloader.h */,
+				FD4BE73F103D1BA100A9AC33 /* Q3Downloader.m */,
 			);
 			path = iphone;
 			sourceTree = "<group>";
@@ -1020,8 +1029,6 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				FDFDFB630E871DCD00DC9125 /* Copy Game */,
-				FDFDFB7E0E8723D000DC9125 /* Unarchive Movies */,
 			);
 			buildRules = (
 			);
@@ -1118,37 +1125,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		FDFDFB630E871DCD00DC9125 /* Copy Game */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Game";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/bin/sh -x";
-			shellScript = "PBXCP=${DEVELOPER_DIR}/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp\nGAME_NAME=`basename \"${GAME_PATH}/\"`\n${PBXCP} \"${GAME_PATH}\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\n${PBXCP} \"${PROJECT_DIR}/default.cfg\" \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${GAME_NAME}/\"";
-		};
-		FDFDFB7E0E8723D000DC9125 /* Unarchive Movies */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Unarchive Movies";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/bin/sh -x";
-			shellScript = "for game in baseq3 demoq3; do\n\tdestdir=\"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/$game/\"\n\tif [ -d \"$destdir\" ]; then\n\t\tcd \"$destdir\"\n\t\tfor pk3 in *.pk3; do\n\t\t\tunzip -n \"$pk3\" video/\\*\n\t\tdone\n\tfi\ndone";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -1292,6 +1268,7 @@
 				FD9C41370E0F370E008E2729 /* q_math.c in Sources */,
 				FD9C41380E0F370E008E2729 /* q_shared.c in Sources */,
 				FD261F150ECC159B0022D939 /* Q3Application.m in Sources */,
+				FD4BE740103D1BA100A9AC33 /* Q3Downloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

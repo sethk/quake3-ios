@@ -1,3 +1,2 @@
 CODE_SIGN_IDENTITY = iPhone Developer: J. Random Hacker
 PROVISIONING_PROFILE[sdk=iphoneos*] = ABCDEFGH-IJKL-MNOP-QRST-UVWXYZ012345
-GAME_PATH = /Volumes/Quake3/Quake3/baseq3

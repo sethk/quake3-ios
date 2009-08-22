@@ -5,6 +5,7 @@
  */
 
 #import	"Q3Application.h"
+#import "Q3Downloader.h"
 #import	"Q3ScreenView.h"
 #import <UIKit/UIAlert.h>
 #include "iphone_local.h"
@@ -15,6 +16,8 @@
 
 - (void)_startRunning;
 - (void)_stopRunning;
+- (BOOL)_checkForGameData;
+- (void)_downloadSharewareGameData;
 - (void)_quakeMain;
 - (void)_deviceOrientationChanged:(NSNotification *)notification;
 #ifdef IPHONE_USE_THREADS
@@ -29,13 +32,30 @@
 enum
 {
 	Q3App_ErrorTag,
-	Q3App_WarningTag
+	Q3App_WarningTag,
+	Q3App_GameDataTag,
+	Q3App_GameDataErrorTag
+};
+
+enum
+{
+	Q3App_Exit,
+	Q3App_Yes,
+	Q3App_No
 };
 
 extern cvar_t *com_maxfps;
 
 static cvar_t *in_accelFilter;
 static cvar_t *in_accelPitchBias;
+
+static NSString * const kLibraryPath = @"~/Library/Application Support/Quake3";
+static NSString * const kDemoArchiveURL =
+		@"ftp://ftp.idsoftware.com/idstuff/quake3/linux/linuxq3ademo-1.11-6.x86.gz.sh";
+static const long long kDemoArchiveOffset = 5468;
+static NSString * const kPakFileName = @"pak0.pk3";
+static const long long kDemoPakFileOffset = 5749248;
+static const long long kDemoPakFileSize = 46853694;
 
 @implementation Q3Application
 
@@ -64,6 +84,115 @@ static cvar_t *in_accelPitchBias;
 #else
 	[_frameTimer invalidate];
 #endif // IPHONE_USE_THREADS
+}
+
+- (BOOL)_checkForGameData
+{
+	NSString *libraryPath = [kLibraryPath stringByExpandingTildeInPath];
+	NSArray *knownGames = [NSArray arrayWithObjects:@"baseq3", @"demoq3", nil];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	BOOL isDir;
+	BOOL foundGame = NO;
+
+	for (NSString *knownGame in knownGames)
+	{
+		NSString *gamePath = [libraryPath stringByAppendingPathComponent:knownGame];
+		if ([fileManager fileExistsAtPath:gamePath isDirectory:&isDir] &&
+			isDir)
+		{
+			if ([knownGame isEqualToString:@"demoq3"])
+			{
+				NSDictionary *attributes =
+				[fileManager fileAttributesAtPath:[gamePath stringByAppendingPathComponent:kPakFileName]
+									 traverseLink:NO];
+
+				if (attributes.fileSize != kDemoPakFileSize)
+					continue;
+			}
+
+			foundGame = YES;
+			break;
+		}
+	}
+
+	if (foundGame)
+		return YES;
+	else
+	{
+		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"Download Game Data?"
+														     message:
+		@"No game data could be found on this device.  "
+		"Do you want to download a copy of the shareware Quake 3 Arena Demo's data?  Data charges may apply."
+															delegate:self
+												   cancelButtonTitle:@"Exit"
+												   otherButtonTitles:@"Yes",
+																	@"No",
+																	nil] autorelease];
+
+		alertView.tag = Q3App_GameDataTag;
+		[alertView show];
+
+		return NO;
+	}
+}
+
+- (void)downloader:(Q3Downloader *)downloader didCompleteProgress:(double)progress withText:(NSString *)text
+{
+	[_downloadStatusLabel setText:text];
+	_downloadProgress.progress = progress;
+}
+
+- (void)downloader:(Q3Downloader *)downloader didFinishDownloadingWithError:(NSError *)error
+{
+	_demoDownloader = nil;
+
+	_downloadStatusLabel.isHidden = YES;
+	_downloadProgress.isHidden = YES;
+	_loadingActivity.isHidden = NO;
+	_loadingLabel.isHidden = NO;
+
+	if (error)
+	{
+		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"Download Failed"
+															 message:error.localizedDescription
+															delegate:self
+												   cancelButtonTitle:@"Exit"
+												   otherButtonTitles:@"Retry", nil] autorelease];
+		NSString *gamePath = [[kLibraryPath stringByExpandingTildeInPath] stringByAppendingPathComponent:@"demoq3"];
+		NSError *error;
+
+		if (![[NSFileManager defaultManager] removeItemAtPath:gamePath error:&error])
+			NSLog(@"Could not delete %@: %@", gamePath, error.localizedDescription);
+
+		alertView.tag = Q3App_GameDataErrorTag;
+		[alertView show];
+	}
+	else
+		[self _quakeMain];
+}
+
+- (void)_downloadSharewareGameData
+{
+	NSString *gamePath = [[kLibraryPath stringByExpandingTildeInPath] stringByAppendingPathComponent:@"demoq3"];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSError *error;
+
+	if (![fileManager createDirectoryAtPath:gamePath withIntermediateDirectories:YES attributes:nil error:&error])
+		Sys_Error("Could not create folder %@: %@", gamePath, error.localizedDescription);
+
+	_demoDownloader = [Q3Downloader new];
+	_demoDownloader.delegate = self;
+	_demoDownloader.archiveOffset = kDemoArchiveOffset;
+	if (![_demoDownloader addDownloadFileWithPath:[gamePath stringByAppendingPathComponent:kPakFileName]
+								   rangeInArchive:NSMakeRange(kDemoPakFileOffset, kDemoPakFileSize)])
+		Sys_Error("Could not create %@", gamePath);
+
+	[_demoDownloader startWithURL:[NSURL URLWithString:kDemoArchiveURL]];
+
+	_loadingActivity.isHidden = YES;
+	_loadingLabel.isHidden = YES;
+	_downloadStatusLabel.isHidden = NO;
+	_downloadProgress.isHidden = NO;
 }
 
 - (void)_quakeMain
@@ -101,7 +230,8 @@ static cvar_t *in_accelPitchBias;
 
 - (void)applicationDidFinishLaunching:(id)unused
 {
-	[self performSelector:@selector(_quakeMain) withObject:nil afterDelay:0.0];
+	if ([self _checkForGameData])
+		[self performSelector:@selector(_quakeMain) withObject:nil afterDelay:0.0];
 }
 
 - (void)_deviceOrientationChanged:(NSNotification *)notification
@@ -188,11 +318,22 @@ static cvar_t *in_accelPitchBias;
 
 	switch (alertView.tag)
 	{
-		case Q3App_ErrorTag:
-			Sys_Exit(1);
+		case Q3App_ErrorTag: Sys_Exit(1);
+		case Q3App_WarningTag: [self _startRunning]; break;
 
-		case Q3App_WarningTag:
-			[self _startRunning];
+		case Q3App_GameDataTag:
+		case Q3App_GameDataErrorTag:
+			switch (buttonIndex)
+			{
+				case Q3App_Exit: Sys_Exit(0);
+
+				case Q3App_Yes:
+					[self performSelector:@selector(_downloadSharewareGameData) withObject:nil afterDelay:0.0];
+					break;
+
+				case Q3App_No: [self performSelector:@selector(_quakeMain) withObject:nil afterDelay:0.0];
+			}
+			break;
 	}
 }
 
