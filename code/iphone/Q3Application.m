@@ -146,10 +146,10 @@ static const long long kDemoPakFileSize = 46853694;
 {
 	_demoDownloader = nil;
 
-	_downloadStatusLabel.isHidden = YES;
-	_downloadProgress.isHidden = YES;
-	_loadingActivity.isHidden = NO;
-	_loadingLabel.isHidden = NO;
+	_downloadStatusLabel.hidden =  YES;
+	_downloadProgress.hidden =  YES;
+	_loadingActivity.hidden =  NO;
+	_loadingLabel.hidden =  NO;
 
 	if (error)
 	{
@@ -189,10 +189,10 @@ static const long long kDemoPakFileSize = 46853694;
 
 	[_demoDownloader startWithURL:[NSURL URLWithString:kDemoArchiveURL]];
 
-	_loadingActivity.isHidden = YES;
-	_loadingLabel.isHidden = YES;
-	_downloadStatusLabel.isHidden = NO;
-	_downloadProgress.isHidden = NO;
+	_loadingActivity.hidden =  YES;
+	_loadingLabel.hidden =  YES;
+	_downloadStatusLabel.hidden =  NO;
+	_downloadProgress.hidden =  NO;
 }
 
 - (void)_quakeMain
@@ -223,7 +223,7 @@ static const long long kDemoPakFileSize = 46853694;
 	accelerometer.updateInterval = 1.0 / com_maxfps->integer;
 
 	[_loadingView removeFromSuperview];
-	_screenView.isHidden = NO;
+	_screenView.hidden =  NO;
 
 	[self _startRunning];
 }
