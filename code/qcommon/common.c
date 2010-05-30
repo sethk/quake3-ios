@@ -2823,7 +2823,7 @@ void Com_Shutdown (void) {
 
 #if !( defined __VECTORC )
 #if !( defined __linux__ || defined __FreeBSD__ )  // r010123 - include FreeBSD 
-#if ((!id386) && (!defined __i386__)) // rcg010212 - for PPC
+#if ((!id386) && (!defined __i386__)) || defined(C_ONLY) // rcg010212 - for PPC
 
 void Com_Memcpy (void* dest, const void* src, const size_t count)
 {
