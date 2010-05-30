@@ -389,6 +389,7 @@ void Sys_Init(void)
 
 }
 
+#ifndef IPHONE
 void  Sys_Error( const char *error, ...)
 { 
   va_list     argptr;
@@ -435,6 +436,7 @@ void Sys_Warn (char *warning, ...)
     tty_Show();
   }
 } 
+#endif // !IPHONE
 
 /*
 ============
