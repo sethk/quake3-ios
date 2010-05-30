@@ -523,8 +523,8 @@
 		FDC1C98F0F84791E004149B3 /* libui.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libui.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDC1C9ED0F848106004149B3 /* libqagame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libqagame.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDC1CA490F848806004149B3 /* libcgame.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcgame.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FDD254340D80FF5200E13415 /* iphone_glimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iphone_glimp.h; sourceTree = "<group>"; };
-		FDD254350D80FF5200E13415 /* iphone_glimp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_glimp.m; sourceTree = "<group>"; };
+		FDD254340D80FF5200E13415 /* iphone_glimp.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = iphone_glimp.h; sourceTree = "<group>"; tabWidth = 4; };
+		FDD254350D80FF5200E13415 /* iphone_glimp.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_glimp.m; sourceTree = "<group>"; tabWidth = 4; };
 		FDD254370D80FF5200E13415 /* iphone_glsmp_null.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = iphone_glsmp_null.c; sourceTree = "<group>"; };
 		FDD254380D80FF5200E13415 /* iphone_input.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iphone_input.m; sourceTree = "<group>"; };
 		FDD254390D80FF5200E13415 /* iphone_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iphone_local.h; sourceTree = "<group>"; };
@@ -533,7 +533,6 @@
 		FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3ScreenView.h; sourceTree = "<group>"; };
 		FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3ScreenView.m; sourceTree = "<group>"; };
 		FDD2544D0D8102C300E13415 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		FDFDFB500E871B8D00DC9125 /* User.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = User.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -632,7 +631,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				FDFDFB4F0E871B7A00DC9125 /* Configs */,
 				080E96DDFE201D6D7F000001 /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -985,14 +983,6 @@
 				FD4BE73F103D1BA100A9AC33 /* Q3Downloader.m */,
 			);
 			path = iphone;
-			sourceTree = "<group>";
-		};
-		FDFDFB4F0E871B7A00DC9125 /* Configs */ = {
-			isa = PBXGroup;
-			children = (
-				FDFDFB500E871B8D00DC9125 /* User.xcconfig */,
-			);
-			name = Configs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1442,9 +1432,9 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FDFDFB500E871B8D00DC9125 /* User.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOS_X,
@@ -1457,20 +1447,20 @@
 					CGAME_HARD_LINKED,
 					QGL_CHECK_GL_ERRORS,
 				);
-				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.0;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos3.1.3;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FDFDFB500E871B8D00DC9125 /* User.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					MACOS_X,
@@ -1486,9 +1476,86 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator2.0;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos3.1.3;
 			};
 			name = Release;
+		};
+		FD38B52D11B20E8900A16F9D /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Seth Kingsley";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MACOS_X,
+					IPHONE,
+					BOTLIB,
+					DLL_ONLY,
+					C_ONLY,
+					UI_HARD_LINKED,
+					GAME_HARD_LINKED,
+					CGAME_HARD_LINKED,
+					NDEBUG,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				PROVISIONING_PROFILE = "E6886E02-151B-4634-8347-0E6416381B81";
+				SDKROOT = iphoneos3.1.3;
+			};
+			name = Distribution;
+		};
+		FD38B52E11B20E8900A16F9D /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				INFOPLIST_FILE = Info.plist;
+				PREBINDING = NO;
+				PRODUCT_NAME = Quake3;
+			};
+			name = Distribution;
+		};
+		FD38B52F11B20E8900A16F9D /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = ui;
+				ZERO_LINK = NO;
+			};
+			name = Distribution;
+		};
+		FD38B53011B20E8900A16F9D /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = qagame;
+				ZERO_LINK = NO;
+			};
+			name = Distribution;
+		};
+		FD38B53111B20E8900A16F9D /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PREBINDING = NO;
+				PRODUCT_NAME = cgame;
+				ZERO_LINK = NO;
+			};
+			name = Distribution;
 		};
 		FDC1C9900F84791F004149B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1573,6 +1640,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				FD38B52E11B20E8900A16F9D /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1582,6 +1650,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				FD38B52D11B20E8900A16F9D /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1591,6 +1660,7 @@
 			buildConfigurations = (
 				FDC1C9900F84791F004149B3 /* Debug */,
 				FDC1C9910F84791F004149B3 /* Release */,
+				FD38B52F11B20E8900A16F9D /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1600,6 +1670,7 @@
 			buildConfigurations = (
 				FDC1C9EE0F848107004149B3 /* Debug */,
 				FDC1C9EF0F848107004149B3 /* Release */,
+				FD38B53011B20E8900A16F9D /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1609,6 +1680,7 @@
 			buildConfigurations = (
 				FDC1CA4A0F848807004149B3 /* Debug */,
 				FDC1CA4B0F848807004149B3 /* Release */,
+				FD38B53111B20E8900A16F9D /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
