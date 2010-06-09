@@ -61,10 +61,13 @@ fielddef_t *FindField(fielddef_t *defs, char *name)
 {
 	int i;
 
-	for (i = 0; defs[i].name; i++)
+	if (defs)
 	{
-		if (!strcmp(defs[i].name, name)) return &defs[i];
-	} //end for
+		for (i = 0; defs[i].name; i++)
+		{
+			if (!strcmp(defs[i].name, name)) return &defs[i];
+		} //end for
+	} // end if
 	return NULL;
 } //end of the function FindField
 //===========================================================================
