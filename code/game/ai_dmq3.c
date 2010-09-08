@@ -83,7 +83,7 @@ vmCvar_t bot_challenge;
 vmCvar_t bot_predictobstacles;
 vmCvar_t g_spSkill;
 
-extern vmCvar_t bot_developer;
+extern vmCvar_t bot_developer_vm;
 
 vec3_t lastteleport_origin;		//last teleport event origin
 float lastteleport_time;		//last teleport event time
@@ -4243,7 +4243,7 @@ int BotGetActivateGoal(bot_state_t *bs, int entitynum, bot_activategoal_t *activ
 	}
 	// get the targetname so we can find an entity with a matching target
 	if (!trap_AAS_ValueForBSPEpairKey(ent, "targetname", targetname[0], sizeof(targetname[0]))) {
-		if (bot_developer.integer) {
+		if (bot_developer_vm.integer) {
 			BotAI_Print(PRT_ERROR, "BotGetActivateGoal: entity with model \"%s\" has no targetname\n", model);
 		}
 		return 0;
@@ -4259,14 +4259,14 @@ int BotGetActivateGoal(bot_state_t *bs, int entitynum, bot_activategoal_t *activ
 			}
 		}
 		if (!ent) {
-			if (bot_developer.integer) {
+			if (bot_developer_vm.integer) {
 				BotAI_Print(PRT_ERROR, "BotGetActivateGoal: no entity with target \"%s\"\n", targetname[i]);
 			}
 			i--;
 			continue;
 		}
 		if (!trap_AAS_ValueForBSPEpairKey(ent, "classname", classname, sizeof(classname))) {
-			if (bot_developer.integer) {
+			if (bot_developer_vm.integer) {
 				BotAI_Print(PRT_ERROR, "BotGetActivateGoal: entity with target \"%s\" has no classname\n", targetname[i]);
 			}
 			continue;

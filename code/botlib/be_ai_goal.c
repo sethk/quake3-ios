@@ -189,7 +189,7 @@ maplocation_t *maplocations = NULL; // bk001206 - init
 //camp spots
 campspot_t *campspots = NULL; // bk001206 - init
 //the game type
-int g_gametype = 0; // bk001206 - init
+static int g_gametype = 0; // bk001206 - init
 //additional dropped item weight
 libvar_t *droppedweight = NULL; // bk001206 - init
 
