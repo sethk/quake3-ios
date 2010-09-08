@@ -674,6 +674,7 @@ Sys_UnloadDll
 =================
 */
 void Sys_UnloadDll( void *dllHandle ) {
+#ifndef IPHONE
   // bk001206 - verbose error reporting
   const char* err; // rb010123 - now const
   if ( !dllHandle )
@@ -685,6 +686,7 @@ void Sys_UnloadDll( void *dllHandle ) {
   err = dlerror();
   if ( err != NULL )
     Com_Printf ( "Sys_UnloadGame failed on dlclose: \"%s\"!\n", err );
+#endif /* !IPHONE */
 }
 
 
