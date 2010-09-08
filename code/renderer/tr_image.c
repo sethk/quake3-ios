@@ -2027,7 +2027,9 @@ static void R_CreateFogImage( void ) {
 	qbyte	*data;
 	float	g;
 	float	d;
+#ifndef IPHONE
 	float	borderColor[4];
+#endif // !IPHONE
 
 	data = ri.Hunk_AllocateTempMemory( FOG_S * FOG_T * 4 );
 

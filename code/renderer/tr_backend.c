@@ -488,7 +488,11 @@ void RB_BeginDrawingView (void) {
 	// clip to the plane of the portal
 	if ( backEnd.viewParms.isPortal ) {
 		float	plane[4];
+#ifdef IPHONE
+		float		plane2[4];
+#else
 		double	plane2[4];
+#endif // IPHONE
 
 		plane[0] = backEnd.viewParms.portalPlane.normal[0];
 		plane[1] = backEnd.viewParms.portalPlane.normal[1];

@@ -152,7 +152,7 @@ void S_AdpcmEncode( short indata[], char outdata[], int len, struct adpcm_state 
 }
 
 
-/* static */ void S_AdpcmDecode( const char indata[], short *outdata, int len, struct adpcm_state *state ) {
+/* static */ void S_AdpcmDecode( const qbyte indata[], short *outdata, int len, struct adpcm_state *state ) {
     signed char *inp;		/* Input buffer pointer */
     int outp;			/* output buffer pointer */
     int sign;			/* Current adpcm sign bit */
@@ -293,7 +293,7 @@ void S_AdpcmEncodeSound( sfx_t *sfx, short *samples ) {
 	int				count;
 	int				n;
 	sndBuffer		*newchunk, *chunk;
-	qbyte			*out;
+	char			*out;
 
 	inOffset = 0;
 	count = sfx->soundLength;
@@ -319,7 +319,7 @@ void S_AdpcmEncodeSound( sfx_t *sfx, short *samples ) {
 		chunk->adpcm.index  = state.index;
 		chunk->adpcm.sample = state.sample;
 
-		out = (qbyte *)chunk->sndChunk;
+		out = (char *)chunk->sndChunk;
 
 		// encode the samples
 		S_AdpcmEncode( samples + inOffset, out, n, &state );

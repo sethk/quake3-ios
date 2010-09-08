@@ -21,7 +21,8 @@ Sys_Error(const char *error, ...)
 	va_list ap;
 
 	va_start(ap, error);
-	errorString = [[[NSString alloc] initWithFormat:[NSString stringWithCString:error] arguments:ap] autorelease];
+	errorString = [[[NSString alloc] initWithFormat:[NSString stringWithCString:error encoding:NSUTF8StringEncoding]
+																				arguments:ap] autorelease];
 	va_end(ap);
 #ifdef IPHONE_USE_THREADS
 	[[Q3Application sharedApplication] performSelectorOnMainThread:@selector(presentErrorMessage:)
@@ -39,7 +40,8 @@ Sys_Warn( const char *warning, ...)
 	va_list ap;
 
 	va_start(ap, warning);
-	warningString = [[[NSString alloc] initWithFormat:[NSString stringWithCString:warning] arguments:ap] autorelease];
+	warningString = [[[NSString alloc] initWithFormat:[NSString stringWithCString:warning encoding:NSUTF8StringEncoding]
+																					arguments:ap] autorelease];
 	va_end(ap);
 #ifdef IPHONE_USE_THREADS
 	[[Q3Application sharedApplication] performSelectorOnMainThread:@selector(presentWarningMessage:)

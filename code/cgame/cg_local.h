@@ -1250,6 +1250,13 @@ void CG_TileClear( void );
 void CG_ColorForHealth( vec4_t hcolor );
 void CG_GetColorForHealth( int health, int armor, vec4_t hcolor );
 
+#ifdef IPHONE
+#define UI_DrawBannerString cgame_UI_DrawBannerString
+#define UI_ProportionalStringWidth cgame_UI_ProportionalStringWidth
+#define UI_ProportionalSizeScale cgame_UI_ProportionalSizeScale
+#define UI_DrawProportionalString cgame_UI_DrawProportionalString
+#endif // IPHONE
+
 void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color );
 void CG_DrawRect( float x, float y, float width, float height, float size, const float *color );
 void CG_DrawSides(float x, float y, float w, float h, float size);
@@ -1639,11 +1646,6 @@ void CG_CheckChangedPredictableEvents( playerState_t *ps );
 #define trap_PC_FreeSource trap_cgame_PC_FreeSource
 #define trap_PC_ReadToken trap_cgame_PC_ReadToken
 #define trap_PC_SourceFileAndLine trap_cgame_PC_SourceFileAndLine
-
-#define UI_DrawBannerString cgame_UI_DrawBannerString
-#define UI_ProportionalStringWidth cgame_UI_ProportionalStringWidth
-#define UI_ProportionalSizeScale cgame_UI_ProportionalSizeScale
-#define UI_DrawProportionalString cgame_UI_DrawProportionalString
 #endif // IPHONE
 
 // print message on the local console
