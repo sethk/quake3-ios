@@ -39,7 +39,7 @@ typedef unsigned int glIndex_t;
 #endif // IPHONE
 
 // fast float to int conversion
-#if id386 && !( (defined __linux__ || defined __FreeBSD__ ) && (defined __i386__ ) ) // rb010123
+#if id386 && !( (defined __linux__ || defined __FreeBSD__ || defined C_ONLY ) && (defined __i386__ ) ) // rb010123
 long myftol( float f );
 #else
 #define	myftol(x) ((int)(x))
