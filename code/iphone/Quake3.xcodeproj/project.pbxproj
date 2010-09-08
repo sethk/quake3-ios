@@ -415,7 +415,7 @@
 		FD9C40B30E0F34AA008E2729 /* cl_input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_input.c; sourceTree = "<group>"; };
 		FD9C40B40E0F34AA008E2729 /* cl_keys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_keys.c; sourceTree = "<group>"; };
 		FD9C40B50E0F34AA008E2729 /* cl_main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_main.c; sourceTree = "<group>"; };
-		FD9C40B60E0F34AA008E2729 /* cl_net_chan.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_net_chan.c; sourceTree = "<group>"; };
+		FD9C40B60E0F34AA008E2729 /* cl_net_chan.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_net_chan.c; sourceTree = "<group>"; tabWidth = 8; };
 		FD9C40B70E0F34AA008E2729 /* cl_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_parse.c; sourceTree = "<group>"; };
 		FD9C40B80E0F34AA008E2729 /* cl_scrn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_scrn.c; sourceTree = "<group>"; };
 		FD9C40B90E0F34AA008E2729 /* cl_ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_ui.c; sourceTree = "<group>"; };
@@ -533,6 +533,9 @@
 		FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3ScreenView.h; sourceTree = "<group>"; };
 		FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3ScreenView.m; sourceTree = "<group>"; };
 		FDD2544D0D8102C300E13415 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		FDFBBF531235399A00C73739 /* be_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = be_interface.h; sourceTree = "<group>"; };
+		FDFBBF6A12353B8900C73739 /* cg_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cg_public.h; sourceTree = "<group>"; };
+		FDFBBF6B12353B8900C73739 /* tr_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tr_types.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -663,6 +666,8 @@
 		FD4C5D5A0E2DE2FF00012E6B /* cgame */ = {
 			isa = PBXGroup;
 			children = (
+				FDFBBF6A12353B8900C73739 /* cg_public.h */,
+				FDFBBF6B12353B8900C73739 /* tr_types.h */,
 				FD4C5D5B0E2DE39400012E6B /* cg_consolecmds.c */,
 				FD4C5D5C0E2DE39400012E6B /* cg_draw.c */,
 				FD4C5D5D0E2DE39400012E6B /* cg_drawtools.c */,
@@ -709,6 +714,7 @@
 				FD9C40410E0F3365008E2729 /* be_ai_weap.c */,
 				FD9C40420E0F3365008E2729 /* be_ai_weight.c */,
 				FD9C40430E0F3365008E2729 /* be_ea.c */,
+				FDFBBF531235399A00C73739 /* be_interface.h */,
 				FD9C40440E0F3365008E2729 /* be_interface.c */,
 				FD9C40450E0F3365008E2729 /* l_crc.c */,
 				FD9C40460E0F3365008E2729 /* l_libvar.c */,
