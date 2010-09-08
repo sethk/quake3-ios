@@ -1831,9 +1831,6 @@ PmoveSingle
 
 ================
 */
-#ifdef IPHONE
-#define trap_SnapVector trap_qagame_SnapVector
-#endif // IPHONE
 void trap_SnapVector( float *v );
 
 void PmoveSingle (pmove_t *pmove) {
@@ -2015,7 +2012,22 @@ void PmoveSingle (pmove_t *pmove) {
 	PM_WaterEvents();
 
 	// snap some parts of playerstate to save network bandwidth
+#ifdef IPHONE
+	{
+		extern void trap_cgame_SnapVector( float *v ), trap_qagame_SnapVector( float *v );
+		extern void *currentVM, *cgvm, *gvm;
+
+		// It's either this or generate two different versions of this function using preprocessor macros.
+		if (currentVM == cgvm)
+			trap_cgame_SnapVector( pm->ps->velocity );
+		else if (currentVM == gvm )
+			trap_qagame_SnapVector( pm->ps->velocity );
+		else
+			assert(0);
+	}
+#else
 	trap_SnapVector( pm->ps->velocity );
+#endif // IPHONE
 }
 
 
