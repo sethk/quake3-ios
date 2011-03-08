@@ -165,29 +165,7 @@ q3radiant/				Q3Radiant map editor build 200f ( common/ and libs/ are support di
 
 While we made sure we were still able to compile the game on Windows, GNU/Linux and Mac, this build didn't get any kind of extensive testing so it may not work completely right. Whenever an id game is released under GPL, several projects start making the source code more friendly to nowaday's compilers and environements. If you are picking up this release weeks/months/years after we uploaded it, you probably want to look around on the net for cleaned up versions of this codebase as well.
 
-COMPILING ON WIN32
+COMPILING FOR IPAD
 ==================
 
-VC7 / Visual C++ 2003 project files are provided:
-code/quake3.sln
-q3radiant/Radiant.sln
-
-To compile the qvms, you need to run some batch files:
-you will need to have lcc.exe q3cpp.exe q3rcc.exe and q3asm.exe in your path
-( some precompiled binaries are provided in lcc/bin and code/win32/mod-sdk-setup/bin )
-the qvm batch files are in code/game code/cgame code/q3_ui code/ui ..
-
-COMPILING ON GNU/LINUX
-==================
-
-the build system using cons, which may be known as scons's perl ancestor now
-you don't have to track it down though, the build script is provided in the tree
-you will need nasm and gcc 2.95
-make sure you have the X Direct Graphics Access and X Video Mode extensions headers for your X11
-a typical compile command goes like this:
-[..]/code$ ./unix/cons -- gcc=gcc-2.95 g++=g++-2.95
-
-COMPILING ON MAC
-================
-
-project file for OSX compile is in code/macosx/Quake3.pbproj
+project file for iPad is in /code/iphone/Quake3.pbproj

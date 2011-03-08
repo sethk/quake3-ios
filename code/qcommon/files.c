@@ -2738,7 +2738,8 @@ FS_Startup
 ================
 */
 static void FS_Startup( const char *gameName ) {
-        const char *homePath;
+	
+	const char *homePath;
 	cvar_t	*fs;
 
 	Com_Printf( "----- FS_Startup -----\n" );
@@ -3318,6 +3319,7 @@ void FS_Restart( int checksumFeed ) {
 	if ( Q_stricmp(fs_gamedirvar->string, lastValidGame) ) {
 		// skip the q3config.cfg if "safe" is on the command line
 		if ( !Com_SafeMode() ) {
+			// disabled q3config for test - a.pick
 			Cbuf_AddText ("exec q3config.cfg\n");
 		}
 	}

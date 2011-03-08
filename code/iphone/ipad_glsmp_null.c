@@ -1,10 +1,11 @@
 /*
- * Quake3 -- iPhone Port
  *
- * Seth Kingsley, January 2008.
+ * Quake3Arena iPad Port by Alexander Pick
+ * based on iPhone Quake 3 by Seth Kingsley
+ *
  */
 
-#import	"iphone_glimp.h"
+#import	"ipad_glimp.h"
 
 #include "../renderer/tr_local.h"
 

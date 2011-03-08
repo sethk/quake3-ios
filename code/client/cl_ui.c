@@ -1178,7 +1178,7 @@ void CL_InitUI( void ) {
 	}
 
 	// sanity check
-	v = VM_Call( uivm, UI_GETAPIVERSION );
+	v = UI_API_VERSION; //VM_Call( uivm, UI_GETAPIVERSION );
 	if (v == UI_OLD_API_VERSION) {
 //		Com_Printf(S_COLOR_YELLOW "WARNING: loading old Quake III Arena User Interface version %d\n", v );
 		// init for this gamestate

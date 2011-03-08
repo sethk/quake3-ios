@@ -25,10 +25,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../client/snd_local.h"
 
-#include <CoreServices/CoreServices.h>
-#include <CoreAudio/AudioHardware.h>
-#include <QuickTime/QuickTime.h>
-
 // For 'ri'
 #include "../renderer/tr_local.h"
 
@@ -41,8 +37,8 @@ static short       *s_mixedSamples;
 static int          s_chunkCount;		// number of chunks submitted
 static qboolean     s_isRunning;
 
-static AudioDeviceID outputDeviceID;
-static AudioStreamBasicDescription outputStreamBasicDescription;
+//static AudioDeviceID outputDeviceID;
+//static AudioStreamBasicDescription outputStreamBasicDescription;
 
 /*
 ===============
@@ -50,7 +46,7 @@ audioDeviceIOProc
 ===============
 */
 
-OSStatus audioDeviceIOProc(AudioDeviceID inDevice,
+/*OSStatus audioDeviceIOProc(AudioDeviceID inDevice,
                            const AudioTimeStamp *inNow,
                            const AudioBufferList *inInputData,
                            const AudioTimeStamp *inInputTime,
@@ -114,7 +110,7 @@ OSStatus audioDeviceIOProc(AudioDeviceID inDevice,
     
     s_chunkCount++; // this is the next buffer we will submit
     return 0;
-}
+}*/
 
 
 /*
@@ -142,7 +138,8 @@ SNDDMA_Init
 */
 qboolean SNDDMA_Init(void)
 {
-    cvar_t *bufferSize;
+    Com_Printf("Sound init\n");	
+/*    cvar_t *bufferSize;
     cvar_t *chunkSize;
     OSStatus status;
     UInt32 propertySize, bufferByteCount;
@@ -251,7 +248,7 @@ qboolean SNDDMA_Init(void)
         return qfalse;
     }
 
-    s_isRunning = qtrue;
+    s_isRunning = qtrue;*/
     
     return qtrue;
 }
@@ -283,7 +280,7 @@ SNDDMA_Shutdown
 */
 void SNDDMA_Shutdown(void)
 {
-    OSStatus status;
+/*    OSStatus status;
     
     if (!s_isRunning)
         return;
@@ -304,7 +301,7 @@ void SNDDMA_Shutdown(void)
     
     free(s_mixedSamples);
     s_mixedSamples = NULL;
-    dma.samples = NULL;
+    dma.samples = NULL;*/
 }
 
 /*

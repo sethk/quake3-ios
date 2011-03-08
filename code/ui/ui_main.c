@@ -33,6 +33,8 @@ USER INTERFACE MAIN
 
 #include "ui_local.h"
 
+#define UI_API_VERSION 6
+
 uiInfo_t uiInfo;
 
 static const char *MonthAbbrev[] = {

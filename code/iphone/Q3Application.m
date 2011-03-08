@@ -1,16 +1,21 @@
 /*
- * Quake3 -- iPhone Port
  *
- * Seth Kingsley, January 2008.
+ * Quake3Arena iPad Port by Alexander Pick
+ * based on iPhone Quake 3 by Seth Kingsley
+ *
  */
 
 #import	"Q3Application.h"
 #import "Q3Downloader.h"
 #import	"Q3ScreenView.h"
+#import "ipad_local.h"
+
+#import "../renderer/tr_local.h"
+#import "../client/client.h"
+
 #import <UIKit/UIAlert.h>
-#include "iphone_local.h"
-#include "../renderer/tr_local.h"
-#include "../client/client.h"
+#import <UIKit/UITextView.h>
+
 
 @interface Q3Application ()
 
@@ -19,7 +24,6 @@
 - (BOOL)_checkForGameData;
 - (void)_downloadSharewareGameData;
 - (void)_quakeMain;
-- (void)_deviceOrientationChanged:(NSNotification *)notification;
 #ifdef IPHONE_USE_THREADS
 - (void)_runMainLoop:(id)context;
 - (void)keepAlive:(NSTimer *)timer;
@@ -46,12 +50,10 @@ enum
 
 extern cvar_t *com_maxfps;
 
-static cvar_t *in_accelFilter;
-static cvar_t *in_accelPitchBias;
 
-static NSString * const kLibraryPath = @"~/Library/Application Support/Quake3";
 static NSString * const kDemoArchiveURL =
-		@"ftp://ftp.idsoftware.com/idstuff/quake3/linux/linuxq3ademo-1.11-6.x86.gz.sh";
+	//	@"ftp://ftp.idsoftware.com/idstuff/quake3/linux/linuxq3ademo-1.11-6.x86.gz.sh";
+		@"ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles/linuxq3ademo-1.11-6.x86.gz.sh";
 static const long long kDemoArchiveOffset = 5468;
 static NSString * const kPakFileName = @"pak0.pk3";
 static const long long kDemoPakFileOffset = 5749248;
@@ -59,8 +61,33 @@ static const long long kDemoPakFileSize = 46853694;
 
 @implementation Q3Application
 
+@synthesize _shootButton;
+@synthesize _forwardButton;
+@synthesize _backwardButton;
+@synthesize _rightButton;
+@synthesize _leftButton;
+@synthesize _changeButton;
+
+@synthesize _spaceKey;
+@synthesize _escKey;
+@synthesize _enterKey;
+
+@synthesize _amokKey;
+
+- (NSString *)getDocumentsDirectory {  
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);  
+    return [paths objectAtIndex:0];  
+} 
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+}
+
 - (void)_startRunning
 {
+	
+	GLimp_SetMode(90.00);	
+			  
 #if IPHONE_USE_THREADS
 	Com_Printf("Starting render thread...\n");
 
@@ -79,7 +106,7 @@ static const long long kDemoPakFileSize = 46853694;
 - (void)_stopRunning
 {
 #if IPHONE_USE_THREADS
-	Com_Printf("Stopping the render thread...\n")
+	Com_Printf("Stopping the render thread...\n");
 	[_frameThread cancel];
 #else
 	[_frameTimer invalidate];
@@ -88,14 +115,36 @@ static const long long kDemoPakFileSize = 46853694;
 
 - (BOOL)_checkForGameData
 {
-	NSString *libraryPath = [kLibraryPath stringByExpandingTildeInPath];
+	
+	NSString *libraryPath = [self getDocumentsDirectory]; 
 	NSArray *knownGames = [NSArray arrayWithObjects:@"baseq3", @"demoq3", nil];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	BOOL isDir;
 	BOOL foundGame = NO;
+	
+	
+	NSString *zFile = [libraryPath stringByAppendingPathComponent:@"pak0.pk3"];
 
+#if DEBUG_MODE	
+	// to see if there is crap placed in your app directly if moding this, logs to console
+	NSFileManager *manager = [NSFileManager defaultManager];
+    NSArray *fileList = [manager directoryContentsAtPath:[[ NSBundle mainBundle] resourcePath]];
+    for (NSString *s in fileList){
+        NSLog(s);
+    }	
+#endif
+	
+	NSLog(@"Checking for PAKfile");
+	
+	if ([fileManager fileExistsAtPath:zFile isDirectory:NO])
+	{
+		NSLog(@"Found a PAK in Root Directory");
+		foundGame = YES;
+	} else {
+	
 	for (NSString *knownGame in knownGames)
 	{
+		
 		NSString *gamePath = [libraryPath stringByAppendingPathComponent:knownGame];
 		if ([fileManager fileExistsAtPath:gamePath isDirectory:&isDir] &&
 			isDir)
@@ -115,14 +164,15 @@ static const long long kDemoPakFileSize = 46853694;
 		}
 	}
 
+	}	
+		
 	if (foundGame)
 		return YES;
 	else
 	{
-		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"Download Game Data?"
+		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"Welcome to Quake3Arena!"
 														     message:
-		@"No game data could be found on this device.  "
-		"Do you want to download a copy of the shareware Quake 3 Arena Demo's data?  Data charges may apply."
+		@"Do you want to download a copy of the shareware Quake 3 Arena Demo's data? Hint: The best way to play Quake 3 Arena on your iPad is by copying your baseq3 PAK files via iTunes filesharing to it."
 															delegate:self
 												   cancelButtonTitle:@"Exit"
 												   otherButtonTitles:@"Yes",
@@ -158,7 +208,7 @@ static const long long kDemoPakFileSize = 46853694;
 															delegate:self
 												   cancelButtonTitle:@"Exit"
 												   otherButtonTitles:@"Retry", nil] autorelease];
-		NSString *gamePath = [[kLibraryPath stringByExpandingTildeInPath] stringByAppendingPathComponent:@"demoq3"];
+		NSString *gamePath = [[self getDocumentsDirectory] stringByAppendingPathComponent:@"demoq3"];
 		NSError *error;
 
 		if (![[NSFileManager defaultManager] removeItemAtPath:gamePath error:&error])
@@ -173,7 +223,7 @@ static const long long kDemoPakFileSize = 46853694;
 
 - (void)_downloadSharewareGameData
 {
-	NSString *gamePath = [[kLibraryPath stringByExpandingTildeInPath] stringByAppendingPathComponent:@"demoq3"];
+	NSString *gamePath = [[self getDocumentsDirectory] stringByAppendingPathComponent:@"demoq3"];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSError *error;
 
@@ -195,14 +245,111 @@ static const long long kDemoPakFileSize = 46853694;
 	_downloadProgress.hidden =  NO;
 }
 
+// Events for buttons
+
+-(void)startshoot:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
+}
+
+-(void)stopshoot:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
+}
+
+-(void)startmove:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 1, 0, NULL);
+
+}
+
+-(void)stopmove:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
+}
+
+-(void)startback:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 1, 0, NULL);
+}
+
+-(void)stopback:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW , 0, 0, NULL);
+}
+
+// right
+
+-(void)startright:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 1, 0, NULL);
+}
+
+-(void)stopright:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
+}
+
+// left
+
+-(void)startleft:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 1, 0, NULL);
+}
+
+-(void)stopleft:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
+}
+
+// jump space
+-(void)spacePress:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE , 1, 0, NULL);
+}
+
+-(void)spaceRelease:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE ,0, 0, NULL);
+}
+
+// single press keys
+-(void)changeWeapon:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/', 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/',0, 0, NULL);
+}
+
+-(void)escPress:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE , 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE ,0, 0, NULL);
+}
+
+-(void)enterPress:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER , 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER ,0, 0, NULL);
+}
+
+-(void)amokPress:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 1, 0, NULL);
+}
+
+-(void)amokRelease:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
+}
+
 - (void)_quakeMain
 {
 	extern void Sys_Startup(int argc, char *argv[]);
 	NSArray *arguments = [[NSProcessInfo processInfo] arguments];
 	int ac, i;
 	const char *av[32];
-	UIDevice *device = [UIDevice currentDevice];
-	UIAccelerometer *accelerometer = [UIAccelerometer sharedAccelerometer];
 
 	ac = MIN([arguments count], sizeof(av) / sizeof(av[0]));
 	for (i = 0; i < ac; ++i)
@@ -210,70 +357,39 @@ static const long long kDemoPakFileSize = 46853694;
 
 	Sys_Startup(ac, (char **)av);
 
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(_deviceOrientationChanged:)
-												 name:UIDeviceOrientationDidChangeNotification
-											   object:device];
-	[device beginGeneratingDeviceOrientationNotifications];
-
-	in_accelFilter = Cvar_Get("in_accelFilter", "0.05", CVAR_ARCHIVE);
-	in_accelPitchBias = Cvar_Get("in_accelPitchBias", "-125", CVAR_ARCHIVE);
-
-	accelerometer.delegate = self;
-	accelerometer.updateInterval = 1.0 / com_maxfps->integer;
-
 	[_loadingView removeFromSuperview];
 	_screenView.hidden =  NO;
 
+	[_shootButton addTarget:self action:@selector(startshoot:) forControlEvents:UIControlEventTouchDown];
+	[_shootButton addTarget:self action:@selector(stopshoot:) forControlEvents:UIControlEventTouchUpInside];	
+	
+	[_forwardButton addTarget:self action:@selector(startmove:) forControlEvents:UIControlEventTouchDown];
+	[_forwardButton addTarget:self action:@selector(stopmove:) forControlEvents:UIControlEventTouchUpInside];	
+
+	[_backwardButton addTarget:self action:@selector(startback:) forControlEvents:UIControlEventTouchDown];
+	[_backwardButton addTarget:self action:@selector(stopback:) forControlEvents:UIControlEventTouchUpInside];	
+
+	[_leftButton addTarget:self action:@selector(startleft:) forControlEvents:UIControlEventTouchDown];
+	[_leftButton addTarget:self action:@selector(stopleft:) forControlEvents:UIControlEventTouchUpInside];	
+	
+	[_rightButton addTarget:self action:@selector(startright:) forControlEvents:UIControlEventTouchDown];
+	[_rightButton addTarget:self action:@selector(stopright:) forControlEvents:UIControlEventTouchUpInside];	
+	
+	[_changeButton addTarget:self action:@selector(changeWeapon:) forControlEvents:UIControlEventTouchDown];
+
+	[_spaceKey addTarget:self action:@selector(spacePress:) forControlEvents:UIControlEventTouchDown];
+	[_spaceKey addTarget:self action:@selector(spaceRelease:) forControlEvents:UIControlEventTouchUpInside];
+
+	
+	[_escKey addTarget:self action:@selector(escPress:) forControlEvents:UIControlEventTouchDown];
+
+	[_enterKey addTarget:self action:@selector(enterPress:) forControlEvents:UIControlEventTouchDown];
+
+	[_amokKey addTarget:self action:@selector(amokPress:) forControlEvents:UIControlEventTouchDown];
+	[_amokKey addTarget:self action:@selector(amokRelease:) forControlEvents:UIControlEventTouchUpInside];
+
 	[self _startRunning];
-}
-
-- (void)applicationDidFinishLaunching:(id)unused
-{
-	if ([self _checkForGameData])
-		[self performSelector:@selector(_quakeMain) withObject:nil afterDelay:0.0];
-}
-
-- (void)_deviceOrientationChanged:(NSNotification *)notification
-{
-	// Keep the orientation locked into landscape while in-game:
-	if (cls.state == CA_DISCONNECTED)
-	{
-		UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-
-		if (UIDeviceOrientationIsValidInterfaceOrientation(orientation))
-			GLimp_SetMode(self.deviceRotation);
-	}
-}
-
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
-{
-	if (cls.state == CA_ACTIVE)
-	{
-		int pitch, roll, yaw;
-		float oneMinusFilter = 1.0 - in_accelFilter->value;
-
-		_accelerationX = acceleration.x * in_accelFilter->value + _accelerationX * oneMinusFilter;
-		_accelerationY = acceleration.y * in_accelFilter->value + _accelerationY * oneMinusFilter;
-		_accelerationZ = acceleration.z * in_accelFilter->value + _accelerationZ * oneMinusFilter;
-
-		pitch = RAD2DEG(atan2(_accelerationX, _accelerationZ)) + in_accelPitchBias->integer;
-		if (in_accelPitchBias < 0 && pitch < -180)
-			pitch = 360 + pitch;
-		else if (in_accelPitchBias > 0 && pitch > 180)
-			pitch = -360 + pitch;
-
-		roll = RAD2DEG(atan2(_accelerationY, _accelerationX));
-		yaw = RAD2DEG(atan2(_accelerationZ, _accelerationY));
-		if (pitch != _accelPitch || roll != _accelRoll || yaw != _accelYaw)
-		{
-			Com_DPrintf("accel: pitch = %d, roll = %d, yaw = %d\n", pitch, roll, yaw);
-			Sys_QueEventEx(Sys_Milliseconds(), SE_ACCEL, pitch, roll, yaw, 0, NULL);
-			_accelPitch = pitch;
-			_accelRoll = roll;
-			_accelYaw = yaw;
-		}
-	}
+	
 }
 
 #ifdef IPHONE_USE_THREADS
@@ -292,25 +408,6 @@ static const long long kDemoPakFileSize = 46853694;
 #endif // IPHONE_USE_THREADS
 
 @synthesize screenView = _screenView;
-
-@dynamic deviceRotation;
-
-- (float)deviceRotation
-{
- 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-
-	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation))
-		orientation = UIDeviceOrientationPortrait;
-
- 	switch (orientation)
- 	{
- 		case UIDeviceOrientationPortrait: return 0.0;
- 		case UIDeviceOrientationLandscapeRight: return 90.0;
- 		case UIDeviceOrientationPortraitUpsideDown: return 180.0;
- 		case UIDeviceOrientationLandscapeLeft: return 270.0;
-		default: NSAssert(NO, @"Grievous errors have been made..."); return 0;
- 	}
-}
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -364,5 +461,19 @@ static const long long kDemoPakFileSize = 46853694;
 	[alert show];
 	[[NSRunLoop currentRunLoop] run];
 }
+
+- (void)applicationDidFinishLaunching:(id)unused
+{
+	
+	if ([self _checkForGameData])
+		[self performSelector:@selector(_quakeMain) withObject:nil afterDelay:0.0];
+}
+
+-(void)applicationWillTerminate:(UIApplication *)application
+{
+	// explict, seems to avoid some strange zombies around
+	
+	[[NSThread mainThread] exit];	
+} 
 
 @end

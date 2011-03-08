@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 // cl_main.c  -- client main loop
 
+#define IPAD 1
+
 #include "client.h"
 #include <limits.h>
 
@@ -2302,8 +2304,8 @@ void CL_Init( void ) {
 
 	rconAddress = Cvar_Get ("rconAddress", "", 0);
 
-	cl_yawspeed = Cvar_Get ("cl_yawspeed", "140", CVAR_ARCHIVE);
-	cl_pitchspeed = Cvar_Get ("cl_pitchspeed", "140", CVAR_ARCHIVE);
+	cl_yawspeed = Cvar_Get ("cl_yawspeed", "220", CVAR_ARCHIVE);
+	cl_pitchspeed = Cvar_Get ("cl_pitchspeed", "220", CVAR_ARCHIVE);
 	cl_anglespeedkey = Cvar_Get ("cl_anglespeedkey", "1.5", 0);
 
 	cl_maxpackets = Cvar_Get ("cl_maxpackets", "30", CVAR_ARCHIVE );
@@ -2311,7 +2313,7 @@ void CL_Init( void ) {
 
 	cl_run = Cvar_Get ("cl_run", "1", CVAR_ARCHIVE);
 	cl_sensitivity = Cvar_Get ("sensitivity", "5", CVAR_ARCHIVE);
-	cl_mouseAccel = Cvar_Get ("cl_mouseAccel", "0", CVAR_ARCHIVE);
+	cl_mouseAccel = Cvar_Get ("cl_mouseAccel", "2", CVAR_ARCHIVE);
 	cl_freelook = Cvar_Get( "cl_freelook", "1", CVAR_ARCHIVE );
 
 	cl_accelDeadZone = Cvar_Get( "cl_accelDeadZone", "3", CVAR_ARCHIVE );
@@ -2321,8 +2323,12 @@ void CL_Init( void ) {
 
 	cl_showMouseRate = Cvar_Get ("cl_showmouserate", "0", 0);
 
-	cl_allowDownload = Cvar_Get ("cl_allowDownload", "0", CVAR_ARCHIVE);
-
+	
+#ifdef IPAD
+	cl_allowDownload = Cvar_Get ("cl_allowDownload", "1", CVAR_ARCHIVE);
+#else
+        cl_allowDownload = Cvar_Get ("cl_allowDownload", "0", CVAR_ARCHIVE);
+#endif
 	cl_conXOffset = Cvar_Get ("cl_conXOffset", "0", 0);
 #ifdef MACOS_X
         // In game video is REALLY slow in Mac OS X right now due to driver slowness
@@ -2338,7 +2344,7 @@ void CL_Init( void ) {
 	Cvar_Get ("cg_autoswitch", "1", CVAR_ARCHIVE);
 
 	m_pitch = Cvar_Get ("m_pitch", "0.022", CVAR_ARCHIVE);
-	m_yaw = Cvar_Get ("m_yaw", "0.022", CVAR_ARCHIVE);
+	m_yaw = Cvar_Get ("m_yaw", "-0.022", CVAR_ARCHIVE);
 	m_forward = Cvar_Get ("m_forward", "0.25", CVAR_ARCHIVE);
 	m_side = Cvar_Get ("m_side", "0.25", CVAR_ARCHIVE);
 #ifdef MACOS_X
@@ -2354,7 +2360,7 @@ void CL_Init( void ) {
 
 
 	// userinfo
-	Cvar_Get ("name", "UnnamedPlayer", CVAR_USERINFO | CVAR_ARCHIVE );
+	Cvar_Get ("name", "SamMax", CVAR_USERINFO | CVAR_ARCHIVE );
 	Cvar_Get ("rate", "3000", CVAR_USERINFO | CVAR_ARCHIVE );
 	Cvar_Get ("snaps", "20", CVAR_USERINFO | CVAR_ARCHIVE );
 	Cvar_Get ("model", "sarge", CVAR_USERINFO | CVAR_ARCHIVE );

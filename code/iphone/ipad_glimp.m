@@ -1,13 +1,14 @@
 /*
- * Quake3 -- iPhone Port
  *
- * Seth Kingsley, January 2008.
+ * Quake3Arena iPad Port by Alexander Pick
+ * based on iPhone Quake 3 by Seth Kingsley
+ *
  */
 
 #include <sys/param.h>
 #include "../client/client.h"
-#include "iphone_glimp.h"
-#include "iphone_local.h"
+#include "ipad_glimp.h"
+#include "ipad_local.h"
 #include "../renderer/tr_local.h"
 
 #import	"Q3Application.h"
@@ -228,7 +229,8 @@ GLimp_Init(void)
 	_screenView = application.screenView;
 	_context = _screenView.context;
 
-	GLimp_SetMode(application.deviceRotation);
+	//GLimp_SetMode(application.deviceRotation);
+	GLimp_SetMode(90.00);
 
     ri.Printf(PRINT_ALL, "------------------\n");
 
@@ -264,16 +266,16 @@ GLimp_SetMode(float rotation)
 	_screenView.frame = frame;
 
 	glConfig.isFullscreen = qtrue;
- 	if (rotation == 0 || rotation == 180)
+ 	/*if (rotation == 0 || rotation == 180)
  	{
  		glConfig.vidWidth = frame.size.width;
  		glConfig.vidHeight = frame.size.height;
  	}
  	else
- 	{
+ 	{*/
  		glConfig.vidWidth = frame.size.height;
  		glConfig.vidHeight = frame.size.width;
- 	}
+ 	//}
 	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
 	glConfig.colorBits = [_screenView numColorBits];
 	glConfig.depthBits = [_screenView numDepthBits];

@@ -1,10 +1,13 @@
 /*
- * Quake3 -- iPhone Port
  *
- * Seth Kingsley, January 2008.
+ * Quake3Arena iPad Port by Alexander Pick
+ * based on iPhone Quake 3 by Seth Kingsley
+ *
  */
 
 #import	<UIKit/UIView.h>
+#import <UIKit/UIKit.h>
+
 #import	<OpenGLES/EAGL.h>
 #import	<OpenGLES/EAGLDrawable.h>
 #import	<OpenGLES/ES1/gl.h>
@@ -16,6 +19,8 @@
 #define BIT4 (1<<4)
 #define BIT5 (1<<5)
 #define BIT6 (1<<6)
+
+#define TODO 0
 
 enum Q3EventType         
 {
@@ -32,6 +37,7 @@ enum Q3EventType
 @interface Q3ScreenView : UIView
 {
 @protected
+		
 	EAGLContext *_context;
 	GLuint _frameBuffer;
 	GLuint _renderBuffer;
@@ -44,6 +50,31 @@ enum Q3EventType
 #ifdef TODO
 	unsigned int _bitMask;
 #endif // TODO
+		
+	IBOutlet UIImageView *joypadCap;
+
+	NSTimer *gameTimer;	
+	
+	BOOL joypadMoving;
+
+	CGRect joypad;
+
+	uint joypadCenterx, joypadCentery, joypadMaxRadius, joypadWidth, joypadHeight;
+
+	int joypadTouchHash;
+
+	CGPoint joypadCapLocation;
+	
+	CGPoint oldLocation;
+	
+	CGRect	shootbutton;
+	
+	BOOL	shooting;
+	
+	BOOL	isFinger;
+	
+	float touchAngle;
+	float distance;
 }
 
 - initWithFrame:(CGRect)frame;

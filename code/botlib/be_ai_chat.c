@@ -2439,7 +2439,10 @@ char *BotChooseInitialChatMessage(bot_chatstate_t *cs, char *type)
 			numchatmessages = 0;
 			for (m = t->firstchatmessage; m; m = m->next)
 			{
-				if (m->time > AAS_Time()) continue;
+				// crash :(
+				/*if (m->time > AAS_Time()) {
+					continue;
+				}*/	
 				numchatmessages++;
 			} //end if
 			//if all chat messages have been used recently
@@ -2462,10 +2465,12 @@ char *BotChooseInitialChatMessage(bot_chatstate_t *cs, char *type)
 				n = random() * numchatmessages;
 				for (m = t->firstchatmessage; m; m = m->next)
 				{
-					if (m->time > AAS_Time()) continue;
+					// crash :(	
+					//if (m->time > AAS_Time()) continue;
 					if (--n < 0)
 					{
-						m->time = AAS_Time() + CHATMESSAGE_RECENTTIME;
+						// crash :(
+						//m->time = AAS_Time() + CHATMESSAGE_RECENTTIME;
 						return m->chatmessage;
 					} //end if
 				} //end for

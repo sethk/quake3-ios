@@ -20,29 +20,72 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ===========================================================================
 */
 
-// snddma_null.c
-// all other sound mixing is portable
+#include "../client/snd_local.h"
 
-#include "../client/client.h"
+// For 'ri'
+#include "../renderer/tr_local.h"
 
+#import <Foundation/NSZone.h>
+
+/*
+===============
+S_Callback
+===============
+*/
+
+/*void S_Callback( SndChannel *sc, SndCommand *cmd )
+{
+}
+*/
+
+/*
+===============
+S_MakeTestPattern
+===============
+*/
+void S_MakeTestPattern( void ) 
+{
+}
+
+/*
+===============
+SNDDMA_Init
+===============
+*/
 qboolean SNDDMA_Init(void)
 {
-	return qfalse;
+    return qtrue;
 }
 
-int	SNDDMA_GetDMAPos(void)
-{
-	return 0;
+/*
+===============
+SNDDMA_GetDMAPos
+===============
+*/
+int	SNDDMA_GetDMAPos(void) {
+    return 0; //s_chunkCount * submissionChunk;
 }
 
-void SNDDMA_Shutdown(void)
-{
+/*
+===============
+SNDDMA_Shutdown
+===============
+*/
+void SNDDMA_Shutdown(void) {
 }
 
-void SNDDMA_BeginPainting (void)
-{
+/*
+===============
+SNDDMA_BeginPainting
+===============
+*/
+void SNDDMA_BeginPainting(void) {
 }
 
-void SNDDMA_Submit(void)
-{
+/*
+===============
+SNDDMA_Submit
+===============
+*/
+void SNDDMA_Submit(void) {
 }

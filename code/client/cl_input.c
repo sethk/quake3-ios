@@ -468,7 +468,8 @@ void CL_MouseMove( usercmd_t *cmd ) {
 	if ( in_strafe.active ) {
 		cmd->rightmove = ClampChar( cmd->rightmove + m_side->value * mx );
 	} else {
-		cl.viewangles[YAW] -= m_yaw->value * mx;
+		// hmm inverted?!
+		cl.viewangles[YAW] += m_yaw->value * mx;
 	}
 
 	if ( (in_mlooking || cl_freelook->integer) && !in_strafe.active ) {

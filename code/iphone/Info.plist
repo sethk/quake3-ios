@@ -2,18 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPrincipalClass</key>
-	<string>Q3Application</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Quake III</string>
+	<string>Quake III Arena</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string>Icon.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.meowfishies.${PRODUCT_NAME:identifier}</string>
+	<string>com.quake3.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -26,9 +28,17 @@
 	<string>1.7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIStatusBarHidden</key>
-	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>NSPrincipalClass</key>
+	<string>Q3Application</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>UIInterfaceOrientation</key>
+	<string>UIInterfaceOrientationLandscapeLeft</string>
+	<key>UIDeviceOrientation</key>
+	<string>UIDeviceOrientationLandscapeLeft</string>
 </dict>
 </plist>

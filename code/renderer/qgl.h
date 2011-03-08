@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #elif defined(IPHONE)
 
-#include "iphone_glimp.h"
+#include "ipad_glimp.h"
 
 #elif defined(MACOS_X)
 
@@ -167,7 +167,7 @@ extern	void ( APIENTRY * qglUnlockArraysEXT) (void);
 
 #elif defined(IPHONE)
 
-#include "iphone_qgl.h"
+#include "ipad_qgl.h"
 
 #elif defined(MACOS_X)
 // This includes #ifdefs for optional logging and GL error checking after every GL call as well as #defines to prevent incorrect usage of the non-'qgl' versions of the GL API.

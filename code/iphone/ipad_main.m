@@ -1,10 +1,11 @@
 /*
- * Quake3 -- iPhone Port
  *
- * Seth Kingsley, January 2008.
+ * Quake3Arena iPad Port by Alexander Pick
+ * based on iPhone Quake 3 by Seth Kingsley
+ *
  */
 
-#import	"iphone_local.h"
+#import	"ipad_local.h"
 
 #import	"Q3Application.h"
 
@@ -52,10 +53,19 @@ Sys_Warn( const char *warning, ...)
 #endif // IPHONE_USE_THREADS
 }
 
+void applicationDidFinishLaunching(id unused)
+{
+	[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft];
+	
+}
+
 int
 main(int ac, char *av[])
 {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+	
+	[[Q3Application sharedApplication] setPriority:1.0];
+	
 	UIApplicationMain(ac, av, nil, nil);
 
 	[pool release];

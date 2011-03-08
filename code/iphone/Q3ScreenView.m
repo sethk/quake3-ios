@@ -1,11 +1,12 @@
 /*
- * Quake3 -- iPhone Port
  *
- * Seth Kingsley, January 2008.
+ * Quake3Arena iPad Port by Alexander Pick
+ * based on iPhone Quake 3 by Seth Kingsley
+ *
  */
 
 #import	"Q3ScreenView.h"
-#import "iphone_local.h"
+#import "ipad_local.h"
 #import	<QuartzCore/QuartzCore.h>
 #import	<OpenGLES/ES1/glext.h>
 #import	<UIKit/UITouch.h>
@@ -19,35 +20,15 @@
 #define kDepthFormat  GL_DEPTH_COMPONENT16_OES
 #define kNumDepthBits 16
 
-#define kAccelerometerFrequency		60.0 //Hz
-
-// the fire key is in the lower right corner
-#define EVENTREGIONFIRE(location) (location.x >= 280 && location.y <=40)
-
-// the four rectangular 40x40 areas are located like this in the lower left corner
-//
-//  | |
-//| | | |
-//
-// this is a similar layout as the arrow keys on a keyboard
-//
-#define EVENTREGIONMOVEFORWARD(location) (location.x < 280 && location.x >= 240) && (location.y >= 400 && location.y < 440)
-#define EVENTREGIONMOVEBACK(location) (location.x >= 280 && (location.y >= 400 && location.y < 440))
-#define EVENTREGIONLEFT(location)(location.x >= 280 && location.y >= 440)
-#define EVENTREGIONRIGHT(location)(location.x >= 280 && (location.y >= 360 && location.y < 400))
-
 @interface Q3ScreenView ()
 
 - (BOOL)_commonInit;
+- (void)_mainGameLoop;
 - (BOOL)_createSurface;
 - (void)_destroySurface;
-- (void)_queueEventWithType:(enum Q3EventType)type value1:(int)value1 value2:(int)value2;
+- (void)_reCenter;
 - (void)_handleMenuDragToPoint:(CGPoint)point;
-#ifdef TODO
-- (void)_handleTouch:(UITouch *)touch;
-#endif // TODO
 - (void)_handleDragFromPoint:(CGPoint)location toPoint:(CGPoint)previousLocation;
-
 @end
 
 @implementation Q3ScreenView
@@ -57,8 +38,66 @@
 	return [CAEAGLLayer class];
 }
 
+
+- (void)_mainGameLoop {
+			
+	CGPoint newLocation = CGPointMake(oldLocation.x - distance/4 * cosf(touchAngle), oldLocation.y - distance/4 * sinf(touchAngle));
+	
+	CGSize mouseDelta;
+	
+	mouseDelta.width = roundf((oldLocation.y - newLocation.y) * _mouseScale.x);
+	mouseDelta.height = roundf((newLocation.x - oldLocation.x) * _mouseScale.y);
+	
+	//Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, mouseDelta.width, mouseDelta.height, 0, NULL);
+	
+	//oldLocation = newLocation;
+	
+	//Com_Printf("%f\n", mouseDelta.width);
+	
+	
+	if(distance > 30) {
+		
+		if(mouseDelta.height < -10) {
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 1, 0, NULL);
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
+			//Com_Printf("%f\n", mouseDelta.height);
+		} else if((mouseDelta.height > 10)) {
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 1, 0, NULL);
+			//Com_Printf("Back: %f\n", mouseDelta.height);
+		} else {
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);		
+		}
+		
+		
+		if(mouseDelta.width < -25) {
+			//Com_Printf("Left: %f\n", mouseDelta.width);
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 1, 0, NULL);
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
+		} else if(mouseDelta.width > 25) {
+			//Com_Printf("Right: %f\n", mouseDelta.width);	
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 1, 0, NULL);
+		} else {
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
+		}
+				
+	} else {
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);		
+	}
+	
+	
+	
+}
+
 - (BOOL)_commonInit
 {
+
 	CAEAGLLayer *layer = (CAEAGLLayer *)self.layer;
 
 	[layer setDrawableProperties:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -75,10 +114,15 @@
 	[self setMultipleTouchEnabled:YES];
 
 	_GUIMouseLocation = CGPointMake(0, 0);
-
-#ifdef TODO
-	_bitMask = 0;
-#endif // TODO
+	
+	joypad = CGRectMake(500, 840, 250, 250);
+	joypadCenterx = 550;
+	joypadCentery = 890;
+	joypadMaxRadius = 60;
+	
+	shootbutton = CGRectMake(500, 94, 68, 68);
+	
+	gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/60 target:self selector:@selector(_mainGameLoop) userInfo:nil repeats:YES];	
 
 	return YES;
 }
@@ -133,18 +177,18 @@
 	_size.height = roundf(_size.height);
 	if (_size.width > _size.height)
 	{
-		_GUIMouseOffset.width = _GUIMouseOffset.height = 0;
-		_mouseScale.x = 640 / _size.width;
-		_mouseScale.y = 480 / _size.height;
+		_GUIMouseOffset.width = _GUIMouseOffset.height = 0; 
+		_mouseScale.x = 99; //1024 / _size.width;
+		_mouseScale.y = 768 / _size.height;
 	}
 	else
 	{
-		float aspect = _size.height / _size.width;
+		float aspect = _size.height / _size.width; // 5;
 
-		_GUIMouseOffset.width = -roundf((480 * aspect - 640) / 2.0);
+		_GUIMouseOffset.width = -roundf((768 * aspect - 1024) / 2.0);
 		_GUIMouseOffset.height = 0;
-		_mouseScale.x = (480 * aspect) / _size.height;
-		_mouseScale.y = 480 / _size.width;
+		_mouseScale.x = 5; //(768 * aspect) / _size.height;
+		_mouseScale.y = 768 / _size.width;
 	}
 
 	qglGetIntegerv(GL_RENDERBUFFER_BINDING_OES, &oldRenderBuffer);
@@ -170,7 +214,7 @@
 
 	glBindRenderbufferOES(GL_FRAMEBUFFER_OES, oldFrameBuffer);
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, oldRenderBuffer);
-
+	
 	return YES;
 }
 
@@ -200,328 +244,141 @@
 	}
 }
 
-- (void)_queueEventWithType:(enum Q3EventType)type value1:(int)value1 value2:(int)value2
-{
-	switch (type)
-	{
-		case Q3Event_RotateCamera:
-			Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, value1, value2, 0, NULL);
-			break;
-
-		case Q3Event_Fire:
-			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, value1, value2, 0, NULL);
-			break;
-
-		case Q3Event_MovePlayerForward:
-		case Q3Event_MovePlayerBack:
-		case Q3Event_MovePlayerLeft:
-		case Q3Event_MovePlayerRight:
-			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, value1, value2, 0, NULL );
-			break;
-
-		default:
-			return;
-	}
-}
-
 - (void)_handleMenuDragToPoint:(CGPoint)point
 {
 	CGPoint mouseLocation, GUIMouseLocation;
 	int deltaX, deltaY;
+	
+	mouseLocation.x = point.y;
+	mouseLocation.y = point.x;
 
-	if (glConfig.vidRotation == 90)
-	{
-		mouseLocation.x = _size.height - point.y;
-		mouseLocation.y = point.x;
-	}
-	else if (glConfig.vidRotation == 0)
-	{
-		mouseLocation.x = point.x;
-		mouseLocation.y = point.y;
-	}
-	else if (glConfig.vidRotation == 270)
-	{
-		mouseLocation.x = point.y;
-		mouseLocation.y = _size.width - point.x;
-	}
-	else
-	{
-		mouseLocation.x = _size.width - point.x;
-		mouseLocation.y = _size.height - point.y;
-	}
-
-	GUIMouseLocation.x = roundf(_GUIMouseOffset.width + mouseLocation.x * _mouseScale.x);
-	GUIMouseLocation.y = roundf(_GUIMouseOffset.height + mouseLocation.y * _mouseScale.y);
-
-	GUIMouseLocation.x = MIN(MAX(GUIMouseLocation.x, 0), 640);
-	GUIMouseLocation.y = MIN(MAX(GUIMouseLocation.y, 0), 480);
-
-	deltaX = GUIMouseLocation.x - _GUIMouseLocation.x;
-	deltaY = GUIMouseLocation.y - _GUIMouseLocation.y;
+	GUIMouseLocation.x = roundf(_GUIMouseOffset.width - mouseLocation.x * _mouseScale.x);
+	GUIMouseLocation.y = roundf(_GUIMouseOffset.height - mouseLocation.y * _mouseScale.y);
+	
+	GUIMouseLocation.x = MIN(MAX(GUIMouseLocation.x, 0), 1024);
+	GUIMouseLocation.y = MIN(MAX(GUIMouseLocation.y, 0), 768);
+	
+	deltaX = (GUIMouseLocation.x + _GUIMouseLocation.x);
+	deltaY = (GUIMouseLocation.y + _GUIMouseLocation.y);
 	_GUIMouseLocation = GUIMouseLocation;
-
-	ri.Printf(PRINT_DEVELOPER, "%s: deltaX = %d, deltaY = %d\n", __PRETTY_FUNCTION__, deltaX, deltaY);
-	if (deltaX || deltaY)
+	
+	if (deltaX || deltaY) {
 		Sys_QueEvent(0, SE_MOUSE, deltaX, deltaY, 0, NULL);
+	}	
 }
 
-#ifdef TODO
-//
-// handleTouch handles all touchBegan, touchMoved and touchEnd events coming
-// from the touch input
-// it identifies touch events by their location
-// if an event is found that is associated with a certain location on screen
-// the next question is if it happened in the Began, Moved or End phase
-// To prevent that any event is send twice to the Quake event system
-// it is guarded with a bit from a bitmask
-//
-- (void)_handleTouch:(UITouch *)touch
-{
-	CGPoint location = [touch locationInView:self];
-	CGPoint previousLocation;
-
-	// if we are in a touchMoved phase use the previous location but then check if the current
-	// location is still in there
-	if (touch.phase == UITouchPhaseMoved)
-		previousLocation = [touch previousLocationInView:self];
-	else
-		previousLocation = location;
-
-	// works only with this orientation
-	if (glConfig.vidRotation == 90) // main button is on the left side
-	{
-		// fire event
-		// lower right corner .. box is 40 x 40
-		if (EVENTREGIONFIRE(previousLocation))
-		{
-			if (touch.phase == UITouchPhaseBegan)
-			{
-				// only trigger once
-				if (_bitMask ^ Q3Event_Fire)
-				{
-					[self _queueEventWithType:Q3Event_Fire value1:K_MOUSE1 value2:1];
-
-					_bitMask|= Q3Event_Fire;
-				}
-			}
-			else if (touch.phase == UITouchPhaseEnded)
-			{
-				if (_bitMask & Q3Event_Fire)
-				{
-					[self _queueEventWithType:Q3Event_Fire value1:K_MOUSE1 value2:0];
-
-					_bitMask^= Q3Event_Fire;
-				}
-			}
-			else if (touch.phase == UITouchPhaseMoved)
-			{
-				if (!(EVENTREGIONFIRE(location)))
-				{
-					if (_bitMask & Q3Event_Fire)
-					{
-						[self _queueEventWithType:Q3Event_Fire value1:K_MOUSE1 value2:0];
-
-						_bitMask^= Q3Event_Fire;
-					}
-				}
-			}
-		}
-
-
-		//
-		// move player
-		//
-		// move forward
-		if (EVENTREGIONMOVEFORWARD(previousLocation))
-		{
-			if (touch.phase == UITouchPhaseBegan)
-			{
-				// only trigger once
-				if (_bitMask ^ Q3Event_MovePlayerForward)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerForward value1:K_UPARROW value2:1];
-
-					_bitMask|= Q3Event_MovePlayerForward;
-				}
-			}
-			else if (touch.phase == UITouchPhaseEnded)
-			{
-				if (_bitMask & Q3Event_MovePlayerForward)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerForward value1:K_UPARROW value2:0];
-
-					_bitMask ^= Q3Event_MovePlayerForward;
-				}
-			}
-			else if (touch.phase == UITouchPhaseMoved)
-			{
-				if (!(EVENTREGIONMOVEFORWARD(location)))
-				{
-					if (_bitMask & Q3Event_MovePlayerForward)
-					{
-						[self _queueEventWithType:Q3Event_MovePlayerForward value1:K_UPARROW value2:0];
-
-						_bitMask^= Q3Event_MovePlayerForward;
-					}
-				}
-			}
-
-		}
-
-		// move back
-		if (EVENTREGIONMOVEBACK(previousLocation))
-		{
-			if (touch.phase == UITouchPhaseBegan)
-			{
-				// only trigger once
-				if (_bitMask ^ Q3Event_MovePlayerBack)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerBack value1:K_DOWNARROW value2:1];
-
-					_bitMask|= Q3Event_MovePlayerBack;
-				}
-			}
-			else if (touch.phase == UITouchPhaseEnded)
-			{
-				if (_bitMask & Q3Event_MovePlayerBack)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerBack value1:K_DOWNARROW value2:0];
-
-					_bitMask^= Q3Event_MovePlayerBack;
-				}
-			}
-			else if (touch.phase == UITouchPhaseMoved)
-			{
-				if (!(EVENTREGIONMOVEBACK(location)))
-				{
-					if (_bitMask & Q3Event_MovePlayerBack)
-					{
-						[self _queueEventWithType:Q3Event_MovePlayerBack value1:K_DOWNARROW value2:0];
-
-						_bitMask^= Q3Event_MovePlayerBack;
-					}
-				}
-			}
-		}
-
-		// to the left
-		if (EVENTREGIONLEFT(previousLocation))
-		{
-			if (touch.phase == UITouchPhaseBegan)
-			{
-				// only trigger once
-				if (_bitMask ^ Q3Event_MovePlayerLeft)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerLeft value1:'a' value2:1];
-
-					_bitMask |= Q3Event_MovePlayerLeft;
-				}
-			}
-			else if (touch.phase == UITouchPhaseEnded)
-			{
-				if (_bitMask & Q3Event_MovePlayerLeft)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerLeft value1:'a' value2:0];
-
-					_bitMask^= Q3Event_MovePlayerLeft;
-				}
-			}
-			else if (touch.phase == UITouchPhaseMoved)
-			{
-				if (!(EVENTREGIONLEFT(location)))
-				{
-					if (_bitMask & Q3Event_MovePlayerLeft)
-					{
-						[self _queueEventWithType:Q3Event_MovePlayerLeft value1:'a' value2:0];
-
-						_bitMask^= Q3Event_MovePlayerLeft;
-					}
-				}
-			}
-		}
-
-		// to the right
-		if (EVENTREGIONRIGHT(previousLocation))
-		{
-			if (touch.phase == UITouchPhaseBegan)
-			{
-				// only trigger once
-				if (_bitMask ^ Q3Event_MovePlayerRight)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerRight value1:'d' value2:1];
-
-					_bitMask|= Q3Event_MovePlayerRight;
-				}
-			}
-			else if (touch.phase == UITouchPhaseEnded)
-			{
-				if (_bitMask & Q3Event_MovePlayerRight)
-				{
-					[self _queueEventWithType:Q3Event_MovePlayerRight value1:'d' value2:0];
-
-					_bitMask^= Q3Event_MovePlayerRight;
-				}
-			}
-			else if (touch.phase == UITouchPhaseMoved)
-			{
-				if (!(EVENTREGIONRIGHT(location)))
-				{
-					if (_bitMask & Q3Event_MovePlayerRight)
-					{
-						[self _queueEventWithType:Q3Event_MovePlayerRight value1:'d' value2:0];
-
-						_bitMask^= Q3Event_MovePlayerRight;
-					}
-				}
-			}
-		}
+- (void)_reCenter {
+	
+	if(!isFinger) {
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_END, 1, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_END, 0, 0, NULL);
 	}
 }
-#endif // TODO
 
 // handleDragFromPoint rotates the camera based on a touchedMoved event
 - (void)_handleDragFromPoint:(CGPoint)location toPoint:(CGPoint)previousLocation
 {
-	if (glConfig.vidRotation == 90)
-	{
-		CGSize mouseDelta;
-
-		mouseDelta.width = roundf((previousLocation.y - location.y) * _mouseScale.x);
-		mouseDelta.height = roundf((location.x - previousLocation.x) * _mouseScale.y);
-
-		Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, mouseDelta.width, mouseDelta.height, 0, NULL);
-	}
+	CGSize mouseDelta;
+		
+	mouseDelta.width = roundf((previousLocation.y - location.y) * _mouseScale.x);
+	mouseDelta.height = roundf((location.x - previousLocation.x) * _mouseScale.y);
+	
+	mouseDelta.width = mouseDelta.width - (mouseDelta.width * 2);
+	mouseDelta.height = mouseDelta.height - (mouseDelta.height * 2);
+		
+	Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, mouseDelta.width, mouseDelta.height, 0, NULL);
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	for (UITouch *touch in touches)
-	{
-		if (cls.state == CA_DISCONNECTED && _numTouches == 0)
+- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+	
+	NSSet *allTouches = [event allTouches];
+    
+	for (UITouch *touch in allTouches) {
+        
+		CGPoint touchLocation = [touch locationInView:self];
+        
+		if (CGRectContainsPoint(joypad, touchLocation) && !joypadMoving) {
+        
+			joypadMoving = YES;
+            joypadTouchHash = [touch hash];
+        
+		} else if(CGRectContainsPoint(shootbutton, touchLocation) && !shooting) {
+		
+			shooting = YES;
+			
+			isFinger = YES;
+			
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
+			
 			[self _handleMenuDragToPoint:[touch locationInView:self]];
-
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1 + _numTouches++, 1, 0, NULL);
-	}
+			
+		} else {
+			
+			//look around
+			
+			isFinger = YES;
+			
+			[self _handleMenuDragToPoint:[touch locationInView:self]];
+			
+		}
+    }
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	if (cls.state == CA_ACTIVE)
-	{
-		for (UITouch *touch in touches)
+
+- (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
+    NSSet *allTouches = [event allTouches];
+    
+    for (UITouch *touch in allTouches) {
+		
+		if ([touch hash] == joypadTouchHash && joypadMoving) {
+			CGPoint touchLocation = [touch locationInView:self];
+			
+			float dx = (float)joypadCenterx - (float)touchLocation.x;
+			float dy = (float)joypadCentery - (float)touchLocation.y;
+			
+			distance = sqrtf((joypadCenterx - touchLocation.x) * (joypadCenterx - touchLocation.x) + 
+							 (joypadCentery - touchLocation.y) * (joypadCentery - touchLocation.y));
+			
+			touchAngle = atan2(dy, dx);
+			
+			if (distance > joypadMaxRadius) {
+				joypadCap.center = CGPointMake(joypadCenterx - cosf(touchAngle) * joypadMaxRadius, 
+											   joypadCentery - sinf(touchAngle) * joypadMaxRadius);
+			
+			} else {
+				joypadCap.center = touchLocation;
+			}
+		} else {
 			[self _handleDragFromPoint:[touch previousLocationInView:self]
-							   toPoint:[touch locationInView:self]];
+							   toPoint:[touch locationInView:self]];	
+		}
 	}
-	else if (cls.state == CA_DISCONNECTED)
-		// TODO: Find the touch that started first.
-		[self _handleMenuDragToPoint:[[touches anyObject] locationInView:self]];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	for (UITouch *touch in touches)
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1 + _numTouches--, 0, 0, NULL);
+- (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
+	for (UITouch *touch in touches) {
+		if ([touch hash] == joypadTouchHash) {
+		
+			joypadMoving = NO;
+			joypadTouchHash = 0;
+			distance = 0;
+			touchAngle = 0;
+			joypadCap.center = CGPointMake(joypadCenterx, joypadCentery);
+			return;
+		
+		} else {
+
+			shooting = NO;
+			
+			Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
+
+			isFinger = NO;
+			
+			[NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(_reCenter) userInfo:nil repeats:NO];
+		}
+	}
 }
+
 
 @dynamic numColorBits;
 
