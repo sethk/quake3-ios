@@ -5,6 +5,7 @@
  */
 
 #import "Q3Downloader.h"
+#import <UIKit/UIApplication.h>
 
 @interface _Q3DownloadFile : NSObject
 {
@@ -112,6 +113,7 @@
 		 didCompleteProgress:0.0
 					withText:[NSString stringWithFormat:@"Connecting to %@...", url.host]];
 	[connection start];
+	[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void)_updateDownloadStatus
@@ -248,6 +250,8 @@
 
 	if (error)
 		[connection cancel];
+
+	[[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 
 	if ([delegate respondsToSelector:@selector(downloader:didFinishDownloadingWithError:)])
 		[delegate downloader:self didFinishDownloadingWithError:error];
