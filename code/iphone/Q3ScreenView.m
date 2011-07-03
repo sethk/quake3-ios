@@ -114,14 +114,7 @@
 	[self setMultipleTouchEnabled:YES];
 
 	_GUIMouseLocation = CGPointMake(0, 0);
-	
-	joypad = CGRectMake(500, 840, 250, 250);
-	joypadCenterx = 550;
-	joypadCentery = 890;
-	joypadMaxRadius = 60;
-	
-	shootbutton = CGRectMake(500, 94, 68, 68);
-	
+
 	gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/60 target:self selector:@selector(_mainGameLoop) userInfo:nil repeats:YES];	
 
 	return YES;
@@ -162,6 +155,18 @@
 	[_context release];
 
 	[super dealloc];
+}
+
+- (void)awakeFromNib
+{
+	CGRect newControlFrame = [_newControlView frame];
+	shootbutton = CGRectMake(CGRectGetMinX(newControlFrame) + 4, CGRectGetMinY(newControlFrame) + 40, 68, 68);
+
+	CGRect joypadCapFrame = [joypadCap frame];
+	joypad = CGRectMake(CGRectGetMinX(joypadCapFrame), CGRectGetMinY(joypadCapFrame), 250, 250);
+	joypadCenterx = CGRectGetMidX(joypadCapFrame);
+	joypadCentery = CGRectGetMidY(joypadCapFrame);
+	joypadMaxRadius = 60;
 }
 
 - (BOOL)_createSurface

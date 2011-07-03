@@ -168,6 +168,8 @@
 		78DDDAA0127F3E7E00DDA958 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78DDDA9F127F3E7E00DDA958 /* libz.dylib */; };
 		78E0545F1289735B0038E5F5 /* q3a_new_control.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E0545E1289735B0038E5F5 /* q3a_new_control.png */; };
 		78E0547F12898BE20038E5F5 /* Quake_III_Arena_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E0547E12898BE20038E5F5 /* Quake_III_Arena_Logo.png */; };
+		FD3F5ADD13C04D470027452E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3F5ADC13C04D470027452E /* Default.png */; };
+		FD3F5AEA13C04E1B0027452E /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3F5AE913C04E1B0027452E /* Default~ipad.png */; };
 		FDC1C9920F847934004149B3 /* ui_addbots.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F70E2B1B8C00A186BC /* ui_addbots.c */; };
 		FDC1C9930F847934004149B3 /* ui_atoms.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F80E2B1B8C00A186BC /* ui_atoms.c */; };
 		FDC1C9940F847934004149B3 /* ui_cdkey.c in Sources */ = {isa = PBXBuildFile; fileRef = FDBBE4F90E2B1B8C00A186BC /* ui_cdkey.c */; };
@@ -331,6 +333,8 @@
 		FD228FA50ED0F8B50097A222 /* default.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.cfg; sourceTree = "<group>"; };
 		FD261F0D0ECC15470022D939 /* Q3Application.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = Q3Application.h; sourceTree = "<group>"; tabWidth = 4; };
 		FD261F0E0ECC15470022D939 /* Q3Application.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = Q3Application.m; sourceTree = "<group>"; tabWidth = 4; };
+		FD3F5ADC13C04D470027452E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		FD3F5AE913C04E1B0027452E /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default~ipad.png"; path = "Resources-iPad/Default~ipad.png"; sourceTree = "<group>"; };
 		FD4BE73E103D1BA100A9AC33 /* Q3Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = Q3Downloader.h; sourceTree = "<group>"; tabWidth = 4; };
 		FD4BE73F103D1BA100A9AC33 /* Q3Downloader.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = Q3Downloader.m; sourceTree = "<group>"; tabWidth = 4; };
 		FD4C5CF30E2DE0D400012E6B /* ai_chat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = ai_chat.c; sourceTree = "<group>"; };
@@ -565,8 +569,8 @@
 		FDD254390D80FF5200E13415 /* ipad_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipad_local.h; sourceTree = "<group>"; };
 		FDD2543A0D80FF5200E13415 /* ipad_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ipad_main.m; sourceTree = "<group>"; };
 		FDD2543B0D80FF5200E13415 /* ipad_qgl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipad_qgl.h; sourceTree = "<group>"; };
-		FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3ScreenView.h; sourceTree = "<group>"; };
-		FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3ScreenView.m; sourceTree = "<group>"; };
+		FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = Q3ScreenView.h; sourceTree = "<group>"; tabWidth = 4; };
+		FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3ScreenView.m; sourceTree = "<group>"; tabWidth = 4; };
 		FDD2544D0D8102C300E13415 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		FDFBBF531235399A00C73739 /* be_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = be_interface.h; sourceTree = "<group>"; };
 		FDFBBF6A12353B8900C73739 /* cg_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cg_public.h; sourceTree = "<group>"; };
@@ -712,6 +716,8 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				FD228FA50ED0F8B50097A222 /* default.cfg */,
 				78BC307B127AC64C00AA25C6 /* MainWindow.xib */,
+				FD3F5ADC13C04D470027452E /* Default.png */,
+				FD3F5AE913C04E1B0027452E /* Default~ipad.png */,
 			);
 			name = "Resources-iPad";
 			sourceTree = "<group>";
@@ -1184,6 +1190,8 @@
 				7813341012802FC500A350D6 /* q3_escape.png in Resources */,
 				78E0545F1289735B0038E5F5 /* q3a_new_control.png in Resources */,
 				78E0547F12898BE20038E5F5 /* Quake_III_Arena_Logo.png in Resources */,
+				FD3F5ADD13C04D470027452E /* Default.png in Resources */,
+				FD3F5AEA13C04E1B0027452E /* Default~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1495,7 +1503,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "Quake3-Upgraded";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1516,7 +1524,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = Quake3Arena;
 				SDKROOT = iphoneos4.2;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1536,7 +1544,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "Quake3-Upgraded";
 				SDKROOT = iphoneos3.2;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Distribution;
 		};

@@ -52,6 +52,7 @@ enum Q3EventType
 #endif // TODO
 		
 	IBOutlet UIImageView *joypadCap;
+	IBOutlet UIView *_newControlView;
 
 	NSTimer *gameTimer;	
 	

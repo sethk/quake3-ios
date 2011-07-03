@@ -52,8 +52,8 @@ extern cvar_t *com_maxfps;
 
 
 static NSString * const kDemoArchiveURL =
-	//	@"ftp://ftp.idsoftware.com/idstuff/quake3/linux/linuxq3ademo-1.11-6.x86.gz.sh";
-		@"ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles/linuxq3ademo-1.11-6.x86.gz.sh";
+		@"ftp://ftp.idsoftware.com/idstuff/quake3/linux/linuxq3ademo-1.11-6.x86.gz.sh";
+	//	@"ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles/linuxq3ademo-1.11-6.x86.gz.sh";
 static const long long kDemoArchiveOffset = 5468;
 static NSString * const kPakFileName = @"pak0.pk3";
 static const long long kDemoPakFileOffset = 5749248;
@@ -172,7 +172,7 @@ static const long long kDemoPakFileSize = 46853694;
 	{
 		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:@"Welcome to Quake3Arena!"
 														     message:
-		@"Do you want to download a copy of the shareware Quake 3 Arena Demo's data? Hint: The best way to play Quake 3 Arena on your iPad is by copying your baseq3 PAK files via iTunes filesharing to it."
+		@"Do you want to download a copy of the shareware Quake 3 Arena Demo's data? Hint: The best way to play Quake 3 Arena on your device is by copying your baseq3 PAK files via iTunes filesharing to it."
 															delegate:self
 												   cancelButtonTitle:@"Exit"
 												   otherButtonTitles:@"Yes",
