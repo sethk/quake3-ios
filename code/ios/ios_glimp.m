@@ -1,13 +1,13 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
 
 #include <sys/param.h>
 #include "../client/client.h"
-#include "iphone_glimp.h"
-#include "iphone_local.h"
+#include "ios_glimp.h"
+#include "ios_local.h"
 #include "../renderer/tr_local.h"
 
 #import	"Q3Application.h"
@@ -116,9 +116,9 @@ qglEnd(void)
 	qglVertexPointer(3, GL_FLOAT, sizeof(_GLimp_vertexes[0]), _GLimp_vertexes);
 	qglEnableClientState(GL_VERTEX_ARRAY);
 
-	if (_GLimp_beginmode == IPHONE_QUADS)
+	if (_GLimp_beginmode == IOS_QUADS)
 		mode = GL_TRIANGLES;
-	else if (_GLimp_beginmode == IPHONE_POLYGON)
+	else if (_GLimp_beginmode == IOS_POLYGON)
 		assert(0);
 	else
 		mode = _GLimp_beginmode;
@@ -183,7 +183,7 @@ qglVertex3fv(GLfloat *v)
 	bcopy(v, _GLimp_vertexes[_GLimp_numOutputVerts++], sizeof(_GLimp_vertexes[0]));
 	++_GLimp_numInputVerts;
 
-	if (_GLimp_beginmode == IPHONE_QUADS && _GLimp_numInputVerts % 4 == 0)
+	if (_GLimp_beginmode == IOS_QUADS && _GLimp_numInputVerts % 4 == 0)
 	{
 		assert(_GLimp_numOutputVerts < MAX_ARRAY_SIZE - 2);
 		bcopy(_GLimp_vertexes[_GLimp_numOutputVerts - 4],
@@ -200,7 +200,7 @@ qglVertex3fv(GLfloat *v)
 				sizeof(_GLimp_texcoords[0]));
 		_GLimp_numOutputVerts+= 2;
 	}
-	else if (_GLimp_beginmode == IPHONE_POLYGON)
+	else if (_GLimp_beginmode == IOS_POLYGON)
 		assert(0);
 }
 
@@ -296,9 +296,9 @@ GLimp_SetMode(float rotation)
 void
 GLimp_AcquireGL(void)
 {
-#ifdef IPHONE_USE_THREADS
+#ifdef IOS_USE_THREADS
 	[EAGLContext setCurrentContext:_context];
-#endif // IPHONE_USE_THREADS
+#endif // IOS_USE_THREADS
 }
 
 void
@@ -309,9 +309,9 @@ GLimp_LogComment(char *comment)
 void
 GLimp_ReleaseGL(void)
 {
-#ifdef IPHONE_USE_THREADS
+#ifdef IOS_USE_THREADS
 	[EAGLContext setCurrentContext:nil];
-#endif // IPHONE_USE_THREADS
+#endif // IOS_USE_THREADS
 }
 
 void

@@ -1,10 +1,10 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
 
-#import	"iphone_glimp.h"
+#import	"ios_glimp.h"
 
 #include "../renderer/tr_local.h"
 

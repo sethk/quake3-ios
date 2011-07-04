@@ -1,5 +1,5 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, August 2009.
  */

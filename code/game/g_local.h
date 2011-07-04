@@ -765,7 +765,7 @@ extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
 
-#ifdef IPHONE
+#ifdef IOS
 #define trap_Printf trap_qagame_Printf
 #define trap_Error trap_qagame_Error
 #define trap_Milliseconds trap_qagame_Milliseconds
@@ -972,7 +972,7 @@ extern	vmCvar_t	g_proxMineTimeout;
 #define trap_PC_FreeSource trap_qagame_PC_FreeSource
 #define trap_PC_ReadToken trap_qagame_PC_ReadToken
 #define trap_PC_SourceFileAndLine trap_qagame_PC_SourceFileAndLine
-#endif // IPHONE
+#endif // IOS
 
 void	trap_Printf( const char *fmt );
 void	trap_Error( const char *fmt );

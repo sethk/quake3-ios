@@ -610,12 +610,12 @@ bot_synonymlist_t *BotLoadSynonyms(char *filename)
 	for (pass = 0; pass < 2; pass++)
 	{
 		//
-#ifdef IPHONE
+#ifdef IOS
 		// Weird memory smasher here:
 		if (pass && size) ptr = (char *) malloc(size);
 #else
 		if (pass && size) ptr = (char *) GetClearedHunkMemory(size);
-#endif // IPHONE
+#endif // IOS
 		//
 		PC_SetBaseFolder(BOTFILESBASEFOLDER);
 		source = LoadSourceFile(filename);
@@ -667,12 +667,12 @@ bot_synonymlist_t *BotLoadSynonyms(char *filename)
 					size += sizeof(bot_synonymlist_t);
 					if (pass)
 					{
-#ifdef IPHONE
+#ifdef IOS
 						syn = (bot_synonymlist_t *) malloc(sizeof(bot_synonymlist_t));
 #else
 						syn = (bot_synonymlist_t *) ptr;
 						ptr += sizeof(bot_synonymlist_t);
-#endif // IPHONE
+#endif // IOS
 						syn->context = context;
 						syn->firstsynonym = NULL;
 						syn->next = NULL;
@@ -700,12 +700,12 @@ bot_synonymlist_t *BotLoadSynonyms(char *filename)
 						size += sizeof(bot_synonym_t) + strlen(token.string) + 1;
 						if (pass)
 						{
-#ifdef IPHONE
+#ifdef IOS
 							synonym = (bot_synonym_t *) malloc(sizeof(bot_synonym_t));
 #else
 							synonym = (bot_synonym_t *) ptr;
 							ptr += sizeof(bot_synonym_t);
-#endif // IPHONE
+#endif // IOS
 							synonym->string = ptr;
 							ptr += strlen(token.string) + 1;
 							strcpy(synonym->string, token.string);
@@ -773,7 +773,7 @@ bot_synonymlist_t *BotLoadSynonyms(char *filename)
 //===========================================================================
 void BotReplaceSynonyms(char *string, unsigned long int context)
 {
-#ifndef IPHONE
+#ifndef IOS
 	bot_synonymlist_t *syn;
 	bot_synonym_t *synonym;
 
@@ -785,7 +785,7 @@ void BotReplaceSynonyms(char *string, unsigned long int context)
 			StringReplaceWords(string, synonym->string, syn->firstsynonym->string);
 		} //end for
 	} //end for
-#endif // !IPHONE
+#endif // !IOS
 } //end of the function BotReplaceSynonyms
 //===========================================================================
 //
@@ -795,7 +795,7 @@ void BotReplaceSynonyms(char *string, unsigned long int context)
 //===========================================================================
 void BotReplaceWeightedSynonyms(char *string, unsigned long int context)
 {
-#ifndef IPHONE
+#ifndef IOS
 	bot_synonymlist_t *syn;
 	bot_synonym_t *synonym, *replacement;
 	float weight, curweight;
@@ -820,7 +820,7 @@ void BotReplaceWeightedSynonyms(char *string, unsigned long int context)
 			StringReplaceWords(string, synonym->string, replacement->string);
 		} //end for
 	} //end for
-#endif // !IPHONE
+#endif // !IOS
 } //end of the function BotReplaceWeightedSynonyms
 //===========================================================================
 //
@@ -830,7 +830,7 @@ void BotReplaceWeightedSynonyms(char *string, unsigned long int context)
 //===========================================================================
 void BotReplaceReplySynonyms(char *string, unsigned long int context)
 {
-#ifndef IPHONE
+#ifndef IOS
 	char *str1, *str2, *replacement;
 	bot_synonymlist_t *syn;
 	bot_synonym_t *synonym;
@@ -870,7 +870,7 @@ void BotReplaceReplySynonyms(char *string, unsigned long int context)
 		while(*str1 && *str1 > ' ') str1++;
 		if (!*str1) break;
 	} //end while
-#endif // !IPHONE
+#endif // !IOS
 } //end of the function BotReplaceReplySynonyms
 //===========================================================================
 //

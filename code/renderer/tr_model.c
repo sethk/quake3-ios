@@ -535,9 +535,9 @@ void RE_BeginRegistration( glconfig_t *glconfigOut ) {
 	R_SyncRenderThread();
 
 	tr.viewCluster = -1;		// force markleafs to regenerate
-#ifndef IPHONE
+#ifndef IOS
 	R_ClearFlares();
-#endif // !IPHONE
+#endif // !IOS
 	RE_ClearScene();
 
 	tr.registered = qtrue;

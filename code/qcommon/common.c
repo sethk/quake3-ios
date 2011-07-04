@@ -41,7 +41,7 @@ int demo_protocols[] =
 
 #define MIN_DEDICATED_COMHUNKMEGS 1
 #define MIN_COMHUNKMEGS 40
-#if defined(IPHONE)
+#if defined(IOS)
 #define DEF_COMHUNKMEGS "40"
 #define DEF_COMZONEMEGS "16"
 #elif defined(MACOS_X)

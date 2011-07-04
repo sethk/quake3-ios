@@ -96,7 +96,7 @@ static int hist_current = -1, hist_count = 0;
 // bk001207 
 #define MEM_THRESHOLD 96*1024*1024
 
-#ifndef IPHONE
+#ifndef IOS
 /*
 ==================
 Sys_LowPhysicalMemory()
@@ -108,7 +108,7 @@ qboolean Sys_LowPhysicalMemory() {
   //return (stat.dwTotalPhys <= MEM_THRESHOLD) ? qtrue : qfalse;
   return qfalse; // bk001207 - FIXME
 }
-#endif // !IPHONE
+#endif // !IOS
 
 /*
 ==================
@@ -389,7 +389,7 @@ void Sys_Init(void)
 
 }
 
-#ifndef IPHONE
+#ifndef IOS
 void  Sys_Error( const char *error, ...)
 { 
   va_list     argptr;
@@ -436,7 +436,7 @@ void Sys_Warn (char *warning, ...)
     tty_Show();
   }
 } 
-#endif // !IPHONE
+#endif // !IOS
 
 /*
 ============
@@ -674,7 +674,7 @@ Sys_UnloadDll
 =================
 */
 void Sys_UnloadDll( void *dllHandle ) {
-#ifndef IPHONE
+#ifndef IOS
   // bk001206 - verbose error reporting
   const char* err; // rb010123 - now const
   if ( !dllHandle )
@@ -686,7 +686,7 @@ void Sys_UnloadDll( void *dllHandle ) {
   err = dlerror();
   if ( err != NULL )
     Com_Printf ( "Sys_UnloadGame failed on dlclose: \"%s\"!\n", err );
-#endif /* !IPHONE */
+#endif // !IOS
 }
 
 
@@ -708,7 +708,7 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
                    int (**entryPoint)(int, ...),
                    int (*systemcalls)(int, ...) ) 
 {
-#ifdef IPHONE
+#ifdef IOS
   extern int baseq3_ui_vmMain(int, ...), baseq3_qagame_vmMain(int, ...), baseq3_cgame_vmMain(int, ...);
   extern void baseq3_ui_dllEntry(int (*)(int, ...)), baseq3_qagame_dllEntry(int (*)(int, ...)), baseq3_cgame_dllEntry(int (*)(int, ...));
   static const struct
@@ -833,7 +833,7 @@ void *Sys_LoadDll( const char *name, char *fqpath ,
   Com_DPrintf ( "Sys_LoadDll(%s) succeeded!\n", name );
   if ( libHandle ) Q_strncpyz ( fqpath , fn , MAX_QPATH ) ;		// added 7/20/02 by T.Ray
   return libHandle;
-#endif // IPHONE
+#endif // IOS
 }
 
 /*
@@ -1267,11 +1267,11 @@ void Sys_ParseArgs( int argc, char* argv[] ) {
 #include "../client/client.h"
 extern clientStatic_t cls;
 
-#ifdef IPHONE
+#ifdef IOS
 void Sys_Startup( int argc, char *argv[] )
 #else
 int main ( int argc, char* argv[] )
-#endif // IPHONE
+#endif // IOS
 {
   // int 	oldtime, newtime; // bk001204 - unused
   int   len, i;
@@ -1320,7 +1320,7 @@ int main ( int argc, char* argv[] )
 	InitSig();
 #endif
 
-#ifndef IPHONE
+#ifndef IOS
   while (1)
   {
 #ifdef __linux__
@@ -1328,5 +1328,5 @@ int main ( int argc, char* argv[] )
 #endif
     Com_Frame ();
   }
-#endif // !IPHONE
+#endif // !IOS
 }

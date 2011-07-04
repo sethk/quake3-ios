@@ -1,11 +1,11 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
 
-#ifndef IPHONE_LOCAL_H
-#define IPHONE_LOCAL_H
+#ifndef IOS_LOCAL_H
+#define IOS_LOCAL_H
 
 #include <stdio.h>
 
@@ -17,4 +17,4 @@
 void Sys_QueEvent(int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr);
 void Sys_QueEventEx(int time, sysEventType_t type, int value, int value2, int value3, int ptrLength, void *ptr);
 
-#endif // IPHONE_LOCAL_H
+#endif // IOS_LOCAL_H

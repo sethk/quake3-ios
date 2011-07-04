@@ -379,7 +379,7 @@ void CL_JoystickEvent( int axis, int value, int time ) {
 =================
 CL_AccelEvent
 
-iPhone Accelerometer event
+iOS Accelerometer event
 =================
 */
 void CL_AccelEvent( int pitch, int roll, int yaw ) {

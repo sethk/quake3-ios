@@ -915,7 +915,7 @@ void UI_SPSkillMenu_Cache( void );
 //
 // ui_syscalls.c
 //
-#ifdef IPHONE
+#ifdef IOS
 #define trap_Print trap_ui_Print
 #define trap_Error trap_ui_Error
 #define trap_Milliseconds trap_ui_Milliseconds
@@ -999,7 +999,7 @@ void UI_SPSkillMenu_Cache( void );
 #define trap_VerifyCDKey trap_ui_VerifyCDKey
 
 #define trap_SetPbClStatus trap_ui_SetPbClStatus
-#endif // IPHONE
+#endif // IOS
 void			trap_Print( const char *string );
 void			trap_Error( const char *string );
 int				trap_Milliseconds( void );

@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <windows.h>
 #include <gl/gl.h>
 
-#elif defined(IPHONE)
+#elif defined(IOS)
 
-#include "iphone_glimp.h"
+#include "ios_glimp.h"
 
 #elif defined(MACOS_X)
 
@@ -95,7 +95,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define GL_TEXTURE3_ARB                     0x84C3
 
 // NOTE: some Linux platforms would need those prototypes
-#if defined(MACOS_X) && !defined(IPHONE)
+#if defined(MACOS_X) && !defined(IOS)
 typedef void (APIENTRY * PFNGLMULTITEXCOORD1DARBPROC) (GLenum target, GLdouble s);
 typedef void (APIENTRY * PFNGLMULTITEXCOORD1DVARBPROC) (GLenum target, const GLdouble *v);
 typedef void (APIENTRY * PFNGLMULTITEXCOORD1FARBPROC) (GLenum target, GLfloat s);
@@ -165,9 +165,9 @@ extern	void ( APIENTRY * qglUnlockArraysEXT) (void);
 
 #include "qgl_linked.h"
 
-#elif defined(IPHONE)
+#elif defined(IOS)
 
-#include "iphone_qgl.h"
+#include "ios_qgl.h"
 
 #elif defined(MACOS_X)
 // This includes #ifdefs for optional logging and GL error checking after every GL call as well as #defines to prevent incorrect usage of the non-'qgl' versions of the GL API.

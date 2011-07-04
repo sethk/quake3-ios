@@ -1,5 +1,5 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
@@ -26,11 +26,11 @@
 	Q3Downloader *_demoDownloader;
 	UIAccelerationValue _accelerationX, _accelerationY, _accelerationZ;
 	int _accelPitch, _accelRoll, _accelYaw;
-#if IPHONE_USE_THREADS
+#if IOS_USE_THREADS
 	NSThread *_frameThread;
 #else
 	NSTimer *_frameTimer;
-#endif // IPHONE_USE_THREADS
+#endif // IOS_USE_THREADS
 }
 
 @property (assign, readonly, nonatomic) Q3ScreenView *screenView;

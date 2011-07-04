@@ -470,7 +470,7 @@ void R_SetupProjection( void ) {
 	height = ymax - ymin;
 	depth = zFar - zNear;
 
-#ifdef IPHONE
+#ifdef IOS
 	if ( glConfig.vidRotation == 90 ) {
 		tr.viewParms.projectionMatrix[0] = 0;
 		tr.viewParms.projectionMatrix[4] = -2 * zNear / height;
@@ -502,7 +502,7 @@ void R_SetupProjection( void ) {
 		tr.viewParms.projectionMatrix[9] = ( xmax + xmin ) / width;	// normally 0
 		tr.viewParms.projectionMatrix[13] = 0;
 	} else
-#endif // IPHONE
+#endif // IOS
 	{
 		tr.viewParms.projectionMatrix[0] = 2 * zNear / width;
 		tr.viewParms.projectionMatrix[4] = 0;

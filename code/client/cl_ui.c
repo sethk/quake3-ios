@@ -849,31 +849,31 @@ int CL_UISystemCalls( int *args ) {
 		return FS_Seek( args[1], args[2], args[3] );
 	
 	case UI_R_REGISTERMODEL:
-#ifdef IPHONE_NOTYET
+#ifdef IOS_NOTYET
 		GLimp_AcquireGL();
 		return re.RegisterModel( VMA(1) );
 		GLimp_ReleaseGL();
 #else
 		return re.RegisterModel( VMA(1) );
-#endif // IPHONE
+#endif // IOS
 
 	case UI_R_REGISTERSKIN:
-#ifdef IPHONE_NOTYET
+#ifdef IOS_NOTYET
 		GLimp_AcquireGL();
 		return re.RegisterSkin( VMA(1) );
 		GLimp_ReleaseGL();
 #else
 		return re.RegisterSkin( VMA(1) );
-#endif // IPHONE
+#endif // IOS
 
 	case UI_R_REGISTERSHADERNOMIP:
-#ifdef IPHONE_NOTYET
+#ifdef IOS_NOTYET
 		GLimp_AcquireGL();
 		return re.RegisterShaderNoMip( VMA(1) );
 		GLimp_ReleaseGL();
 #else
 		return re.RegisterShaderNoMip( VMA(1) );
-#endif // IPHONE
+#endif // IOS
 
 	case UI_R_CLEARSCENE:
 		re.ClearScene();

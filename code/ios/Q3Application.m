@@ -1,5 +1,5 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
@@ -8,7 +8,7 @@
 #import "Q3Downloader.h"
 #import	"Q3ScreenView.h"
 #import <UIKit/UIAlert.h>
-#include "iphone_local.h"
+#include "ios_local.h"
 #include "../renderer/tr_local.h"
 #include "../client/client.h"
 
@@ -20,12 +20,12 @@
 - (void)_downloadSharewareGameData;
 - (void)_quakeMain;
 - (void)_deviceOrientationChanged:(NSNotification *)notification;
-#ifdef IPHONE_USE_THREADS
+#ifdef IOS_USE_THREADS
 - (void)_runMainLoop:(id)context;
 - (void)keepAlive:(NSTimer *)timer;
 #else
 - (void)_runFrame:(NSTimer *)timer;
-#endif // !IPHONE_USE_THREADS
+#endif // !IOS_USE_THREADS
 
 @end
 
@@ -61,7 +61,7 @@ static const long long kDemoPakFileSize = 46853694;
 
 - (void)_startRunning
 {
-#if IPHONE_USE_THREADS
+#if IOS_USE_THREADS
 	Com_Printf("Starting render thread...\n");
 
 	GLimp_ReleaseGL();
@@ -73,17 +73,17 @@ static const long long kDemoPakFileSize = 46853694;
 												 selector:@selector(_runFrame:)
 												 userInfo:nil
 												  repeats:YES];
-#endif // IPHONE_USE_THREADS
+#endif // IOS_USE_THREADS
 }
 
 - (void)_stopRunning
 {
-#if IPHONE_USE_THREADS
+#if IOS_USE_THREADS
 	Com_Printf("Stopping the render thread...\n")
 	[_frameThread cancel];
 #else
 	[_frameTimer invalidate];
-#endif // IPHONE_USE_THREADS
+#endif // IOS_USE_THREADS
 }
 
 - (BOOL)_checkForGameData
@@ -276,7 +276,7 @@ static const long long kDemoPakFileSize = 46853694;
 	}
 }
 
-#ifdef IPHONE_USE_THREADS
+#ifdef IOS_USE_THREADS
 - (void)_runMainLoop:(id)context
 {
 	NSThread *thread = [NSThread currentThread];
@@ -289,7 +289,7 @@ static const long long kDemoPakFileSize = 46853694;
 {
 	Com_Frame();
 }
-#endif // IPHONE_USE_THREADS
+#endif // IOS_USE_THREADS
 
 @synthesize screenView = _screenView;
 

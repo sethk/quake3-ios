@@ -30,13 +30,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "tr_public.h"
 #include "qgl.h"
 
-#ifdef IPHONE
+#ifdef IOS
 #define GL_INDEX_TYPE		GL_UNSIGNED_SHORT
 typedef unsigned short glIndex_t;
 #else
 #define GL_INDEX_TYPE		GL_UNSIGNED_INT
 typedef unsigned int glIndex_t;
-#endif // IPHONE
+#endif // IOS
 
 // fast float to int conversion
 #if id386 && !( (defined __linux__ || defined __FreeBSD__ || defined C_ONLY ) && (defined __i386__ ) ) // rb010123
@@ -1236,14 +1236,14 @@ IMPLEMENTATION SPECIFIC FUNCTIONS
 */
 
 void		GLimp_Init( void );
-#ifdef IPHONE
+#ifdef IOS
 void		GLimp_SetMode(float rotation);
-#endif // IPHONE
+#endif // IOS
 void		GLimp_Shutdown( void );
 void		GLimp_AcquireGL( void );
-#ifdef IPHONE
+#ifdef IOS
 void		GLimp_ReleaseGL( void );
-#endif // IPHONE
+#endif // IOS
 void		GLimp_EndFrame( void );
 
 qboolean	GLimp_SpawnRenderThread( void (*function)( void ) );
@@ -1334,7 +1334,7 @@ void R_AddWorldSurfaces( void );
 qboolean R_inPVS( const vec3_t p1, const vec3_t p2 );
 
 
-#ifndef IPHONE
+#ifndef IOS
 /*
 ============================================================
 
@@ -1348,7 +1348,7 @@ void R_ClearFlares( void );
 void RB_AddFlare( void *surface, int fogNum, vec3_t point, vec3_t color, vec3_t normal );
 void RB_AddDlightFlares( void );
 void RB_RenderFlares (void);
-#endif // !IPHONE
+#endif // !IOS
 
 /*
 ============================================================

@@ -331,7 +331,7 @@ Dlls will call this directly
 ============
 */
 int QDECL VM_DllSyscall( int arg, ... ) {
-#if ((defined __linux__) && (defined __powerpc__)) || defined(IPHONE)
+#if ((defined __linux__) && (defined __powerpc__)) || defined(IOS)
   // rcg010206 - see commentary above
   int args[16];
   int i;

@@ -39,9 +39,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #ifdef MACOS_X
 #import <sys/sockio.h>
 #import <net/if.h>
-#ifndef IPHONE
+#ifndef IOS
 #import <net/if_types.h>
-#endif // !IPHONE
+#endif // !IOS
 
 #import <arpa/inet.h>         // for inet_ntoa()
 #import <net/if_dl.h>         // for 'struct sockaddr_dl'
@@ -391,9 +391,9 @@ void NET_GetLocalAddress( void ) {
 
                         sdl = (struct sockaddr_dl *)&linkInterface->ifr_addr;
                         // Skip loopback interfaces
-#ifndef IPHONE
+#ifndef IOS
                         if (sdl->sdl_type != IFT_LOOP) {
-#endif // !IPHONE
+#endif // !IOS
                             // Get the local interface address
                             strncpy(ifr.ifr_name, inetInterface->ifr_name, sizeof(ifr.ifr_name));
                             if (ioctl(interfaceSocket, SIOCGIFADDR, (caddr_t)&ifr) < 0) {
@@ -412,9 +412,9 @@ void NET_GetLocalAddress( void ) {
                                 Com_Printf( "IP: %i.%i.%i.%i (%s)\n", localIP[ numIP ][0], localIP[ numIP ][1], localIP[ numIP ][2], localIP[ numIP ][3], inetInterface->ifr_name);
                                 numIP++;
                             }
-#ifndef IPHONE
+#ifndef IOS
                         }
-#endif // !IPHONE
+#endif // !IOS
 
                         // We will assume that there is only one AF_INET entry per AF_LINK entry.
                         // What happens when we have an interface that has multiple IP addresses, or

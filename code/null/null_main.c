@@ -50,10 +50,10 @@ void Sys_StreamSeek( fileHandle_t f, int offset, int origin ) {
 //===================================================================
 
 
-#if !IPHONE
+#if !IOS
 void Sys_Mkdir ( const char *path ) {
 }
-#endif // !IPHONE
+#endif // !IOS
 
 void Sys_Error (const char *error, ...) {
 	va_list		argptr;
@@ -82,11 +82,11 @@ char	*Sys_GetClipboardData( void ) {
 	return NULL;
 }
 
-#if !IPHONE
+#if !IOS
 int	Sys_Milliseconds (void) {
 	return 0;
 }
-#endif // IPHONE
+#endif // IOS
 
 char	*Sys_FindFirst (char *path, unsigned musthave, unsigned canthave) {
 	return NULL;

@@ -31,11 +31,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 static int (QDECL *syscall)( int arg, ... ) = (int (QDECL *)( int, ...))-1;
 
 
-#ifdef IPHONE
+#ifdef IOS
 void baseq3_cgame_dllEntry( int (QDECL  *syscallptr)( int arg,... ) ) {
 #else
 void dllEntry( int (QDECL  *syscallptr)( int arg,... ) ) {
-#endif // IPHONE
+#endif // IOS
 	syscall = syscallptr;
 }
 

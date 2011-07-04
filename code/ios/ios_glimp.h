@@ -1,11 +1,11 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
 
-#ifndef IPHONE_GLIMP_H
-#define IPHONE_GLIMP_H
+#ifndef IOS_GLIMP_H
+#define IOS_GLIMP_H
 
 #include <OpenGLES/ES1/gl.h>
 
@@ -15,8 +15,8 @@ extern void qglUnlockArrays(void);
 
 enum
 {
-	IPHONE_QUADS = 0x10000,
-	IPHONE_POLYGON
+	IOS_QUADS = 0x10000,
+	IOS_POLYGON
 };
 
 #undef GL_CLAMP
@@ -34,7 +34,7 @@ enum
 #undef GL_RGBA8
 #define GL_RGBA8				GL_RGBA8_DONT_USE
 #undef GL_QUADS
-#define GL_QUADS				IPHONE_QUADS
+#define GL_QUADS				IOS_QUADS
 #undef GL_STENCIL_INDEX
 #define GL_STENCIL_INDEX		GL_STENCIL_INDEX_DONT_USE
 #undef GL_BACK_LEFT
@@ -46,7 +46,7 @@ enum
 #undef GL_TEXTURE_BORDER_COLOR
 #define GL_TEXTURE_BORDER_COLOR	GL_TEXTURE_BORDER_COLOR_DONT_USE
 #undef GL_POLYGON
-#define GL_POLYGON				IPHONE_POLYGON
+#define GL_POLYGON				IOS_POLYGON
 #undef GL_UNSIGNED_INT
 #define GL_UNSIGNED_INT			GL_UNSIGNED_INT_DONT_USE
 
@@ -71,4 +71,4 @@ void qglCallList(GLuint list);
 
 void GLimp_MakeCurrent(void);
 
-#endif // IPHONE_GLIMP_H
+#endif // IOS_GLIMP_H

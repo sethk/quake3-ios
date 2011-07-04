@@ -1,11 +1,11 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
 
 #import	"Q3ScreenView.h"
-#import "iphone_local.h"
+#import "ios_local.h"
 #import	<QuartzCore/QuartzCore.h>
 #import	<OpenGLES/ES1/glext.h>
 #import	<UIKit/UITouch.h>

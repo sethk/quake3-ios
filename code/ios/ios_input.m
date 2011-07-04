@@ -1,10 +1,10 @@
 /*
- * Quake3 -- iPhone Port
+ * Quake3 -- iOS Port
  *
  * Seth Kingsley, January 2008.
  */
 
-#include "iphone_local.h"
+#include "ios_local.h"
 
 void
 IN_Init(void)

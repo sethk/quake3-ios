@@ -2012,7 +2012,7 @@ void PmoveSingle (pmove_t *pmove) {
 	PM_WaterEvents();
 
 	// snap some parts of playerstate to save network bandwidth
-#ifdef IPHONE
+#ifdef IOS
 	{
 		extern void trap_cgame_SnapVector( float *v ), trap_qagame_SnapVector( float *v );
 		extern void *currentVM, *cgvm, *gvm;
@@ -2027,7 +2027,7 @@ void PmoveSingle (pmove_t *pmove) {
 	}
 #else
 	trap_SnapVector( pm->ps->velocity );
-#endif // IPHONE
+#endif // IOS
 }
 
 
