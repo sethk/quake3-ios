@@ -10,6 +10,8 @@
 		1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		FD05A01913C1B8D70038165B /* ios_snddma.c in Sources */ = {isa = PBXBuildFile; fileRef = FD05A01813C1B8D70038165B /* ios_snddma.c */; };
+		FD05A0CD13C1CAAA0038165B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD05A0CC13C1CAAA0038165B /* AudioToolbox.framework */; };
 		FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FD1E69470E6FC951004A4AC6 /* Icon.png */; };
 		FD261F150ECC159B0022D939 /* Q3Application.m in Sources */ = {isa = PBXBuildFile; fileRef = FD261F0E0ECC15470022D939 /* Q3Application.m */; };
 		FD4BE740103D1BA100A9AC33 /* Q3Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4BE73F103D1BA100A9AC33 /* Q3Downloader.m */; };
@@ -130,7 +132,6 @@
 		FD9C41190E0F35A9008E2729 /* tr_sky.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41030E0F35A9008E2729 /* tr_sky.c */; };
 		FD9C411A0E0F35A9008E2729 /* tr_surface.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41040E0F35A9008E2729 /* tr_surface.c */; };
 		FD9C411B0E0F35A9008E2729 /* tr_world.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41050E0F35A9008E2729 /* tr_world.c */; };
-		FD9C411E0E0F35CF008E2729 /* null_snddma.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C411D0E0F35CF008E2729 /* null_snddma.c */; };
 		FD9C41290E0F3605008E2729 /* sv_bot.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41200E0F3605008E2729 /* sv_bot.c */; };
 		FD9C412A0E0F3605008E2729 /* sv_ccmds.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41210E0F3605008E2729 /* sv_ccmds.c */; };
 		FD9C412B0E0F3605008E2729 /* sv_client.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C41220E0F3605008E2729 /* sv_client.c */; };
@@ -289,6 +290,8 @@
 		1D6058910D05DD3D006BFB54 /* Quake3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quake3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD05A01813C1B8D70038165B /* ios_snddma.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ios_snddma.c; sourceTree = "<group>"; tabWidth = 4; };
+		FD05A0CC13C1CAAA0038165B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FD1E69470E6FC951004A4AC6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = bg_misc.c; sourceTree = "<group>"; };
 		FD228FA50ED0F8B50097A222 /* default.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.cfg; sourceTree = "<group>"; };
@@ -552,6 +555,7 @@
 				FDC1CA140F8481C5004149B3 /* libqagame.a in Frameworks */,
 				FDC1CA660F84885B004149B3 /* libcgame.a in Frameworks */,
 				FDBE317E0FF09EB600FBA47B /* libz.dylib in Frameworks */,
+				FD05A0CD13C1CAAA0038165B /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +613,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				FDBE317D0FF09EB600FBA47B /* libz.dylib */,
+				FD05A0CC13C1CAAA0038165B /* AudioToolbox.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -981,6 +986,7 @@
 				FDD254390D80FF5200E13415 /* ios_local.h */,
 				FDD2543A0D80FF5200E13415 /* ios_main.m */,
 				FDD2543B0D80FF5200E13415 /* ios_qgl.h */,
+				FD05A01813C1B8D70038165B /* ios_snddma.c */,
 				FD261F0D0ECC15470022D939 /* Q3Application.h */,
 				FD261F0E0ECC15470022D939 /* Q3Application.m */,
 				FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */,
@@ -1258,7 +1264,6 @@
 				FD9C41190E0F35A9008E2729 /* tr_sky.c in Sources */,
 				FD9C411A0E0F35A9008E2729 /* tr_surface.c in Sources */,
 				FD9C411B0E0F35A9008E2729 /* tr_world.c in Sources */,
-				FD9C411E0E0F35CF008E2729 /* null_snddma.c in Sources */,
 				FD9C41290E0F3605008E2729 /* sv_bot.c in Sources */,
 				FD9C412A0E0F3605008E2729 /* sv_ccmds.c in Sources */,
 				FD9C412B0E0F3605008E2729 /* sv_client.c in Sources */,
@@ -1272,6 +1277,7 @@
 				FD9C41380E0F370E008E2729 /* q_shared.c in Sources */,
 				FD261F150ECC159B0022D939 /* Q3Application.m in Sources */,
 				FD4BE740103D1BA100A9AC33 /* Q3Downloader.m in Sources */,
+				FD05A01913C1B8D70038165B /* ios_snddma.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1426,6 +1432,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = Quake3;
 			};
