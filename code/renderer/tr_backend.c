@@ -785,7 +785,6 @@ void RE_StretchRaw (int x, int y, int w, int h, int cols, int rows, const qbyte 
 			// otherwise, just subimage upload it so that drivers can tell we are going to be changing
 			// it and don't try and do a texture compression
 			qglTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0, cols, rows, GL_RGBA, GL_UNSIGNED_BYTE, data );
-			Com_DPrintf("blend = %d, lighting = %d\n", qglIsEnabled(GL_BLEND), qglIsEnabled(GL_LIGHTING));
 		}
 	}
 
