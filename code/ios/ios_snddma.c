@@ -35,18 +35,13 @@ S_Callback(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const Audi
 	if ((*ioActionFlags & (kAudioUnitRenderAction_PreRender | kAudioUnitRenderAction_PostRender)) == 0)
 	{
 		UInt32 offset = (s_chunkCount * s_submissionChunk + s_offsetWithinChunk) & (s_maxMixedSamples - 1);
-		static UInt32 lastOffset = 0;
 
 		bcopy(s_mixedSamples + offset, ioData->mBuffers[0].mData, inNumberFrames * sizeof(*s_mixedSamples) * 2);
-		//ri.Printf(PRINT_ALL, "Copied %lx to %lx\n", (uintptr_t)(s_mixedSamples + offset), (char *)(s_mixedSamples + offset) + inNumberFrames * sizeof(*s_mixedSamples) * 2);
-		//ri.Printf(PRINT_ALL, "%hd, %hd\n", s_mixedSamples[offset], s_mixedSamples[offset + inNumberFrames * 2 - 1]);
-		ri.Printf(PRINT_ALL, "%d\n", offset - lastOffset);
-		lastOffset = offset;
 		s_offsetWithinChunk+= inNumberFrames * 2;
 		if (s_offsetWithinChunk >= s_submissionChunk)
 		{
-			s_chunkCount+= 1;
-			s_offsetWithinChunk = 0;
+			++s_chunkCount;
+			s_offsetWithinChunk&= (s_submissionChunk - 1);
 		}
 	}
 	return noErr;
@@ -100,8 +95,8 @@ SNDDMA_Init(void)
 	s_outputAudioUnit = NULL;
 	s_mixedSamples = NULL;
 
-	chunkSize = ri.Cvar_Get( "s_chunksize", "8192", CVAR_ARCHIVE );
-	bufferSize = ri.Cvar_Get( "s_buffersize", "65536", CVAR_ARCHIVE );
+	chunkSize = ri.Cvar_Get( "s_chunksize", "2048", CVAR_ARCHIVE );
+	bufferSize = ri.Cvar_Get( "s_buffersize", "16384", CVAR_ARCHIVE );
 
 	if (!chunkSize->integer) {
 		ri.Error(ERR_FATAL, "snd_chunkSize must be non-zero\n");
@@ -199,7 +194,26 @@ SNDDMA_GetDMAPos
 int
 SNDDMA_GetDMAPos(void)
 {
+	//Com_DPrintf("SNDDMA_GetDMAPos(): %i\n", (s_chunkCount * s_submissionChunk) / 2);
 	return s_chunkCount * s_submissionChunk /*+ s_offsetWithinChunk*/;
+}
+
+/*
+===============
+SNDDMA_Trace
+===============
+*/
+void
+SNDDMA_Trace(const char *label)
+{
+	char buf[71];
+	memset(buf, '-', 70);
+	buf[70] = '\0';
+	UInt32 offset = (s_chunkCount * s_submissionChunk + s_offsetWithinChunk) & (s_maxMixedSamples - 1);
+	UInt32 submit = s_paintedtime & (s_maxMixedSamples - 1);
+	buf[(int)(((float)offset / s_maxMixedSamples) * 70)] = '#';
+	buf[(int)(((float)submit / s_maxMixedSamples) * 70)] = '*';
+	Com_DPrintf("%16s [%s]\n", label, buf);
 }
 
 /*
@@ -230,6 +244,9 @@ SNDDMA_BeginPainting
 void
 SNDDMA_BeginPainting(void)
 {
+#if 0
+	SNDDMA_Trace("BeginPainting");
+#endif // 0
 }
 
 /*
@@ -241,6 +258,7 @@ void
 SNDDMA_Submit(void)
 {
 #if 0
+	SNDDMA_Trace("Submit");
 	S_MakeTestPattern();
 #endif // 0
 }

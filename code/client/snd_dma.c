@@ -151,7 +151,7 @@ void S_Init( void ) {
 
 	s_mixPreStep = Cvar_Get ("s_mixPreStep", "0.05", CVAR_ARCHIVE);
 	s_show = Cvar_Get ("s_show", "0", CVAR_CHEAT);
-	s_testsound = Cvar_Get ("s_testsound", "1", CVAR_CHEAT);
+	s_testsound = Cvar_Get ("s_testsound", "0", CVAR_CHEAT);
 
 	cv = Cvar_Get ("s_initsound", "1", 0);
 	if ( !cv->integer ) {
@@ -171,7 +171,7 @@ void S_Init( void ) {
 
 	if ( r ) {
 		s_soundStarted = 1;
-		s_soundMuted = 1;
+//		s_soundMuted = 1;
 //		s_numSfx = 0;
 
 		Com_Memset(sfxHash, 0, sizeof(sfx_t *)*LOOP_HASH);
@@ -515,7 +515,7 @@ Entchannel 0 will never override a playing sound
 void S_StartSound(vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfxHandle ) {
 	channel_t	*ch;
 	sfx_t		*sfx;
-  int i, oldest, chosen, time;
+  int i, oldest, chosen, now;
   int	inplay, allowed;
 
 	if ( !s_soundStarted || s_soundMuted ) {
@@ -541,7 +541,7 @@ void S_StartSound(vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfxH
 		Com_Printf( "%i : %s\n", s_paintedtime, sfx->soundName );
 	}
 
-	time = Com_Milliseconds();
+	now = Com_Milliseconds();
 
 //	Com_Printf("playing %s\n", sfx->soundName);
 	// pick a channel to play on
@@ -555,7 +555,7 @@ void S_StartSound(vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfxH
 	inplay = 0;
 	for ( i = 0; i < MAX_CHANNELS ; i++, ch++ ) {		
 		if (ch[i].entnum == entityNum && ch[i].thesfx == sfx) {
-			if (time - ch[i].allocTime < 50) {
+			if (now - ch[i].allocTime < 50) {
 //				if (Cvar_VariableValue( "cg_showmiss" )) {
 //					Com_Printf("double sound start\n");
 //				}
@@ -569,7 +569,7 @@ void S_StartSound(vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfxH
 		return;
 	}
 
-	sfx->lastTimeUsed = time;
+	sfx->lastTimeUsed = now;
 
 	ch = S_ChannelMalloc();	// entityNum, entchannel);
 	if (!ch) {
@@ -842,7 +842,7 @@ sum up the channel multipliers.
 ==================
 */
 void S_AddLoopSounds (void) {
-	int			i, j, time;
+	int			i, j, now;
 	int			left_total, right_total, left, right;
 	channel_t	*ch;
 	loopSound_t	*loop, *loop2;
@@ -851,7 +851,7 @@ void S_AddLoopSounds (void) {
 
 	numLoopChannels = 0;
 
-	time = Com_Milliseconds();
+	now = Com_Milliseconds();
 
 	loopFrame++;
 	for ( i = 0 ; i < MAX_GENTITIES ; i++) {
@@ -866,7 +866,7 @@ void S_AddLoopSounds (void) {
 			S_SpatializeOrigin( loop->origin, 90,  &left_total, &right_total);			// sphere
 		}
 
-		loop->sfx->lastTimeUsed = time;
+		loop->sfx->lastTimeUsed = now;
 
 		for (j=(i+1); j< MAX_GENTITIES ; j++) {
 			loop2 = &loopSounds[j];
@@ -881,7 +881,7 @@ void S_AddLoopSounds (void) {
 				S_SpatializeOrigin( loop2->origin, 90,  &left, &right);				// sphere
 			}
 
-			loop2->sfx->lastTimeUsed = time;
+			loop2->sfx->lastTimeUsed = now;
 			left_total += left;
 			right_total += right;
 		}
