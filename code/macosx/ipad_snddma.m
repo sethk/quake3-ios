@@ -54,7 +54,7 @@ SNDDMA_Init
 */
 qboolean SNDDMA_Init(void)
 {
-    return qtrue;
+    return qfalse;
 }
 
 /*

@@ -92,8 +92,8 @@
 		78BC302F127AC64B00AA25C6 /* cl_scrn.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40B80E0F34AA008E2729 /* cl_scrn.c */; };
 		78BC3030127AC64B00AA25C6 /* cl_ui.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40B90E0F34AA008E2729 /* cl_ui.c */; };
 		78BC3031127AC64B00AA25C6 /* snd_adpcm.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40BA0E0F34AA008E2729 /* snd_adpcm.c */; };
-		78BC3032127AC64B00AA25C6 /* snd_dma.m in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40BB0E0F34AA008E2729 /* snd_dma.m */; };
-		78BC3033127AC64B00AA25C6 /* snd_mem.m in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40BC0E0F34AA008E2729 /* snd_mem.m */; };
+		78BC3032127AC64B00AA25C6 /* snd_dma.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40BB0E0F34AA008E2729 /* snd_dma.c */; };
+		78BC3033127AC64B00AA25C6 /* snd_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40BC0E0F34AA008E2729 /* snd_mem.c */; };
 		78BC3034127AC64B00AA25C6 /* snd_mix.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40BD0E0F34AA008E2729 /* snd_mix.c */; };
 		78BC3035127AC64B00AA25C6 /* snd_wavelet.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40BE0E0F34AA008E2729 /* snd_wavelet.c */; };
 		78BC3036127AC64B00AA25C6 /* cm_load.c in Sources */ = {isa = PBXBuildFile; fileRef = FD9C40CF0E0F353A008E2729 /* cm_load.c */; };
@@ -461,8 +461,8 @@
 		FD9C40B80E0F34AA008E2729 /* cl_scrn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_scrn.c; sourceTree = "<group>"; };
 		FD9C40B90E0F34AA008E2729 /* cl_ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = cl_ui.c; sourceTree = "<group>"; };
 		FD9C40BA0E0F34AA008E2729 /* snd_adpcm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = snd_adpcm.c; sourceTree = "<group>"; };
-		FD9C40BB0E0F34AA008E2729 /* snd_dma.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; path = snd_dma.m; sourceTree = "<group>"; };
-		FD9C40BC0E0F34AA008E2729 /* snd_mem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 2; path = snd_mem.m; sourceTree = "<group>"; };
+		FD9C40BB0E0F34AA008E2729 /* snd_dma.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = snd_dma.c; sourceTree = "<group>"; };
+		FD9C40BC0E0F34AA008E2729 /* snd_mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = snd_mem.c; sourceTree = "<group>"; };
 		FD9C40BD0E0F34AA008E2729 /* snd_mix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = snd_mix.c; sourceTree = "<group>"; };
 		FD9C40BE0E0F34AA008E2729 /* snd_wavelet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = snd_wavelet.c; sourceTree = "<group>"; };
 		FD9C40CF0E0F353A008E2729 /* cm_load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; name = cm_load.c; path = ../qcommon/cm_load.c; sourceTree = "<group>"; };
@@ -845,8 +845,8 @@
 				FD9C40B90E0F34AA008E2729 /* cl_ui.c */,
 				FDE3822A13C9149B00B5032C /* snd_local.h */,
 				FD9C40BA0E0F34AA008E2729 /* snd_adpcm.c */,
-				FD9C40BB0E0F34AA008E2729 /* snd_dma.m */,
-				FD9C40BC0E0F34AA008E2729 /* snd_mem.m */,
+				FD9C40BB0E0F34AA008E2729 /* snd_dma.c */,
+				FD9C40BC0E0F34AA008E2729 /* snd_mem.c */,
 				FD9C40BD0E0F34AA008E2729 /* snd_mix.c */,
 				FD9C40BE0E0F34AA008E2729 /* snd_wavelet.c */,
 			);
@@ -1286,8 +1286,8 @@
 				78BC302F127AC64B00AA25C6 /* cl_scrn.c in Sources */,
 				78BC3030127AC64B00AA25C6 /* cl_ui.c in Sources */,
 				78BC3031127AC64B00AA25C6 /* snd_adpcm.c in Sources */,
-				78BC3032127AC64B00AA25C6 /* snd_dma.m in Sources */,
-				78BC3033127AC64B00AA25C6 /* snd_mem.m in Sources */,
+				78BC3032127AC64B00AA25C6 /* snd_dma.c in Sources */,
+				78BC3033127AC64B00AA25C6 /* snd_mem.c in Sources */,
 				78BC3034127AC64B00AA25C6 /* snd_mix.c in Sources */,
 				78BC3035127AC64B00AA25C6 /* snd_wavelet.c in Sources */,
 				78BC3036127AC64B00AA25C6 /* cm_load.c in Sources */,

@@ -36,7 +36,7 @@ short*   snd_out;
 
 void S_WriteLinearBlastStereo16 (void)
 {
-/*	int		i;
+	int		i;
 	int		val;
 
 	for (i=0 ; i<snd_linear_count ; i+=2)
@@ -56,7 +56,7 @@ void S_WriteLinearBlastStereo16 (void)
 			snd_out[i+1] = -32768;
 		else
 			snd_out[i+1] = val;
-	}*/
+	}
 }
 #else
 
@@ -112,7 +112,7 @@ void S_WriteLinearBlastStereo16 (void);
 
 void S_TransferStereo16 (unsigned long *pbuf, int endtime)
 {
-/*	int		lpos;
+	int		lpos;
 	int		ls_paintedtime;
 	
 	snd_p = (int *) paintbuffer;
@@ -136,7 +136,7 @@ void S_TransferStereo16 (unsigned long *pbuf, int endtime)
 
 		snd_p += snd_linear_count;
 		ls_paintedtime += (snd_linear_count>>1);
-	}*/
+	}
 }
 
 /*
@@ -147,7 +147,7 @@ S_TransferPaintBuffer
 */
 void S_TransferPaintBuffer(int endtime)
 {
-/*	int 	out_idx;
+	int 	out_idx;
 	int 	count;
 	int 	out_mask;
 	int 	*p;
@@ -211,7 +211,7 @@ void S_TransferPaintBuffer(int endtime)
 				out_idx = (out_idx + 1) & out_mask;
 			}
 		}
-	}*/
+	}
 }
 
 
@@ -224,7 +224,7 @@ CHANNEL MIXING
 */
 
 static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int sampleOffset, int bufferOffset ) {
-/*	int						data, aoff, boff;
+	int						data, aoff, boff;
 	int						leftvol, rightvol;
 	int						i, j;
 	portable_samplepair_t	*samp;
@@ -269,6 +269,7 @@ static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int
 		i = 0;
 
 		while(i < count) {
+			/* Try to align destination to 16-qbyte boundary */
 			while(i < count && (((unsigned long)&samp[i] & 0x1f) || ((count-i) < 8) || ((SND_CHUNK_SIZE - sampleOffset) < 8))) {
 				data  = samples[sampleOffset++];
 				samp[i].left += (data * leftvol)>>8;
@@ -281,6 +282,9 @@ static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int
 				}
 				i++;
 			}
+			/* Destination is now aligned.  Process as many 8-sample 
+			   chunks as we can before we run out of room from the current
+			   sound chunk.  We do 8 per loop to avoid extra source data reads. */
 			samplesLeft = count - i;
 			chunkSamplesLeft = SND_CHUNK_SIZE - sampleOffset;
 			if(samplesLeft > chunkSamplesLeft)
@@ -312,8 +316,10 @@ static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int
 				s0 = *(vector short *)&samples[sampleOffset];
 				while(vectorCount)
 				{
+					/* Load up source (16-bit) sample data */
 					s1 = *(vector short *)&samples[sampleOffset+7];
 					
+					/* Load up destination sample data */
 					d0 = *(vector signed int *)&samp[i];
 					d1 = *(vector signed int *)&samp[i+2];
 					d2 = *(vector signed int *)&samp[i+4];
@@ -323,7 +329,7 @@ static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int
 					sampleData1 = vec_perm(s0,s1,loadPermute1);
 					
 					merge0 = vec_mule(sampleData0,volume_vec);
-					merge0 = vec_sra(merge0,volume_shift);	
+					merge0 = vec_sra(merge0,volume_shift);	/* Shift down to proper range */
 					
 					merge1 = vec_mulo(sampleData0,volume_vec);
 					merge1 = vec_sra(merge1,volume_shift);
@@ -332,7 +338,7 @@ static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int
 					d1 = vec_add(merge1,d1);
 					
 					merge0 = vec_mule(sampleData1,volume_vec);
-					merge0 = vec_sra(merge0,volume_shift);
+					merge0 = vec_sra(merge0,volume_shift);	/* Shift down to proper range */
 					
 					merge1 = vec_mulo(sampleData1,volume_vec);
 					merge1 = vec_sra(merge1,volume_shift);					
@@ -340,6 +346,7 @@ static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int
 					d2 = vec_add(merge0,d2);
 					d3 = vec_add(merge1,d3);
 
+					/* Store destination sample data */
 					*(vector signed int *)&samp[i] = d0;
 					*(vector signed int *)&samp[i+2] = d1;
 					*(vector signed int *)&samp[i+4] = d2;
@@ -401,11 +408,11 @@ static void S_PaintChannelFrom16( channel_t *ch, const sfx_t *sc, int count, int
 			samp[i].left += (fdata * fleftvol)/fdiv;
 			samp[i].right += (fdata * frightvol)/fdiv;
 		}
-	}*/
+	}
 }
 
 void S_PaintChannelFromWavelet( channel_t *ch, sfx_t *sc, int count, int sampleOffset, int bufferOffset ) {
-/*	int						data;
+	int						data;
 	int						leftvol, rightvol;
 	int						i;
 	portable_samplepair_t	*samp;
@@ -443,11 +450,11 @@ void S_PaintChannelFromWavelet( channel_t *ch, sfx_t *sc, int count, int sampleO
 			sfxScratchIndex++;
 			sampleOffset = 0;
 		}
-	}*/
+	}
 }
 
 void S_PaintChannelFromADPCM( channel_t *ch, sfx_t *sc, int count, int sampleOffset, int bufferOffset ) {
-/*	int						data;
+	int						data;
 	int						leftvol, rightvol;
 	int						i;
 	portable_samplepair_t	*samp;
@@ -490,11 +497,11 @@ void S_PaintChannelFromADPCM( channel_t *ch, sfx_t *sc, int count, int sampleOff
 			sampleOffset = 0;
 			sfxScratchIndex++;
 		}
-	}*/
+	}
 }
 
 void S_PaintChannelFromMuLaw( channel_t *ch, sfx_t *sc, int count, int sampleOffset, int bufferOffset ) {
-/*	int						data;
+	int						data;
 	int						leftvol, rightvol;
 	int						i;
 	portable_samplepair_t	*samp;
@@ -544,7 +551,7 @@ void S_PaintChannelFromMuLaw( channel_t *ch, sfx_t *sc, int count, int sampleOff
 				ooff = 0.0;
 			}
 		}
-	}*/
+	}
 }
 
 /*
@@ -553,7 +560,7 @@ S_PaintChannels
 ===================
 */
 void S_PaintChannels( int endtime ) {
-/*	int 	i;
+	int 	i;
 	int 	end;
 	channel_t *ch;
 	sfx_t	*sc;
@@ -670,5 +677,5 @@ void S_PaintChannels( int endtime ) {
 		// transfer out according to DMA format
 		S_TransferPaintBuffer( end );
 		s_paintedtime = end;
-	}*/
+	}
 }
