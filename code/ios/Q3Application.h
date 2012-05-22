@@ -22,11 +22,6 @@
 	IBOutlet UILabel *_downloadStatusLabel;
 	IBOutlet UIProgressView *_downloadProgress;
 
-	IBOutlet UIButton *_changeButton;
-	IBOutlet UIButton *_spaceKey;
-	IBOutlet UIButton *_escKey;
-	IBOutlet UIButton *_enterKey;
-
 	Q3Downloader *_demoDownloader;
 #if IOS_USE_THREADS
 	NSThread *_frameThread;

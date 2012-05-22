@@ -48,5 +48,10 @@
 @property (assign, readonly, nonatomic) NSUInteger numDepthBits;
 @property (assign, readonly, nonatomic) EAGLContext *context;
 - (void)swapBuffers;
+- (IBAction)startJumping:(id)sender;
+- (IBAction)stopJumping:(id)sender;
+- (IBAction)changeWeapon:(id)sender;
+- (IBAction)escape:(id)sender;
+- (IBAction)enter:(id)sender;
 
 @end

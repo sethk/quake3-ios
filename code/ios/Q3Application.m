@@ -183,38 +183,6 @@ static const long long kDemoPakFileSize = 46853694;
 	_downloadProgress.hidden =  NO;
 }
 
-// Events for buttons
-
-// jump space
--(void)spacePress:(id)Sender
-{
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE , 1, 0, NULL);
-}
-
--(void)spaceRelease:(id)Sender
-{
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE ,0, 0, NULL);
-}
-
-// single press keys
--(void)changeWeapon:(id)Sender
-{
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/', 1, 0, NULL);
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/',0, 0, NULL);
-}
-
--(void)escPress:(id)Sender
-{
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE , 1, 0, NULL);
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE ,0, 0, NULL);
-}
-
--(void)enterPress:(id)Sender
-{
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER , 1, 0, NULL);
-	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER ,0, 0, NULL);
-}
-
 - (void)_quakeMain
 {
 	extern void Sys_Startup(int argc, char *argv[]);
@@ -237,12 +205,6 @@ static const long long kDemoPakFileSize = 46853694;
 
 	[_loadingView removeFromSuperview];
 	_screenView.hidden =  NO;
-
-	[_changeButton addTarget:self action:@selector(changeWeapon:) forControlEvents:UIControlEventTouchDown];
-	[_spaceKey addTarget:self action:@selector(spacePress:) forControlEvents:UIControlEventTouchDown];
-	[_spaceKey addTarget:self action:@selector(spaceRelease:) forControlEvents:UIControlEventTouchUpInside];
-	[_escKey addTarget:self action:@selector(escPress:) forControlEvents:UIControlEventTouchDown];
-	[_enterKey addTarget:self action:@selector(enterPress:) forControlEvents:UIControlEventTouchDown];
 
 	[self _startRunning];
 }

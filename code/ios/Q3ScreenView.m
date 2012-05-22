@@ -439,4 +439,32 @@
 		[EAGLContext setCurrentContext:oldContext];
 }
 
+- (IBAction)startJumping:(id)sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE, 1, 0, NULL);
+}
+
+- (IBAction)stopJumping:(id)sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE, 0, 0, NULL);
+}
+
+- (IBAction)changeWeapon:(id)sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/', 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/', 0, 0, NULL);
+}
+
+- (IBAction)escape:(id)sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE, 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE, 0, 0, NULL);
+}
+
+- (IBAction)enter:(id)sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER, 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER, 0, 0, NULL);
+}
+
 @end
