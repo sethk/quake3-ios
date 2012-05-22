@@ -258,6 +258,13 @@
 		FDD254440D80FF5200E13415 /* ios_main.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543A0D80FF5200E13415 /* ios_main.m */; };
 		FDD254460D80FF5200E13415 /* Q3ScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */; };
 		FDD2544E0D8102C300E13415 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDD2544D0D8102C300E13415 /* OpenGLES.framework */; };
+		FDEC0B091568D0CC0063201B /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = FDEC0B021568D0CC0063201B /* ball.png */; };
+		FDEC0B0A1568D0CC0063201B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FDEC0B031568D0CC0063201B /* Default.png */; };
+		FDEC0B0B1568D0CC0063201B /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = FDEC0B041568D0CC0063201B /* Default~ipad.png */; };
+		FDEC0B0C1568D0CC0063201B /* q3_enter.png in Resources */ = {isa = PBXBuildFile; fileRef = FDEC0B051568D0CC0063201B /* q3_enter.png */; };
+		FDEC0B0D1568D0CC0063201B /* q3_escape.png in Resources */ = {isa = PBXBuildFile; fileRef = FDEC0B061568D0CC0063201B /* q3_escape.png */; };
+		FDEC0B0E1568D0CC0063201B /* q3a_new_control.png in Resources */ = {isa = PBXBuildFile; fileRef = FDEC0B071568D0CC0063201B /* q3a_new_control.png */; };
+		FDEC0B0F1568D0CC0063201B /* Quake_III_Arena_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FDEC0B081568D0CC0063201B /* Quake_III_Arena_Logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -536,6 +543,13 @@
 		FDD2543E0D80FF5200E13415 /* Q3ScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Q3ScreenView.h; sourceTree = "<group>"; };
 		FDD2543F0D80FF5200E13415 /* Q3ScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Q3ScreenView.m; sourceTree = "<group>"; };
 		FDD2544D0D8102C300E13415 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		FDEC0B021568D0CC0063201B /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
+		FDEC0B031568D0CC0063201B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		FDEC0B041568D0CC0063201B /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
+		FDEC0B051568D0CC0063201B /* q3_enter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = q3_enter.png; sourceTree = "<group>"; };
+		FDEC0B061568D0CC0063201B /* q3_escape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = q3_escape.png; sourceTree = "<group>"; };
+		FDEC0B071568D0CC0063201B /* q3a_new_control.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = q3a_new_control.png; sourceTree = "<group>"; };
+		FDEC0B081568D0CC0063201B /* Quake_III_Arena_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Quake_III_Arena_Logo.png; sourceTree = "<group>"; };
 		FDFBBF531235399A00C73739 /* be_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = be_interface.h; sourceTree = "<group>"; };
 		FDFBBF6A12353B8900C73739 /* cg_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cg_public.h; sourceTree = "<group>"; };
 		FDFBBF6B12353B8900C73739 /* tr_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tr_types.h; sourceTree = "<group>"; };
@@ -650,6 +664,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FDEC0B021568D0CC0063201B /* ball.png */,
+				FDEC0B031568D0CC0063201B /* Default.png */,
+				FDEC0B041568D0CC0063201B /* Default~ipad.png */,
+				FDEC0B051568D0CC0063201B /* q3_enter.png */,
+				FDEC0B061568D0CC0063201B /* q3_escape.png */,
+				FDEC0B071568D0CC0063201B /* q3a_new_control.png */,
+				FDEC0B081568D0CC0063201B /* Quake_III_Arena_Logo.png */,
 				FD1E69470E6FC951004A4AC6 /* Icon.png */,
 				FD8DE2C10E7CFE0A00C1032C /* banner.jpg */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -1130,6 +1151,13 @@
 				FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */,
 				FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */,
 				FD8DE2C20E7CFE0A00C1032C /* banner.jpg in Resources */,
+				FDEC0B091568D0CC0063201B /* ball.png in Resources */,
+				FDEC0B0A1568D0CC0063201B /* Default.png in Resources */,
+				FDEC0B0B1568D0CC0063201B /* Default~ipad.png in Resources */,
+				FDEC0B0C1568D0CC0063201B /* q3_enter.png in Resources */,
+				FDEC0B0D1568D0CC0063201B /* q3_escape.png in Resources */,
+				FDEC0B0E1568D0CC0063201B /* q3a_new_control.png in Resources */,
+				FDEC0B0F1568D0CC0063201B /* Quake_III_Arena_Logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,7 +1525,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -1522,7 +1550,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "E6886E02-151B-4634-8347-0E6416381B81";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos;
 			};
 			name = Distribution;
 		};
