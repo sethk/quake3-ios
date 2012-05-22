@@ -218,7 +218,7 @@ static const long long kDemoPakFileSize = 46853694;
 - (void)_deviceOrientationChanged:(NSNotification *)notification
 {
 	// Keep the orientation locked into landscape while in-game:
-	if (cls.state == CA_DISCONNECTED)
+	if (cls.state != CA_ACTIVE)
 	{
 		UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
 
