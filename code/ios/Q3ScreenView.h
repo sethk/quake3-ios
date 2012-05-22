@@ -9,28 +9,13 @@
 #import	<OpenGLES/EAGLDrawable.h>
 #import	<OpenGLES/ES1/gl.h>
 
-#define BIT0 (1<<0)
-#define BIT1 (1<<1)
-#define BIT2 (1<<2)
-#define BIT3 (1<<3)
-#define BIT4 (1<<4)
-#define BIT5 (1<<5)
-#define BIT6 (1<<6)
-
-enum Q3EventType         
-{
-	Q3Event_ClickOnMenu = BIT0,
-	Q3Event_Fire = BIT1,
-	Q3Event_RotateCamera = BIT2,
-	Q3Event_MovePlayerForward = BIT3,
-	Q3Event_MovePlayerBack = BIT4,
-	Q3Event_MovePlayerLeft = BIT5,
-	Q3Event_MovePlayerRight = BIT6,
-	COUNT
-};
+@class UIImageView;
 
 @interface Q3ScreenView : UIView
 {
+	IBOutlet UIImageView *joypadCap;
+	IBOutlet UIView *_newControlView;
+
 @protected
 	EAGLContext *_context;
 	GLuint _frameBuffer;
@@ -44,6 +29,18 @@ enum Q3EventType
 #ifdef TODO
 	unsigned int _bitMask;
 #endif // TODO
+	NSTimer *_gameTimer;
+	BOOL _isJoypadMoving;
+	CGRect _joypadArea;
+	uint joypadCenterx, joypadCentery, joypadMaxRadius, joypadWidth, joypadHeight;
+	int joypadTouchHash;
+	CGPoint _joypadCapLocation;
+	CGPoint _oldLocation;
+	CGRect _shootButtonArea;
+	BOOL _isShooting;
+	BOOL _isLooking;
+	float _touchAngle;
+	float _distanceFromCenter;
 }
 
 - initWithFrame:(CGRect)frame;

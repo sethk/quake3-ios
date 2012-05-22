@@ -8,26 +8,12 @@
 #import "Q3Downloader.h"
 #import	"Q3ScreenView.h"
 #import <UIKit/UIAlert.h>
+#import <UIKit/UIProgressView.h>
+#import <UIKit/UIActivityIndicatorView.h>
+#import <UIKit/UILabel.h>
 #include "ios_local.h"
 #include "../renderer/tr_local.h"
 #include "../client/client.h"
-
-@interface Q3Application ()
-
-- (void)_startRunning;
-- (void)_stopRunning;
-- (BOOL)_checkForGameData;
-- (void)_downloadSharewareGameData;
-- (void)_quakeMain;
-- (void)_deviceOrientationChanged:(NSNotification *)notification;
-#ifdef IOS_USE_THREADS
-- (void)_runMainLoop:(id)context;
-- (void)keepAlive:(NSTimer *)timer;
-#else
-- (void)_runFrame:(NSTimer *)timer;
-#endif // !IOS_USE_THREADS
-
-@end
 
 enum
 {
@@ -46,12 +32,9 @@ enum
 
 extern cvar_t *com_maxfps;
 
-static cvar_t *in_accelFilter;
-static cvar_t *in_accelPitchBias;
-
-static NSString * const kLibraryPath = @"~/Library/Application Support/Quake3";
 static NSString * const kDemoArchiveURL =
 		@"ftp://ftp.idsoftware.com/idstuff/quake3/linux/linuxq3ademo-1.11-6.x86.gz.sh";
+	//	@"ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/distfiles/linuxq3ademo-1.11-6.x86.gz.sh";
 static const long long kDemoArchiveOffset = 5468;
 static NSString * const kPakFileName = @"pak0.pk3";
 static const long long kDemoPakFileOffset = 5749248;
@@ -86,9 +69,14 @@ static const long long kDemoPakFileSize = 46853694;
 #endif // IOS_USE_THREADS
 }
 
+- (NSString *)_gamesFolder
+{
+	return [NSString stringWithUTF8String:Sys_DefaultHomePath()];
+}
+
 - (BOOL)_checkForGameData
 {
-	NSString *libraryPath = [kLibraryPath stringByExpandingTildeInPath];
+	NSString *gamesFolder = [self _gamesFolder];
 	NSArray *knownGames = [NSArray arrayWithObjects:@"baseq3", @"demoq3", nil];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	BOOL isDir;
@@ -96,7 +84,7 @@ static const long long kDemoPakFileSize = 46853694;
 
 	for (NSString *knownGame in knownGames)
 	{
-		NSString *gamePath = [libraryPath stringByAppendingPathComponent:knownGame];
+		NSString *gamePath = [gamesFolder stringByAppendingPathComponent:knownGame];
 		if ([fileManager fileExistsAtPath:gamePath isDirectory:&isDir] &&
 			isDir)
 		{
@@ -158,7 +146,7 @@ static const long long kDemoPakFileSize = 46853694;
 															delegate:self
 												   cancelButtonTitle:@"Exit"
 												   otherButtonTitles:@"Retry", nil] autorelease];
-		NSString *gamePath = [[kLibraryPath stringByExpandingTildeInPath] stringByAppendingPathComponent:@"demoq3"];
+		NSString *gamePath = [[self _gamesFolder] stringByAppendingPathComponent:@"demoq3"];
 		NSError *error;
 
 		if (![[NSFileManager defaultManager] removeItemAtPath:gamePath error:&error])
@@ -173,7 +161,7 @@ static const long long kDemoPakFileSize = 46853694;
 
 - (void)_downloadSharewareGameData
 {
-	NSString *gamePath = [[kLibraryPath stringByExpandingTildeInPath] stringByAppendingPathComponent:@"demoq3"];
+	NSString *gamePath = [[self _gamesFolder] stringByAppendingPathComponent:@"demoq3"];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSError *error;
 
@@ -195,6 +183,38 @@ static const long long kDemoPakFileSize = 46853694;
 	_downloadProgress.hidden =  NO;
 }
 
+// Events for buttons
+
+// jump space
+-(void)spacePress:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE , 1, 0, NULL);
+}
+
+-(void)spaceRelease:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_SPACE ,0, 0, NULL);
+}
+
+// single press keys
+-(void)changeWeapon:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/', 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/',0, 0, NULL);
+}
+
+-(void)escPress:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE , 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE ,0, 0, NULL);
+}
+
+-(void)enterPress:(id)Sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER , 1, 0, NULL);
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ENTER ,0, 0, NULL);
+}
+
 - (void)_quakeMain
 {
 	extern void Sys_Startup(int argc, char *argv[]);
@@ -202,7 +222,6 @@ static const long long kDemoPakFileSize = 46853694;
 	int ac, i;
 	const char *av[32];
 	UIDevice *device = [UIDevice currentDevice];
-	UIAccelerometer *accelerometer = [UIAccelerometer sharedAccelerometer];
 
 	ac = MIN([arguments count], sizeof(av) / sizeof(av[0]));
 	for (i = 0; i < ac; ++i)
@@ -216,14 +235,14 @@ static const long long kDemoPakFileSize = 46853694;
 											   object:device];
 	[device beginGeneratingDeviceOrientationNotifications];
 
-	in_accelFilter = Cvar_Get("in_accelFilter", "0.05", CVAR_ARCHIVE);
-	in_accelPitchBias = Cvar_Get("in_accelPitchBias", "-125", CVAR_ARCHIVE);
-
-	accelerometer.delegate = self;
-	accelerometer.updateInterval = 1.0 / com_maxfps->integer;
-
 	[_loadingView removeFromSuperview];
 	_screenView.hidden =  NO;
+
+	[_changeButton addTarget:self action:@selector(changeWeapon:) forControlEvents:UIControlEventTouchDown];
+	[_spaceKey addTarget:self action:@selector(spacePress:) forControlEvents:UIControlEventTouchDown];
+	[_spaceKey addTarget:self action:@selector(spaceRelease:) forControlEvents:UIControlEventTouchUpInside];
+	[_escKey addTarget:self action:@selector(escPress:) forControlEvents:UIControlEventTouchDown];
+	[_enterKey addTarget:self action:@selector(enterPress:) forControlEvents:UIControlEventTouchDown];
 
 	[self _startRunning];
 }
@@ -246,36 +265,6 @@ static const long long kDemoPakFileSize = 46853694;
 	}
 }
 
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
-{
-	if (cls.state == CA_ACTIVE)
-	{
-		int pitch, roll, yaw;
-		float oneMinusFilter = 1.0 - in_accelFilter->value;
-
-		_accelerationX = acceleration.x * in_accelFilter->value + _accelerationX * oneMinusFilter;
-		_accelerationY = acceleration.y * in_accelFilter->value + _accelerationY * oneMinusFilter;
-		_accelerationZ = acceleration.z * in_accelFilter->value + _accelerationZ * oneMinusFilter;
-
-		pitch = RAD2DEG(atan2(_accelerationX, _accelerationZ)) + in_accelPitchBias->integer;
-		if (in_accelPitchBias < 0 && pitch < -180)
-			pitch = 360 + pitch;
-		else if (in_accelPitchBias > 0 && pitch > 180)
-			pitch = -360 + pitch;
-
-		roll = RAD2DEG(atan2(_accelerationY, _accelerationX));
-		yaw = RAD2DEG(atan2(_accelerationZ, _accelerationY));
-		if (pitch != _accelPitch || roll != _accelRoll || yaw != _accelYaw)
-		{
-			Com_DPrintf("accel: pitch = %d, roll = %d, yaw = %d\n", pitch, roll, yaw);
-			Sys_QueEventEx(Sys_Milliseconds(), SE_ACCEL, pitch, roll, yaw, 0, NULL);
-			_accelPitch = pitch;
-			_accelRoll = roll;
-			_accelYaw = yaw;
-		}
-	}
-}
-
 #ifdef IOS_USE_THREADS
 - (void)_runMainLoop:(id)context
 {
@@ -292,8 +281,6 @@ static const long long kDemoPakFileSize = 46853694;
 #endif // IOS_USE_THREADS
 
 @synthesize screenView = _screenView;
-
-@dynamic deviceRotation;
 
 - (float)deviceRotation
 {

@@ -7,7 +7,7 @@ LICENSE
 GENERAL NOTES
 COMPILING ON WIN32
 COMPILING ON GNU/LINUX
-COMPILING ON MAC
+COMPILING ON MAC/iOS
 
 LICENSE
 =======
@@ -187,7 +187,8 @@ make sure you have the X Direct Graphics Access and X Video Mode extensions head
 a typical compile command goes like this:
 [..]/code$ ./unix/cons -- gcc=gcc-2.95 g++=g++-2.95
 
-COMPILING ON MAC
+COMPILING ON MAC/iOS
 ================
 
-project file for OSX compile is in code/macosx/Quake3.pbproj
+The Xcode project files for Mac OS X and iOS are located in
+code/macosx/Quake3.xcodeproj and code/ios/Quake3.xcodeproj.

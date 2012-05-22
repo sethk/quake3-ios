@@ -6,15 +6,13 @@
 
 #import	<UIKit/UIApplication.h>
 #import	<UIKit/UINibDeclarations.h>
-#import <UIKit/UILabel.h>
-#import <UIKit/UIActivityIndicatorView.h>
-#import <UIKit/UIProgressView.h>
-#import <UIKit/UIAccelerometer.h>
 
+@class UIActivityIndicatorView;
+@class UIProgressView;
 @class Q3ScreenView;
 @class Q3Downloader;
 
-@interface Q3Application : UIApplication <UIAccelerometerDelegate>
+@interface Q3Application : UIApplication
 {
 @protected
 	IBOutlet Q3ScreenView *_screenView;
@@ -23,9 +21,13 @@
 	IBOutlet UIActivityIndicatorView *_loadingActivity;
 	IBOutlet UILabel *_downloadStatusLabel;
 	IBOutlet UIProgressView *_downloadProgress;
+
+	IBOutlet UIButton *_changeButton;
+	IBOutlet UIButton *_spaceKey;
+	IBOutlet UIButton *_escKey;
+	IBOutlet UIButton *_enterKey;
+
 	Q3Downloader *_demoDownloader;
-	UIAccelerationValue _accelerationX, _accelerationY, _accelerationZ;
-	int _accelPitch, _accelRoll, _accelYaw;
 #if IOS_USE_THREADS
 	NSThread *_frameThread;
 #else
