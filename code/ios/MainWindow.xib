@@ -50,7 +50,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIImageView" id="376891256">
 								<reference key="NSNextResponder" ref="163664977"/>
-								<int key="NSvFlags">1298</int>
+								<int key="NSvFlags">1322</int>
 								<string key="NSFrame">{{20, 317}, {728, 326}}</string>
 								<reference key="NSSuperview" ref="163664977"/>
 								<reference key="NSWindow"/>
@@ -75,8 +75,8 @@
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="IBUILabel" id="349722829">
 										<reference key="NSNextResponder" ref="139957840"/>
-										<int key="NSvFlags">1325</int>
-										<string key="NSFrame">{{326, 0}, {75, 51}}</string>
+										<int key="NSvFlags">1317</int>
+										<string key="NSFrame">{{326, 29}, {76, 21}}</string>
 										<reference key="NSSuperview" ref="139957840"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="429542039"/>
@@ -204,7 +204,8 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-								<string key="IBUIText">Quake III Arena © 1999 by id Software - iOS port by Seth Kingsley, control system designed by Alexander Pick.</string>
+								<string type="base64-UTF8" key="IBUIText">UXVha2UgSUlJIEFyZW5hIMKpIDE5OTkgYnkgaWQgU29mdHdhcmUKaU9TIHBvcnQgYnkgU2V0aCBLaW5n
+c2xleSwgY29udHJvbCBzeXN0ZW0gZGVzaWduZWQgYnkgQWxleGFuZGVyIFBpY2suA</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEgMC41AA</bytes>
@@ -255,7 +256,7 @@
 								<string key="NSFrame">{{500, 840}, {100, 100}}</string>
 								<reference key="NSSuperview" ref="460799428"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="186277256"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<float key="IBUIAlpha">0.10000000149011612</float>
@@ -368,7 +369,7 @@
 								<string key="NSFrameSize">{46, 43}</string>
 								<reference key="NSSuperview" ref="460799428"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="98104791"/>
+								<reference key="NSNextKeyView" ref="841592616"/>
 								<reference key="IBUIBackgroundColor" ref="947439692"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<float key="IBUIAlpha">0.05000000074505806</float>
@@ -381,7 +382,7 @@
 								<reference key="IBUIFontDescription" ref="64145917"/>
 								<reference key="IBUIFont" ref="638334535"/>
 							</object>
-							<object class="IBUIButton" id="98104791">
+							<object class="IBUIButton" id="841592616">
 								<reference key="NSNextResponder" ref="460799428"/>
 								<int key="NSvFlags">1316</int>
 								<string key="NSFrameSize">{50, 50}</string>
@@ -399,7 +400,7 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleShadowColor" id="93770303">
+								<object class="NSColor" key="IBUINormalTitleShadowColor" id="346434739">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
 								</object>
@@ -407,13 +408,13 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">q3_enter.png</string>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="379565125">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="167907450">
 									<int key="type">2</int>
 									<double key="pointSize">15</double>
 								</object>
 								<reference key="IBUIFont" ref="638334535"/>
 							</object>
-							<object class="IBUIButton" id="639878486">
+							<object class="IBUIButton" id="186277256">
 								<reference key="NSNextResponder" ref="460799428"/>
 								<int key="NSvFlags">1292</int>
 								<string key="NSFrame">{{-2, 973}, {50, 50}}</string>
@@ -431,12 +432,12 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
-								<reference key="IBUINormalTitleShadowColor" ref="93770303"/>
+								<reference key="IBUINormalTitleShadowColor" ref="346434739"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">q3_escape.png</string>
 								</object>
-								<reference key="IBUIFontDescription" ref="379565125"/>
+								<reference key="IBUIFontDescription" ref="167907450"/>
 								<reference key="IBUIFont" ref="638334535"/>
 							</object>
 						</array>
@@ -568,7 +569,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">enter:</string>
-						<reference key="source" ref="98104791"/>
+						<reference key="source" ref="841592616"/>
 						<reference key="destination" ref="460799428"/>
 						<int key="IBEventType">1</int>
 					</object>
@@ -577,7 +578,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">escape:</string>
-						<reference key="source" ref="639878486"/>
+						<reference key="source" ref="186277256"/>
 						<reference key="destination" ref="460799428"/>
 						<int key="IBEventType">1</int>
 					</object>
@@ -660,8 +661,8 @@
 							<reference ref="271546584"/>
 							<reference ref="401522875"/>
 							<reference ref="528031174"/>
-							<reference ref="98104791"/>
-							<reference ref="639878486"/>
+							<reference ref="841592616"/>
+							<reference ref="186277256"/>
 						</array>
 						<reference key="parent" ref="380026005"/>
 					</object>
@@ -733,12 +734,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">94</int>
-						<reference key="object" ref="98104791"/>
+						<reference key="object" ref="841592616"/>
 						<reference key="parent" ref="460799428"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">96</int>
-						<reference key="object" ref="639878486"/>
+						<reference key="object" ref="186277256"/>
 						<reference key="parent" ref="460799428"/>
 					</object>
 				</array>
